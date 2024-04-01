@@ -1,5 +1,7 @@
 package gestorAplicación;
 
-public class Conductor {
+import java.io.Serializable;
+
+public class Conductor implements Serializable {
 
 }
