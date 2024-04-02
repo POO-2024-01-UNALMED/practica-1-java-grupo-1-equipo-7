@@ -7,6 +7,10 @@ public class Pasajero {
 	private ArrayList<Viaje> historialViajes = new ArrayList<Viaje>();
 	private String nombre;
 	
+	public Pasajero(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
