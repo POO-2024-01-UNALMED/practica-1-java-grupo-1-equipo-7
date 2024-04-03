@@ -3,31 +3,24 @@ package gestorAplicación;
 import java.io.Serializable;
 
 public class Asiento implements Serializable{
-	private boolean disponible;
-	private String identificador;
-	private Bus busPertenece;
+	private String numeroSilla;
+	private boolean estaReservado;
+
+	public String getNumeroSilla() {
+		return numeroSilla;
+	}
+
+	public void setNumeroSilla(String numeroSilla) {
+		this.numeroSilla = numeroSilla;
+	}
+
+	public boolean isEstaReservado() {
+		return estaReservado;
+	}
+
+	public void setEstaReservado(boolean estaReservado) {
+		this.estaReservado = estaReservado;
+	}
 	
-	public boolean isDisponible() {
-		return disponible;
-	}
-
-	public void setDisponible(boolean disponible) {
-		this.disponible = disponible;
-	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
-	}
 	
-	public Bus getBusPertenece() {
-		return busPertenece;
-	}
-
-	public void setBusPertenece(Bus busPertenece) {
-		this.busPertenece = busPertenece;
-	}
 }

@@ -4,31 +4,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Terminal implements Serializable {
-	private static ArrayList<Terminal> terminales = new ArrayList<Terminal>();
-	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
+	private String ubicacionTerminal;
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private ArrayList<Bus> buses = new ArrayList<Bus>();
-	private String ciudad;
+	private static ArrayList<Terminal> terminales = new ArrayList<Terminal>();
+	
+	public static Terminal buscarTerminal(String ubicacionTerminal) {
+		for(Terminal terminal : terminales) {
+			if(terminal.getUbicacionTerminal().equals(ubicacionTerminal)) {
+				return terminal;
+			}
+		}
+		return null;
+	}
 	
 	public Terminal(String ciudad) {
-		this.ciudad = ciudad;
-		terminales.add(this);
-	}
-	
-	public void reservarTiquete() {
-		
-	}
-	
-	public static ArrayList<Terminal> getTerminales() {
-		return terminales;
+		this.ubicacionTerminal = ciudad;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public String getUbicacionTerminal() {
+		return ubicacionTerminal;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setUbicacionTerminal(String ubicacionTerminal) {
+		this.ubicacionTerminal = ubicacionTerminal;
 	}
 	
 }

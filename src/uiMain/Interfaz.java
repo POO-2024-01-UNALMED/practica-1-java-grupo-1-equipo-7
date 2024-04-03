@@ -12,6 +12,13 @@ public class Interfaz {
 
 		System.out.print("Ingrese el nombre completo del destino: ");
 		String destino = sc.nextLine();
+		
+		for(Viaje viaje : Viaje.buscarViajes(origen, destino)) {
+			
+		}
+		
+		
+		
 	}
 
 	public static void main(String[] args) {

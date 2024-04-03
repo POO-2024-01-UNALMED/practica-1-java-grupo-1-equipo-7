@@ -1,52 +1,59 @@
 package gestorAplicación;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Viaje {
-	private ArrayList<Pasajero> listaPasajeros = new ArrayList<Pasajero>();
-	private Conductor conductorAsignado;
-	private Terminal terminalDestion;
+public class Viaje implements Serializable {
+	private LocalDate fecha;
+	private Bus bus;
+	private Conductor conductor;
 	private Terminal terminalOrigen;
-	private Bus busAsignado;
-	private String estado;
-	
-	public Conductor getConductorAsignado() {
-		return conductorAsignado;
+	private Terminal terminalDestino;
+	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+
+	public static ArrayList<Viaje> buscarViajes(String terminalOrigen, String terminalDestino) {
+		ArrayList<Viaje> listaViajes = new ArrayList<Viaje>();
+
+		for (Viaje viaje : viajes) {
+			if (viaje.getTerminalOrigen() == Terminal.buscarTerminal(terminalOrigen)
+					&& viaje.getTerminalDestino() == Terminal.buscarTerminal(terminalDestino)) {
+				listaViajes.add(viaje);
+			}
+		}
+		return listaViajes;
 	}
-	
-	public void setConductorAsignado(Conductor conductorAsignado) {
-		this.conductorAsignado = conductorAsignado;
+
+	public Bus getBus() {
+		return bus;
 	}
-	
-	public Terminal getTerminalDestion() {
-		return terminalDestion;
+
+	public void setBus(Bus bus) {
+		this.bus = bus;
 	}
-	
-	public void setTerminalDestion(Terminal terminalDestion) {
-		this.terminalDestion = terminalDestion;
+
+	public Conductor getConductor() {
+		return conductor;
 	}
-	
+
+	public void setConductor(Conductor conductor) {
+		this.conductor = conductor;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
 	public Terminal getTerminalOrigen() {
 		return terminalOrigen;
 	}
-	
-	public void setTerminalOrigen(Terminal terminalOrigen) {
-		this.terminalOrigen = terminalOrigen;
+
+	public Terminal getTerminalDestino() {
+		return terminalDestino;
 	}
-	
-	public Bus getBusAsignado() {
-		return busAsignado;
-	}
-	
-	public void setBusAsignado(Bus busAsignado) {
-		this.busAsignado = busAsignado;
-	}
-	
-	public String getEstado() {
-		return estado;
-	}
-	
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+
 }
