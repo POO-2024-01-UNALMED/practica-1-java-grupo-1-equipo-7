@@ -8,6 +8,11 @@ public class Terminal implements Serializable {
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private static ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	
+	public Terminal(String ciudad) {
+		this.ubicacionTerminal = ciudad;
+		terminales.add(this);
+	}
+	
 	public static Terminal buscarTerminal(String ubicacionTerminal) {
 		for(Terminal terminal : terminales) {
 			if(terminal.getUbicacionTerminal().equals(ubicacionTerminal)) {
@@ -17,10 +22,6 @@ public class Terminal implements Serializable {
 		return null;
 	}
 	
-	public Terminal(String ciudad) {
-		this.ubicacionTerminal = ciudad;
-	}
-
 	public String getUbicacionTerminal() {
 		return ubicacionTerminal;
 	}

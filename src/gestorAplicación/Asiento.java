@@ -3,17 +3,21 @@ package gestorAplicación;
 import java.io.Serializable;
 
 public class Asiento implements Serializable{
-	private String numeroSilla;
+	private String numeroAsiento;
 	private boolean estaReservado;
-
-	public String getNumeroSilla() {
-		return numeroSilla;
+	
+	public Asiento(String numeroAsiento) {
+		this.numeroAsiento = numeroAsiento;
 	}
 
-	public void setNumeroSilla(String numeroSilla) {
-		this.numeroSilla = numeroSilla;
+	public String getNumeroAsiento() {
+		return numeroAsiento;
 	}
 
+	public void setNumeroAsiento(String numeroAsiento) {
+		this.numeroAsiento = numeroAsiento;
+	}
+	
 	public boolean isEstaReservado() {
 		return estaReservado;
 	}
@@ -21,6 +25,5 @@ public class Asiento implements Serializable{
 	public void setEstaReservado(boolean estaReservado) {
 		this.estaReservado = estaReservado;
 	}
-	
-	
+
 }

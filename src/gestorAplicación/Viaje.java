@@ -5,12 +5,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Viaje implements Serializable {
+	private String idViaje;
 	private LocalDate fecha;
 	private Bus bus;
 	private Conductor conductor;
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+	
+	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String idViaje) {
+		this.terminalOrigen = terminalOrigen;
+		this.terminalDestino = terminalDestino;
+		this.idViaje = idViaje;
+		viajes.add(this);
+	}
 
 	public static ArrayList<Viaje> buscarViajes(String terminalOrigen, String terminalDestino) {
 		ArrayList<Viaje> listaViajes = new ArrayList<Viaje>();
@@ -54,6 +62,14 @@ public class Viaje implements Serializable {
 
 	public Terminal getTerminalDestino() {
 		return terminalDestino;
+	}
+
+	public String getIdViaje() {
+		return idViaje;
+	}
+
+	public void setIdViaje(String idViaje) {
+		this.idViaje = idViaje;
 	}
 
 }
