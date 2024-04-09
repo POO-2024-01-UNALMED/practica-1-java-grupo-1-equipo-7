@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Asiento implements Serializable{
 	private String numeroAsiento;
-	private boolean estaReservado;
+	private boolean reservado;
 	
 	public Asiento(String numeroAsiento) {
 		this.numeroAsiento = numeroAsiento;
@@ -18,12 +18,12 @@ public class Asiento implements Serializable{
 		this.numeroAsiento = numeroAsiento;
 	}
 	
-	public boolean isEstaReservado() {
-		return estaReservado;
+	public boolean isReservado() {
+		return reservado;
 	}
 
-	public void setEstaReservado(boolean estaReservado) {
-		this.estaReservado = estaReservado;
+	public void setReservado(boolean reservado) {
+		this.reservado = reservado;
 	}
 
 }

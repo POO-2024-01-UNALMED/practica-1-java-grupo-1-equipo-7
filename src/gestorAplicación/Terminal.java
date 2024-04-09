@@ -30,4 +30,8 @@ public class Terminal implements Serializable {
 		this.ubicacionTerminal = ubicacionTerminal;
 	}
 	
+	public static ArrayList<Terminal> getTerminales() {
+		return terminales;
+	}
+	
 }

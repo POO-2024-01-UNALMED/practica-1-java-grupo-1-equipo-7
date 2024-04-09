@@ -4,15 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Pasajero implements Serializable {
-	private String idPasajero;
 	private String nombre;
+	private String idPasajero;
 	private String telefono;
 	
-	public Pasajero(String nombre) {
+	public Pasajero(String nombre, String idPasajero, String telefono) {
 		this.nombre = nombre;
+		this.idPasajero = idPasajero;
+		this.telefono = telefono;
 	}
 
-	
 	public String getNombre() {
 		return nombre;
 	}
