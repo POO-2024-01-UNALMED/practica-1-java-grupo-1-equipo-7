@@ -58,29 +58,29 @@ public class Interfaz {
 
 		System.out.print("Ingrese el número del asiento que desea: ");
 		String numeroAsiento = sc.nextLine();
-		
+
 		Asiento asientoSeleccionado = null;
-		
-		for(Asiento asiento : asientos) {
-			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
+
+		for (Asiento asiento : asientos) {
+			if (asiento.getNumeroAsiento().equals(numeroAsiento)) {
 				asientoSeleccionado = asiento;
 				asiento.setReservado(true);
 			}
 		}
-		
+
 		System.out.println("Ingrese sus datos:");
-		
+
 		System.out.print("Nombre: ");
 		String nombre = sc.nextLine();
 		System.out.print("Número de documento: ");
 		String idPasajero = sc.nextLine();
 		System.out.print("Teléfono: ");
 		String telefono = sc.nextLine();
-		
+
 		Pasajero pasajero = new Pasajero(nombre, idPasajero, telefono);
-		
+
 		Tiquete tiquete = new Tiquete(pasajero, viajeSeleccionado, asientoSeleccionado);
-		
+
 		System.out.println("Confirmación de reserva del tiquete:");
 		System.out.println("Origen: " + origen);
 		System.out.println("Destino: " + destino);
@@ -88,10 +88,10 @@ public class Interfaz {
 
 		sc.nextLine();
 	}
-	
+
 	public static void salirDelSistema() {
 		System.out.println("Ten un buen viaje");
-		Serializador.serializar();
+		Serializador.limpiarArchivos();
 		System.exit(0);
 	}
 

@@ -12,7 +12,7 @@ public class Viaje implements Serializable {
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	
+
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String idViaje) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
