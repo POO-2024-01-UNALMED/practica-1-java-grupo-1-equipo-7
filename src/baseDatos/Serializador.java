@@ -6,6 +6,13 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import gestorAplicación.*;
+import gestorAplicación.gestion.Terminal;
+import gestorAplicación.gestion.Tiquete;
+import gestorAplicación.gestion.Viaje;
+import gestorAplicación.personas.Conductor;
+import gestorAplicación.personas.Pasajero;
+import gestorAplicación.transporte.Asiento;
+import gestorAplicación.transporte.Bus;
 
 public class Serializador {
 	private static File rutaTemp = new File(new File("").getAbsolutePath() + "/src/baseDatos/temp");

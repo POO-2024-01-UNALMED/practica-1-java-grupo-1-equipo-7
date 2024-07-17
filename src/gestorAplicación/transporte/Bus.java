@@ -1,17 +1,19 @@
-package gestorAplicación;
+package gestorAplicación.transporte;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import gestorAplicación.gestion.Viaje;
 
 public class Bus implements Serializable {
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private int totalAsientos;
-	private String numeroBus;
+	private String placa;
 	private static ArrayList<Bus> buses = new ArrayList<Bus>();
 
-	public Bus(String numeroBus, int totalAsientos) {
-		this.numeroBus = numeroBus;
+	public Bus(String placa, int totalAsientos) {
+		this.placa = placa;
 		this.totalAsientos = totalAsientos;
 		this.crearAsientos(totalAsientos);
 		buses.add(this);
@@ -36,16 +38,20 @@ public class Bus implements Serializable {
 		this.totalAsientos = totalAsientos;
 	}
 
-	public String getNumeroBus() {
-		return numeroBus;
+	public String getPlaca() {
+		return placa;
 	}
 
-	public void setNumeroBus(String numeroBus) {
-		this.numeroBus = numeroBus;
+	public void setPlaca(String placa) {
+		this.placa = placa;
 	}
 
 	public ArrayList<Asiento> getAsientos() {
 		return asientos;
+	}
+	
+	public ArrayList<Viaje> getViajes() {
+		return viajes;
 	}
 
 }

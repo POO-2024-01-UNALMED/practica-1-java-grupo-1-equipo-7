@@ -1,4 +1,4 @@
-package gestorAplicación;
+package gestorAplicación.transporte;
 
 import java.io.Serializable;
 

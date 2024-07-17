@@ -1,22 +1,27 @@
-package gestorAplicación;
+package gestorAplicación.gestion;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
+import gestorAplicación.personas.Conductor;
+import gestorAplicación.transporte.Bus;
+
 public class Viaje implements Serializable {
-	private String idViaje;
+	private String id;
 	private LocalDate fecha;
+	private LocalTime hora;
 	private Bus bus;
 	private Conductor conductor;
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
-	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String idViaje) {
+	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
-		this.idViaje = idViaje;
+		this.id = id;
 		viajes.add(this);
 	}
 
@@ -64,12 +69,20 @@ public class Viaje implements Serializable {
 		return terminalDestino;
 	}
 
-	public String getIdViaje() {
-		return idViaje;
+	public String getId() {
+		return id;
 	}
 
-	public void setIdViaje(String idViaje) {
-		this.idViaje = idViaje;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public LocalTime getHora() {
+		return hora;
+	}
+
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
 	}
 
 }
