@@ -6,18 +6,20 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import gestorAplicación.personas.Conductor;
+import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
-	private String id;
-	private LocalDate fecha;
-	private LocalTime hora;
-	private Bus bus;
-	private Conductor conductor;
+	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
-	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-
+	private Empresa empresa;
+	private LocalDate fecha;
+	private LocalTime hora;
+	private String id;
+	private Conductor conductor;
+	private Bus bus;
+	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
@@ -34,7 +36,21 @@ public class Viaje implements Serializable {
 				listaViajes.add(viaje);
 			}
 		}
+		
 		return listaViajes;
+	}
+	
+	public ArrayList<Asiento> listaAsientos() {
+		return this.getBus().getAsientos();
+	}
+	
+	@Override
+	public String toString() {
+		return "    " + getFecha() + 
+				"     " + getTerminalOrigen().getUbicacion() + 
+				"     " + getTerminalDestino().getUbicacion() + 
+				"     " + getHora() + "		" + getId() + 
+				"     " + getBus().getPlaca() + "    ";
 	}
 
 	public Bus getBus() {
@@ -84,5 +100,16 @@ public class Viaje implements Serializable {
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
+	
+	public static ArrayList<Viaje> getViajes() {
+		return viajes;
+	}
 
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 }

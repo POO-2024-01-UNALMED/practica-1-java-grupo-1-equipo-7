@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import gestorAplicación.gestion.Viaje;
 
 public class Bus implements Serializable {
+	private static ArrayList<Bus> buses = new ArrayList<Bus>();
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private int totalAsientos;
 	private String placa;
-	private static ArrayList<Bus> buses = new ArrayList<Bus>();
-
+	
 	public Bus(String placa, int totalAsientos) {
 		this.placa = placa;
 		this.totalAsientos = totalAsientos;
@@ -22,9 +22,11 @@ public class Bus implements Serializable {
 	public void crearAsientos(int totalAsientos) {
 		String letras = "ABCD";
 
-		for (int i = 1; i < totalAsientos + 1; i++) {
-			for (int j = 0; j < 4; j++) {
-				String numeroAsiento = String.valueOf(i) + letras.charAt(j);
+		for (int numero = 1; numero < totalAsientos + 1; numero++) {
+			for (int letra = 0; letra < 4; letra++) {
+				String numeroAsiento = String.valueOf(numero) + 
+				letras.charAt(letra);
+				
 				asientos.add(new Asiento(numeroAsiento));
 			}
 		}

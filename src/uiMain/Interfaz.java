@@ -1,6 +1,8 @@
 package uiMain;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,10 +19,66 @@ public class Interfaz {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void verViajes() {
-		for (Empresa empresa : Empresa.getEmpresas()) {
-			for (Viaje viaje : empresa.getViajes()) {
-				System.out.println("Vuelos disponibles de la empresa " + 
-				empresa.getNombre());
+		for(Viaje viaje : Empresa.listaViajes()) {
+			System.out.println("Vuelos disponibles de la empresa " + 
+			viaje.getEmpresa().getNombre());
+			
+			for (int i = 0; i < 72; i++) {
+				System.out.print("-");
+			}
+			
+			System.out.println();
+
+			System.out.print("    FECHA     ORIGEN     DESTINO     " + 
+			"HORA DE SALIDA     ID     PLACA    ");
+			
+			System.out.println();
+
+			for (int i = 0; i < 72; i++) {
+				System.out.print("-");
+			}
+			
+			System.out.println();
+			
+			System.out.print(viaje.toString());
+			
+			System.out.println();
+			System.out.println();
+		}
+		
+		System.out.println("¿Desea filtrar por alguna categoría (si/no)");
+		
+		String respuesta1 = sc.nextLine();
+		
+		System.out.println();
+		
+		if(respuesta1.toLowerCase().equals("si")) {
+			System.out.println("¿Por cuál categoría desea filtrar?");
+			
+			String categoria = sc.nextLine();
+			
+			System.out.println();
+			
+			ArrayList<Viaje> viajes;
+			
+			switch(categoria.toUpperCase()) {
+			
+			case "FECHA":
+				System.out.print("Ingrese la fecha en formato dd-mm-aaaa: ");
+				
+				String fecha = sc.nextLine();
+				
+				System.out.println();
+				
+				DateTimeFormatter dateFormatter = 
+				DateTimeFormatter.ofPattern("dd-MM-yyyy"); 
+				
+		        LocalDate newFecha = LocalDate.parse(fecha, dateFormatter); 
+		        
+		        viajes = Empresa.buscarViajes(newFecha);
+				
+				System.out.println("Vuelos filtrados por " + 
+						categoria.toUpperCase());
 				
 				for (int i = 0; i < 72; i++) {
 					System.out.print("-");
@@ -38,56 +96,270 @@ public class Interfaz {
 				}
 				
 				System.out.println();
-
-				System.out.print("    " + viaje.getFecha() + 
-				"     " + viaje.getTerminalOrigen().getUbicacion() + 
-				"     " + viaje.getTerminalDestino().getUbicacion() + 
-				"     " + viaje.getHora() + "		" + viaje.getId() + 
-				"     " + viaje.getBus().getPlaca() + "    ");
 				
-				System.out.println();
-				System.out.println();
-			}
-		}
-		
-		System.out.println("¿Desea filtrar por alguna categoría en específico?");
-		System.out.println("SI/NO");
-		
-		String respuesta = sc.nextLine();
-		
-		if(respuesta.toUpperCase().equals("SI")) {
-			System.out.println("¿Por cuál categoría desea filtrar?");
-			
-			String categoria = sc.nextLine();
-			
-			System.out.println("Vuelos filtrados por " + 
-			categoria.toLowerCase());
-			
-			ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-			
-			switch(categoria.toUpperCase()) {
-			
-			case "FECHA":
-				System.out.println("¿");
-				
-				
-				
-				for (Empresa empresa : Empresa.getEmpresas()) {
-					for (Viaje viaje : empresa.getViajes()) {
-						
-					}
+				for(Viaje viaje : viajes) {
+					System.out.println(viaje.toString());
 				}
+				
+				System.out.println();
+				System.out.println();
 				
 				break;
 			
 			case "ORIGEN":
+				System.out.print("Ingrese el origen: ");
 				
+				String origen = sc.nextLine();
+				
+				System.out.println();
+				
+				viajes = Empresa.buscarViajes(origen, null);
+				
+				System.out.println("Vuelos filtrados por " + 
+						categoria.toUpperCase());
+				
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+
+				System.out.print("    FECHA     ORIGEN     DESTINO     " + 
+				"HORA DE SALIDA     ID     PLACA    ");
+				
+				System.out.println();
+
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				for(Viaje viaje : viajes) {
+					System.out.println(viaje.toString());
+				}
+				
+				System.out.println();
+				System.out.println();
+				
+				break;
+				
+			case "DESTINO":
+				System.out.print("Ingrese el destino: ");
+				
+				String destino = sc.nextLine();
+				
+				System.out.println();
+				
+				viajes = Empresa.buscarViajes(null, destino);
+		  
+				System.out.println("Vuelos filtrados por " + 
+						categoria.toUpperCase());
+				
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+
+				System.out.print("    FECHA     ORIGEN     DESTINO     " + 
+				"HORA DE SALIDA     ID     PLACA    ");
+				
+				System.out.println();
+
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				for(Viaje viaje : viajes) {
+					System.out.println(viaje.toString());
+				}
+				
+				System.out.println();
+				System.out.println();
+				
+				break;
+				
+			case "HORA DE SALIDA":
+				System.out.print("Ingrese la hora de salida " + 
+				"en formato 24 horas: ");
+				
+				String hora = sc.nextLine();
+				
+				System.out.println();
+				
+				DateTimeFormatter timeFormatter = 
+				DateTimeFormatter.ofPattern("HH:mm"); 
+						
+				LocalTime newHora = LocalTime.parse(hora, timeFormatter); 
+				
+				viajes = Empresa.buscarViajes(newHora);
+				
+				System.out.println("Vuelos filtrados por " + 
+						categoria.toUpperCase());
+				
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+
+				System.out.print("    FECHA     ORIGEN     DESTINO     " + 
+				"HORA DE SALIDA     ID     PLACA    ");
+				
+				System.out.println();
+
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				for(Viaje viaje : viajes) {
+					System.out.println(viaje.toString());
+				}
+				
+				System.out.println();
+				System.out.println();
+				
+				break;
+			case "ID":
+				System.out.print("Ingrese el id del viaje: ");
+				
+				String id = sc.nextLine();
+				
+				System.out.println();
+				
+				viajes = Empresa.buscarViajes(id);
+				
+				System.out.println("Vuelos filtrados por " + 
+						categoria.toUpperCase());
+				
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+
+				System.out.print("    FECHA     ORIGEN     DESTINO     " + 
+				"HORA DE SALIDA     ID     PLACA    ");
+				
+				System.out.println();
+
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				for(Viaje viaje : viajes) {
+					System.out.println(viaje.toString());
+				}
+				
+				System.out.println();
+				System.out.println();
+				
+				break;
+			case "PLACA":
+				System.out.print("Ingrese la placa del vehiculo: ");
+				
+				String placa = sc.nextLine();
+				
+				System.out.println();
+				
+				viajes = Empresa.buscarViajes(placa);
+				
+				System.out.println("Vuelos filtrados por " + 
+						categoria.toUpperCase());
+				
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+
+				System.out.print("    FECHA     ORIGEN     DESTINO     " + 
+				"HORA DE SALIDA     ID     PLACA    ");
+				
+				System.out.println();
+
+				for (int i = 0; i < 72; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				for(Viaje viaje : viajes) {
+					System.out.println(viaje.toString());
+				}
+				
+				System.out.println();
+				System.out.println();
+				
+				break;
 			}
 			
+			System.out.println("¿Desea ver más detalles sobre un viaje? " + 
+			"(si/no)");
 			
+			String respuesta2 = sc.nextLine();
+			
+			if(respuesta2.toLowerCase().equals("si")) {
+				System.out.print("Ingrese el id del viaje: ");
+				
+				String id = sc.nextLine();
+				
+				Viaje viaje = Empresa.buscarViaje(id);
+				
+				for(Asiento asiento : viaje.listaAsientos()) {
+					if(asiento.getNumeroAsiento().contains("B")) {
+						System.out.print(asiento.getNumeroAsiento() + " ");
+					} else if(asiento.getNumeroAsiento().contains("D")){
+						System.out.print(asiento.getNumeroAsiento());
+						System.out.println();
+					} else {
+						if(asiento.getNumeroAsiento().length() == 2) {
+							System.out.print(asiento.getNumeroAsiento() + "  ");
+						} else {
+							System.out.print(asiento.getNumeroAsiento() + " ");
+						}
+						
+					}
+				}
+			} 
+			
+		} else {
+			System.out.println("¿Desea ver más detalles sobre un viaje? " + 
+					"(si/no)");
+					
+			String respuesta2 = sc.nextLine();
+			
+			if(respuesta2.toLowerCase().equals("si")) {
+				System.out.print("Ingrese el id del viaje: ");
+				
+				String id = sc.nextLine();
+				
+				Viaje viaje = Empresa.buscarViaje(id);
+				
+				for(Asiento asiento : viaje.listaAsientos()) {
+					if(asiento.getNumeroAsiento().contains("B")) {
+						System.out.print(asiento.getNumeroAsiento() + " ");
+					} else if(asiento.getNumeroAsiento().contains("D")){
+						System.out.print(asiento.getNumeroAsiento());
+						System.out.println();
+					} else {
+						if(asiento.getNumeroAsiento().length() == 2) {
+							System.out.print(asiento.getNumeroAsiento() + "  ");
+						} else {
+							System.out.print(asiento.getNumeroAsiento() + " ");
+						}
+						
+					}
+				}
+			} 
 		}
-		
-		
 	}
 
 	public static void reservarTiquete() {
@@ -234,24 +506,8 @@ public class Interfaz {
 
 	public static void main(String[] args) {
 		int opcion;
-		Terminal medellin = new Terminal("MEDELLIN");
-		Terminal bogota = new Terminal("BOGOTA");
-		Terminal cali = new Terminal("CALI");
-		Terminal bucaramanga = new Terminal("BUCARAMANGA");
-		Terminal pereira = new Terminal("PEREIRA");
-		Terminal santaMarta = new Terminal("SANTA MARTA");
 		
-		Bus bus = new Bus("1234", 20);
-
-		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
-		viaje1.setBus(bus);
-		
-		Empresa empresa = new Empresa();
-		empresa.setNombre("Coor");
-		empresa.getViajes().add(viaje1);
-
-		bus.getAsientos().get(7).setReservado(true);
-		bus.getAsientos().get(8).setReservado(true);
+		Auxiliar.crearInstancias();
 
 		do {
 			System.out.println("¿Qué operación desea realizar?");

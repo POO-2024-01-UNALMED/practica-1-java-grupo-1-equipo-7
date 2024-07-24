@@ -15,7 +15,8 @@ import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Serializador {
-	private static File rutaTemp = new File(new File("").getAbsolutePath() + "/src/baseDatos/temp");
+	private static File rutaTemp = new File(new File("").getAbsolutePath() + 
+	"/src/baseDatos/temp");
 
 	public static void limpiarArchivos() {
 		File[] docs = rutaTemp.listFiles();
