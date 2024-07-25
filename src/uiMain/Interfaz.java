@@ -1,6 +1,7 @@
 package uiMain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -70,12 +71,12 @@ public class Interfaz {
 				
 				System.out.println();
 				
-				DateTimeFormatter dateFormatter = 
+				DateTimeFormatter formateoFecha = 
 				DateTimeFormatter.ofPattern("dd-MM-yyyy"); 
 				
-		        LocalDate newFecha = LocalDate.parse(fecha, dateFormatter); 
+		        LocalDate nuevaFecha = LocalDate.parse(fecha, formateoFecha); 
 		        
-		        viajes = Empresa.buscarViajes(newFecha);
+		        viajes = Empresa.buscarViajes(nuevaFecha);
 				
 				System.out.println("Vuelos filtrados por " + 
 						categoria.toUpperCase());
@@ -190,12 +191,12 @@ public class Interfaz {
 				
 				System.out.println();
 				
-				DateTimeFormatter timeFormatter = 
+				DateTimeFormatter formateoHora = 
 				DateTimeFormatter.ofPattern("HH:mm"); 
 						
-				LocalTime newHora = LocalTime.parse(hora, timeFormatter); 
+				LocalTime nuevaHora = LocalTime.parse(hora, formateoHora); 
 				
-				viajes = Empresa.buscarViajes(newHora);
+				viajes = Empresa.buscarViajes(nuevaHora);
 				
 				System.out.println("Vuelos filtrados por " + 
 						categoria.toUpperCase());
@@ -306,57 +307,220 @@ public class Interfaz {
 			
 			String respuesta2 = sc.nextLine();
 			
+			System.out.println();
+			
 			if(respuesta2.toLowerCase().equals("si")) {
 				System.out.print("Ingrese el id del viaje: ");
 				
 				String id = sc.nextLine();
 				
+				System.out.println();
+				
+				System.out.println("Asientos disponibles:");
+				
+				System.out.println();
+				
 				Viaje viaje = Empresa.buscarViaje(id);
 				
 				for(Asiento asiento : viaje.listaAsientos()) {
-					if(asiento.getNumeroAsiento().contains("B")) {
-						System.out.print(asiento.getNumeroAsiento() + " ");
-					} else if(asiento.getNumeroAsiento().contains("D")){
-						System.out.print(asiento.getNumeroAsiento());
-						System.out.println();
-					} else {
-						if(asiento.getNumeroAsiento().length() == 2) {
-							System.out.print(asiento.getNumeroAsiento() + "  ");
+					if(asiento.getNumeroAsiento().length() == 2) {
+						if(asiento.isReservado()) {
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print("  ");
+								System.out.println();
+							} else {
+								System.out.print("    ");
+							}
 						} else {
-							System.out.print(asiento.getNumeroAsiento() + " ");
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print(asiento.getNumeroAsiento());
+								System.out.println();
+							} else {
+								System.out.print(asiento.getNumeroAsiento() +
+								"  ");
+							}
 						}
 						
+					} else {
+						if(asiento.isReservado()) {
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print("   ");
+								System.out.println();
+							} else {
+								System.out.print("    ");
+							}
+						} else {
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print(asiento.getNumeroAsiento());
+								System.out.println();
+							} else {
+								System.out.print(asiento.getNumeroAsiento() +
+								" ");
+							}
+						}
 					}
 				}
-			} 
-			
+				
+				System.out.println();
+				
+				System.out.println("¿Desea reservar un asiento por un " + 
+				"cierto período de tiempo? (si/no)");
+				
+				String respuesta3 = sc.nextLine();
+				
+				System.out.println();
+				
+				if(respuesta3.toLowerCase().equals("si")) {
+					System.out.print("Ingrese el número del asiento: ");
+					
+					String asiento = sc.nextLine();
+					
+					System.out.println();
+					
+					System.out.println("¿Por cuántas horas desea reservarlo?" +
+					" (ingrese un número entre 1 y 24)");
+					
+					String horas = sc.nextLine();
+					
+					System.out.println();
+					
+					LocalDateTime fechaReserva = 
+					LocalDateTime.now().plusHours(Integer.valueOf(horas));
+					
+					DateTimeFormatter formateoFechaReserva = 
+					DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+					
+					String stringFechaReserva = 
+					fechaReserva.format(formateoFechaReserva);
+					
+					LocalDateTime nuevaFechaReserva =
+					LocalDateTime.parse(stringFechaReserva);
+					
+					LocalDateTime fechaViaje = 
+					LocalDateTime.of(viaje.getFecha(), viaje.getHora());
+					
+					while(fechaViaje.isBefore(nuevaFechaReserva)) {
+						System.out.println("La reserva debe ser " + 
+						"antes del viaje ");
+						
+						System.out.println("¿Por cuántas horas desea " + 
+						"reservarlo? (ingrese un número entre 1 y 24)");
+								
+						String loopHoras = sc.nextLine();
+					}
+					
+					System.out.println();
+				}
+			}	
 		} else {
 			System.out.println("¿Desea ver más detalles sobre un viaje? " + 
 					"(si/no)");
 					
 			String respuesta2 = sc.nextLine();
 			
+			System.out.println();
+			
 			if(respuesta2.toLowerCase().equals("si")) {
 				System.out.print("Ingrese el id del viaje: ");
 				
 				String id = sc.nextLine();
 				
+				System.out.println();
+				
+				System.out.println("Asientos disponibles:");
+				
+				System.out.println();
+				
 				Viaje viaje = Empresa.buscarViaje(id);
 				
 				for(Asiento asiento : viaje.listaAsientos()) {
-					if(asiento.getNumeroAsiento().contains("B")) {
-						System.out.print(asiento.getNumeroAsiento() + " ");
-					} else if(asiento.getNumeroAsiento().contains("D")){
-						System.out.print(asiento.getNumeroAsiento());
-						System.out.println();
-					} else {
-						if(asiento.getNumeroAsiento().length() == 2) {
-							System.out.print(asiento.getNumeroAsiento() + "  ");
+					if(asiento.getNumeroAsiento().length() == 2) {
+						if(asiento.isReservado()) {
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print("  ");
+								System.out.println();
+							} else {
+								System.out.print("    ");
+							}
 						} else {
-							System.out.print(asiento.getNumeroAsiento() + " ");
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print(asiento.getNumeroAsiento());
+								System.out.println();
+							} else {
+								System.out.print(asiento.getNumeroAsiento() +
+								"  ");
+							}
 						}
 						
+					} else {
+						if(asiento.isReservado()) {
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print("   ");
+								System.out.println();
+							} else {
+								System.out.print("    ");
+							}
+						} else {
+							if(asiento.getNumeroAsiento().contains("D")) {
+								System.out.print(asiento.getNumeroAsiento());
+								System.out.println();
+							} else {
+								System.out.print(asiento.getNumeroAsiento() +
+								" ");
+							}
+						}
 					}
+				}
+				
+				System.out.println();
+				
+				System.out.println("¿Desea reservar un asiento por un " + 
+				"cierto período de tiempo? (si/no)");
+						
+				String respuesta3 = sc.nextLine();
+				
+				System.out.println();
+				
+				if(respuesta3.toLowerCase().equals("si")) {
+					System.out.print("Ingrese el número del asiento: ");
+					
+					String asiento = sc.nextLine();
+					
+					System.out.println();
+					
+					System.out.println("¿Por cuántas horas desea reservarlo?" +
+					" (ingrese un número entre 1 y 24)");
+					
+					String horas = sc.nextLine();
+					
+					System.out.println();
+					
+					LocalDateTime fechaReserva = 
+					LocalDateTime.now().plusHours(Integer.valueOf(horas));
+					
+					DateTimeFormatter formateoFechaReserva = 
+					DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+					
+					String stringFechaReserva = 
+					fechaReserva.format(formateoFechaReserva);
+					
+					LocalDateTime nuevaFechaReserva =
+					LocalDateTime.parse(stringFechaReserva);
+					
+					LocalDateTime fechaViaje = 
+					LocalDateTime.of(viaje.getFecha(), viaje.getHora());
+					
+					while(fechaViaje.isBefore(nuevaFechaReserva)) {
+						System.out.println("La reserva debe ser " + 
+						"antes del viaje ");
+						
+						System.out.println("¿Por cuántas horas desea " + 
+						"reservarlo? (ingrese un número entre 1 y 24)");
+								
+						String loopHoras = sc.nextLine();
+					}
+					
+					System.out.println();
 				}
 			} 
 		}

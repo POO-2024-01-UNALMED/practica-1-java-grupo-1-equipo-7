@@ -15,17 +15,17 @@ public class Auxiliar {
 		Terminal pereira = new Terminal("PEREIRA");
 		Terminal santaMarta = new Terminal("SANTA MARTA");
 		
-		Bus bus = new Bus("1234", 12);
-
-		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
 		Empresa empresa = new Empresa("Coord");
-		viaje1.setBus(bus);
-		viaje1.setEmpresa(empresa);
-		empresa.setNombre("Coor");
-		empresa.getViajes().add(viaje1);
-
-		bus.getAsientos().get(7).setReservado(true);
-		bus.getAsientos().get(8).setReservado(true);
+		Viaje viaje = new Viaje(medellin, bogota, "0001");
+		Bus bus = new Bus("1234", 12);
+		
+		empresa.getViajes().add(viaje);
+		
+		viaje.setEmpresa(empresa);
+		viaje.setBus(bus);
+		
+		bus.getAsientos().get(45).setReservado(true);
+		bus.getAsientos().get(44).setReservado(true);
 	}
 
 }

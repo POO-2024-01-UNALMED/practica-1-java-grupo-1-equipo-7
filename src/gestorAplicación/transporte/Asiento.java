@@ -6,16 +6,17 @@ public class Asiento implements Serializable{
 	private String numeroAsiento;
 	private boolean reservado;
 	
+	@Override 
+	public String toString() {
+		return numeroAsiento;
+	}
+	
 	public Asiento(String numeroAsiento) {
 		this.numeroAsiento = numeroAsiento;
 	}
-
+	
 	public String getNumeroAsiento() {
 		return numeroAsiento;
-	}
-
-	public void setNumeroAsiento(String numeroAsiento) {
-		this.numeroAsiento = numeroAsiento;
 	}
 	
 	public boolean isReservado() {
