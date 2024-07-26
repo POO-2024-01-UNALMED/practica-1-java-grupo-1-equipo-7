@@ -1,5 +1,8 @@
 package uiMain;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import gestorAplicación.gestion.Empresa;
 import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Viaje;
@@ -26,6 +29,9 @@ public class Auxiliar {
 		
 		bus.getAsientos().get(45).setReservado(true);
 		bus.getAsientos().get(44).setReservado(true);
+		
+		viaje.setFecha(LocalDate.parse("2024-07-26"));
+		viaje.setHora(LocalTime.of(15, 37));
 	}
 
 }

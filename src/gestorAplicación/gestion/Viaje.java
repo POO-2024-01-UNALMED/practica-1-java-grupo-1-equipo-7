@@ -2,8 +2,12 @@ package gestorAplicación.gestion;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+
 
 import gestorAplicación.personas.Conductor;
 import gestorAplicación.transporte.Asiento;
@@ -44,9 +48,27 @@ public class Viaje implements Serializable {
 		return this.getBus().getAsientos();
 	}
 	
+	public void congelarAsiento(String numeroAsiento) {
+		for(Asiento asiento : this.listaAsientos()) {
+			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
+				asiento.setReservado(true);
+			}
+		}
+	}
+	
+	
+	
+	public void descongelarAsiento(String numeroAsiento) {
+		for(Asiento asiento : this.listaAsientos()) {
+			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
+				asiento.setReservado(false);
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
-		return "    " + getFecha() + 
+		return "    " + getStrFecha() + 
 				"     " + getTerminalOrigen().getUbicacion() + 
 				"     " + getTerminalDestino().getUbicacion() + 
 				"     " + getHora() + "		" + getId() + 
@@ -69,8 +91,17 @@ public class Viaje implements Serializable {
 		this.conductor = conductor;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDate getFecha() {		
 		return fecha;
+	}
+	
+	public String getStrFecha() {
+		DateTimeFormatter formateoFecha = 
+		DateTimeFormatter.ofPattern("dd-MM-yyyy"); 
+		
+		String strFecha = fecha.format(formateoFecha);
+				
+		return strFecha;
 	}
 
 	public void setFecha(LocalDate fecha) {
