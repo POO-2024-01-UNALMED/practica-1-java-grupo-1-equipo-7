@@ -17,10 +17,10 @@ public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int referencias = 1;
 	
-	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento) {
+	public Tiquete(Pasajero pasajero, Viaje viaje) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
-		this.asiento = asiento;
+		
 		this.referenciaReserva = String.valueOf(referencias);
 		tiquetes.add(this);
 		referencias++;

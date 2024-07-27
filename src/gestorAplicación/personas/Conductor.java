@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Conductor extends Persona implements Serializable{
 	private boolean disponible;
 	
-	public Conductor() {
-		
+	public Conductor(String nombre) {
+		super(nombre, "", "", "");
 	}
 
 	public boolean isDisponible() {
@@ -16,6 +16,4 @@ public class Conductor extends Persona implements Serializable{
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
-	
-	
 }

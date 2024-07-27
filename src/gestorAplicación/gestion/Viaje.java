@@ -15,6 +15,7 @@ import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+	static final long serialVersionUID = 2L;
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private Empresa empresa;
@@ -23,6 +24,10 @@ public class Viaje implements Serializable {
 	private String id;
 	private Conductor conductor;
 	private Bus bus;
+	
+	public Viaje() {
+		
+	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
 		this.terminalOrigen = terminalOrigen;
@@ -48,7 +53,7 @@ public class Viaje implements Serializable {
 		return this.getBus().getAsientos();
 	}
 	
-	public void congelarAsiento(String numeroAsiento) {
+	public void reservarAsiento(String numeroAsiento) {
 		for(Asiento asiento : this.listaAsientos()) {
 			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
 				asiento.setReservado(true);

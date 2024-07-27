@@ -2,22 +2,22 @@ package gestorAplicación.personas;
 
 public class Persona {
 	protected String nombre;
-	protected String numeroIdentificacion;
+	protected String id;
+	protected String correo;
+	protected String telefono;
 	
-	public String getNombre() {
-		return nombre;
+	public Persona() {
+		this("", "", "", "");
 	}
 	
-	public void setNombre(String nombre) {
+	public Persona(String nombre, String id, String correo, String telefono) {
 		this.nombre = nombre;
+		this.id = id;
+		this.correo = correo;
+		this.telefono = telefono;
 	}
 	
-	public String getNumeroIdentificacion() {
-		return numeroIdentificacion;
+	public String getId() {
+		return id;
 	}
-	
-	public void setNumeroIdentificacion(String numeroIdentificacion) {
-		this.numeroIdentificacion = numeroIdentificacion;
-	}
-	
 }

@@ -1,13 +1,19 @@
 package gestorAplicación.gestion;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Empresa {
+public class Empresa implements Serializable {
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+	static final long serialVersionUID = 1L;
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private String nombre;
+	
+	public Empresa() {
+		
+	}
 	
 	public Empresa(String nombre) {
 		this.nombre = nombre;
@@ -43,7 +49,7 @@ public class Empresa {
 	public static ArrayList<Viaje> buscarViajes(String origen, String destino) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
-		if (destino.equals(null)) {
+		if (destino.isBlank()) {
 			for (Empresa empresa : empresas) {
 				for (Viaje viaje : empresa.getViajes()) {
 					if 
@@ -54,7 +60,7 @@ public class Empresa {
 					}
 				}
 			}
-		} else if (origen.equals(null)) {
+		} else if (origen.isBlank()) {
 			for (Empresa empresa : empresas) {
 				for (Viaje viaje : empresa.getViajes()) {
 					if 
