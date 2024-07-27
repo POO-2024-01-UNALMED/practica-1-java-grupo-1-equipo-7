@@ -10,7 +10,7 @@ public class Pasajero extends Persona implements Serializable {
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	
 	public Pasajero() {
-		
+		pasajeros.add(this);
 	}
 	
 	public Pasajero(String nombre, String id, String correo, String telefono) {
@@ -18,9 +18,9 @@ public class Pasajero extends Persona implements Serializable {
 		pasajeros.add(this);
 	}
 	
-	public static Pasajero buscarPasajero(String numeroIdentificacion) {
+	public static Pasajero buscarPasajero(String id) {
 		for(Pasajero pasajero : pasajeros) {
-			if(pasajero.getId().equals(numeroIdentificacion)) {
+			if(pasajero.getId().equals(id)) {
 				return pasajero;
 			}
 		}

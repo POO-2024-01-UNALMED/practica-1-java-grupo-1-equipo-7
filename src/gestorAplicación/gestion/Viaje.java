@@ -7,8 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
-
+import baseDatos.Deserializador;
 import gestorAplicación.personas.Conductor;
 import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
@@ -26,7 +25,7 @@ public class Viaje implements Serializable {
 	private Bus bus;
 	
 	public Viaje() {
-		
+		Deserializador.deserializar(this);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {

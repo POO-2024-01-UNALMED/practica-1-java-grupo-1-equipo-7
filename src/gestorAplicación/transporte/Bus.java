@@ -3,6 +3,7 @@ package gestorAplicación.transporte;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import baseDatos.Deserializador;
 import gestorAplicación.gestion.Viaje;
 
 public class Bus implements Serializable {
@@ -14,7 +15,7 @@ public class Bus implements Serializable {
 	private String placa;
 	
 	public Bus() {
-		
+		Deserializador.deserializar(this);
 	}
 	
 	public Bus(String placa, int totalAsientos) {
@@ -55,6 +56,10 @@ public class Bus implements Serializable {
 
 	public ArrayList<Asiento> getAsientos() {
 		return asientos;
+	}
+	
+	public void setAsientos(ArrayList<Asiento> asientos) {
+		this.asientos = asientos;
 	}
 	
 	public ArrayList<Viaje> getViajes() {

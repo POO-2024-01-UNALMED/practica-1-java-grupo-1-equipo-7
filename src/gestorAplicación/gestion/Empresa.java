@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import baseDatos.Deserializador;
+
 public class Empresa implements Serializable {
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 	static final long serialVersionUID = 1L;
@@ -12,7 +14,8 @@ public class Empresa implements Serializable {
 	private String nombre;
 	
 	public Empresa() {
-		
+		Deserializador.deserializar(this);
+		empresas.add(this);
 	}
 	
 	public Empresa(String nombre) {

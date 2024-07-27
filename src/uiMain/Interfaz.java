@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import baseDatos.Deserializador;
 import baseDatos.Serializador;
 import gestorAplicación.gestion.Empresa;
 import gestorAplicación.gestion.Terminal;
@@ -781,11 +782,30 @@ public class Interfaz{
 		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
 
 		if (pasajero == null) {
-			System.out.println("No hay tiquetes asociados " + 
-			"con el número de identificación");
+			System.out.println("No hay tiquetes asociados " 
+			+ "con el número de identificación");
 		} else {
+			System.out.println("TIQUETES VALIDOS");
+			
+			for (int i = 0; i < 72; i++) {
+				System.out.print("-");
+			}
+
+			System.out.println();
+
+			System.out.print("    FECHA     ORIGEN     DESTINO     " 
+			+ "HORA DE SALIDA     ID     PLACA    ");
+
+			System.out.println();
+
+			for (int i = 0; i < 72; i++) {
+				System.out.print("-");
+			}
+
+			
 			ArrayList<Tiquete> tiquetesValidos = 
 					Tiquete.buscarTiquetesValidos(pasajero.getTiquetes());
+			
 			ArrayList<Tiquete> tiquetesVencidos = 
 					Tiquete.buscarTiquetesVencidos(pasajero.getTiquetes());
 
@@ -835,35 +855,32 @@ public class Interfaz{
 
 	}
 
-	public static void salirDelSistema() {
+	public static void salirDelSistema(Empresa empresa, Viaje viaje, Bus bus,
+			ArrayList<Terminal> terminales) {
 		System.out.println("Ten un buen viaje");
 		Serializador.limpiarArchivos();
+		Serializador.serializar(empresa);
+		Serializador.serializar(viaje);
+		Serializador.serializar(bus);
+		Serializador.serializar(terminales);
 		System.exit(0);
 	}
 
 	public static void main(String[] args) {
-		Terminal medellin = new Terminal("MEDELLIN");
-		Terminal bogota = new Terminal("BOGOTA");
-		Terminal cali = new Terminal("CALI");
-		Terminal bucaramanga = new Terminal("BUCARAMANGA");
-		Terminal pereira = new Terminal("PEREIRA");
-		Terminal santaMarta = new Terminal("SANTA MARTA");
+		ArrayList<Terminal> terminales = null;
+		Deserializador.deserializar(terminales); 
 		
-		Empresa empresa = new Empresa("Coord");
-		Viaje viaje = new Viaje(medellin, bogota, "0001");
-		Bus bus = new Bus("1234", 12);
-		
-		empresa.getViajes().add(viaje);
-		
-		viaje.setEmpresa(empresa);
-		viaje.setBus(bus);
-		
-		viaje.setFecha(LocalDate.parse("2024-07-26"));
-		viaje.setHora(LocalTime.of(15, 37));
+		Empresa empresa = new Empresa();
+		Viaje viaje = new Viaje();
+		Bus bus = new Bus();
 		
 		int opcion;
 
 		do {
+			System.out.println("MENU PRINCIPAL");
+			
+			System.out.println();
+			
 			System.out.println("¿Qué operación desea realizar?");
 
 			System.out.println();
@@ -895,7 +912,7 @@ public class Interfaz{
 				gestionarTiquetes();
 				break;
 			case 6:
-				salirDelSistema();
+				salirDelSistema(empresa, viaje, bus, terminales);
 				break;
 			}
 		} while (opcion != 6);

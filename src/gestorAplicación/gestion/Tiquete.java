@@ -2,25 +2,29 @@ package gestorAplicación.gestion;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import gestorAplicación.personas.Pasajero;
 import gestorAplicación.transporte.Asiento;
 
 public class Tiquete implements Serializable {
+	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
+	private static int referencias = 1;
 	private Pasajero pasajero;
 	private String costo;
 	private Viaje viaje;
 	private Asiento asiento;
-	private LocalDate fechaCompra;
+	private LocalDateTime fechaCompra;
 	private String referenciaReserva;
-	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
-	private static int referencias = 1;
+	
+	public Tiquete() {
+		
+	}
 	
 	public Tiquete(Pasajero pasajero, Viaje viaje) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
-		
 		this.referenciaReserva = String.valueOf(referencias);
 		tiquetes.add(this);
 		referencias++;
