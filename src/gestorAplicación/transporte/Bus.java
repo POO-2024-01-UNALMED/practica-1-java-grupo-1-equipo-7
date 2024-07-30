@@ -8,14 +8,15 @@ import gestorAplicación.gestion.Viaje;
 
 public class Bus implements Serializable {
 	private static ArrayList<Bus> buses = new ArrayList<Bus>();
-	static final long serialVersionUID = 4L;
+//	static final long serialVersionUID = 4L;
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private int totalAsientos;
 	private String placa;
 	
 	public Bus() {
-		Deserializador.deserializar(this);
+//		Deserializador.deserializar(this);
+		buses.add(this);
 	}
 	
 	public Bus(String placa, int totalAsientos) {

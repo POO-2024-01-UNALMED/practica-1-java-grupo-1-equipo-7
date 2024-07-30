@@ -27,22 +27,6 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 
-	public String getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
 	public ArrayList<Tiquete> getTiquetes() {
 		return tiquetes;
 	}

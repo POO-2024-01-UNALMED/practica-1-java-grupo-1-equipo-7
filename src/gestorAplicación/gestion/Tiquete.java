@@ -16,7 +16,7 @@ public class Tiquete implements Serializable {
 	private Viaje viaje;
 	private Asiento asiento;
 	private LocalDateTime fechaCompra;
-	private String referenciaReserva;
+	private String numeroReserva;
 	
 	public Tiquete() {
 		
@@ -25,44 +25,56 @@ public class Tiquete implements Serializable {
 	public Tiquete(Pasajero pasajero, Viaje viaje) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
-		this.referenciaReserva = String.valueOf(referencias);
+		this.numeroReserva = String.valueOf(referencias);
 		tiquetes.add(this);
 		referencias++;
 	}
 	
-	public static ArrayList<Tiquete> buscarTiquetesValidos(ArrayList<Tiquete> tiquetes) {
-		ArrayList<Tiquete> tiquetesValidos = new ArrayList<Tiquete>();
-		for(Tiquete tiquete : tiquetes) {
-			if(tiquete.getViaje().getFecha().isAfter(LocalDate.now())) {
-				tiquetesValidos.add(tiquete);
+	public static ArrayList<Tiquete> buscarTiquetes(ArrayList<Tiquete> tiquetes,
+			String tipoTiquetes) {
+		
+		if(tipoTiquetes.equals("validos")) {
+			ArrayList<Tiquete> tiquetesValidos = new ArrayList<Tiquete>();
+			
+			for(Tiquete tiquete : tiquetes) {
+				if(tiquete.getViaje().getFecha().isAfter(LocalDate.now())) {
+					tiquetesValidos.add(tiquete);
+				}
 			}
+			
+			return tiquetesValidos;
+		} else {
+			ArrayList<Tiquete> tiquetesVencidos = new ArrayList<Tiquete>();
+			
+			for(Tiquete tiquete : tiquetes) {
+				if(tiquete.getViaje().getFecha().isBefore(LocalDate.now())) {
+					tiquetesVencidos.add(tiquete);
+				}
+			}
+			
+			return tiquetesVencidos;
 		}
-		 return tiquetesValidos;
 	}
 	
-	public static ArrayList<Tiquete> buscarTiquetesVencidos(ArrayList<Tiquete> tiquetes) {
-		ArrayList<Tiquete> tiquetesVencidos = new ArrayList<Tiquete>();
+	public static Tiquete buscarTiquete(String numeroReserva) {
 		for(Tiquete tiquete : tiquetes) {
-			if(tiquete.getViaje().getFecha().isBefore(LocalDate.now())) {
-				tiquetesVencidos.add(tiquete);
-			}
-		}
-		 return tiquetesVencidos;
-	}
-	
-	public static Tiquete buscarTiquete(String numeroReferencia) {
-		for(Tiquete tiquete : tiquetes) {
-			if(tiquete.getReferenciaReserva().equals(numeroReferencia)) {
+			if(tiquete.getNumeroReserva().equals(numeroReserva)) {
 				return tiquete;
 			}
 		}
 		return null;
 	}
 	
-	/*public String toString() {
-		
-		
-	}*/
+	public void cambiarAsiento(Asiento nuevo, Asiento viejo) {
+		this.getViaje().reservarAsiento(viejo.getNumeroAsiento());
+		this.setAsiento(nuevo);
+	}
+	
+	@Override
+	public String toString() {
+		return pasajero.getNombre() + asiento.getNumeroAsiento()
+		+ fechaCompra + numeroReserva;
+	}
 	
 	public Viaje getViaje() {
 		return viaje;
@@ -88,12 +100,12 @@ public class Tiquete implements Serializable {
 		this.asiento = asiento;
 	}
 
-	public String getReferenciaReserva() {
-		return referenciaReserva;
+	public String getNumeroReserva() {
+		return numeroReserva;
 	}
 
-	public void setReferenciaReserva(String referenciaReserva) {
-		this.referenciaReserva = referenciaReserva;
+	public void setNumeroReserva(String numeroReserva) {
+		this.numeroReserva = numeroReserva;
 	}
 	
 	public static ArrayList<Tiquete> getTiquetes() {

@@ -25,33 +25,35 @@ public class Interfaz{
 	static Scanner sc = new Scanner(System.in);
 
 	public static void verViajes() {
-		for (Viaje viaje : Empresa.listaViajes()) {
+		for	(Empresa empresa : Empresa.getEmpresas()) {
 			System.out.println("Vuelos disponibles de la empresa " 
-			+ viaje.getEmpresa().getNombre());
+			+ empresa.nombre);
 
-			for (int i = 0; i < 72; i++) {
-				System.out.print("-");
+			for(Viaje viaje : empresa.getViajes()) {
+				for (int i = 0; i < 80; i++) {
+					System.out.print("-");
+				}
+
+				System.out.println();
+
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
+
+				System.out.println();
+
+				for (int i = 0; i < 80; i++) {
+					System.out.print("-");
+				}
+
+				System.out.println();
+
+				System.out.print(viaje.toString());
+
+				System.out.println();
+				System.out.println();
 			}
-
-			System.out.println();
-
-			System.out.print("    FECHA     ORIGEN     DESTINO     " 
-			+ "HORA DE SALIDA     ID     PLACA    ");
-
-			System.out.println();
-
-			for (int i = 0; i < 72; i++) {
-				System.out.print("-");
-			}
-
-			System.out.println();
-
-			System.out.print(viaje.toString());
-
-			System.out.println();
-			System.out.println();
 		}
-
+		
 		System.out.println("¿Desea filtrar por alguna categoría (si/no)");
 
 		String respuesta1 = sc.nextLine();
@@ -85,18 +87,18 @@ public class Interfaz{
 				System.out.println("Vuelos filtrados por " 
 				+ categoria.toUpperCase());
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
-				System.out.print("    FECHA     ORIGEN     DESTINO     " 
-				+ "HORA DE SALIDA     ID     PLACA    ");
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
 
 				System.out.println();
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
@@ -124,18 +126,18 @@ public class Interfaz{
 				System.out.println("Vuelos filtrados por " 
 				+ categoria.toUpperCase());
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
-				System.out.print("    FECHA     ORIGEN     DESTINO     " 
-				+ "HORA DE SALIDA     ID     PLACA    ");
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
 
 				System.out.println();
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
@@ -163,18 +165,18 @@ public class Interfaz{
 				System.out.println("Vuelos filtrados por " 
 				+ categoria.toUpperCase());
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
-				System.out.print("    FECHA     ORIGEN     DESTINO     " 
-				+ "HORA DE SALIDA     ID     PLACA    ");
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
 
 				System.out.println();
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
@@ -209,18 +211,18 @@ public class Interfaz{
 				System.out.println("Vuelos filtrados por " 
 				+ categoria.toUpperCase());
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
-				System.out.print("    FECHA     ORIGEN     DESTINO     " 
-				+ "HORA DE SALIDA     ID     PLACA    ");
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
 
 				System.out.println();
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
@@ -248,18 +250,18 @@ public class Interfaz{
 				System.out.println("Vuelos filtrados por " 
 				+ categoria.toUpperCase());
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
-				System.out.print("    FECHA     ORIGEN     DESTINO     " 
-				+ "HORA DE SALIDA     ID     PLACA    ");
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
 
 				System.out.println();
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
@@ -287,18 +289,18 @@ public class Interfaz{
 				System.out.println("Vuelos filtrados por " 
 				+ categoria.toUpperCase());
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
-				System.out.print("    FECHA     ORIGEN     DESTINO     " 
-				+ "HORA DE SALIDA     ID     PLACA    ");
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
 
 				System.out.println();
 
-				for (int i = 0; i < 72; i++) {
+				for (int i = 0; i < 80; i++) {
 					System.out.print("-");
 				}
 
@@ -462,7 +464,7 @@ public class Interfaz{
 							Executors.newScheduledThreadPool(1);
 					
 					Runnable task = () -> {
-						viaje.descongelarAsiento(asiento);
+						viaje.liberarAsiento(asiento);
 					};
 					
 					service.schedule(task, Integer.valueOf(cantidad), 
@@ -617,7 +619,7 @@ public class Interfaz{
 							Executors.newScheduledThreadPool(1);
 					
 					Runnable task = () -> {
-						viaje.descongelarAsiento(asiento);
+						viaje.liberarAsiento(asiento);
 					};
 					
 					service.schedule(task, Integer.valueOf(cantidad), 
@@ -646,18 +648,18 @@ public class Interfaz{
 		for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
 				destino.toUpperCase())) {
 		
-			for (int i = 0; i < 72; i++) {
+			for (int i = 0; i < 80; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 
-			System.out.print("    FECHA     ORIGEN     DESTINO     " 
-			+ "HORA DE SALIDA     ID     PLACA    ");
+			System.out.print("    FECHA          ORIGEN       DESTINO    " 
+			+ "HORA DE SALIDA     ID       PLACA     ");
 
 			System.out.println();
 
-			for (int i = 0; i < 72; i++) {
+			for (int i = 0; i < 80; i++) {
 				System.out.print("-");
 			}
 
@@ -756,8 +758,9 @@ public class Interfaz{
 		
 		System.out.println();
 		
-		new Tiquete(new Pasajero(nombre, idPasajero, correo, telefono), 
-				viaje);
+		Pasajero pasajero = new Pasajero(nombre, idPasajero, correo, telefono);
+		
+		pasajero.getTiquetes().add(new Tiquete(pasajero, viaje));
 
 		System.out.println("Confirmación de reserva del tiquete:");
 		
@@ -778,103 +781,296 @@ public class Interfaz{
 		System.out.print("Ingrese el número de identificación del pasajero: ");
 		
 		String idPasajero = sc.nextLine();
+		
+		System.out.println();
 
 		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
 
 		if (pasajero == null) {
 			System.out.println("No hay tiquetes asociados " 
 			+ "con el número de identificación");
+			
+			System.out.println();
 		} else {
 			System.out.println("TIQUETES VALIDOS");
 			
-			for (int i = 0; i < 72; i++) {
+			for (int i = 0; i < 80; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 
-			System.out.print("    FECHA     ORIGEN     DESTINO     " 
-			+ "HORA DE SALIDA     ID     PLACA    ");
+			System.out.print("    NOMBRE      ASIENTO     FECHA DE COMPRA    " 
+			+ "NUMERO DE COMPRA");
 
 			System.out.println();
 
-			for (int i = 0; i < 72; i++) {
+			for (int i = 0; i < 80; i++) {
 				System.out.print("-");
 			}
-
+			
+			System.out.println();
 			
 			ArrayList<Tiquete> tiquetesValidos = 
-					Tiquete.buscarTiquetesValidos(pasajero.getTiquetes());
+					Tiquete.buscarTiquetes(pasajero.getTiquetes(), "validos");
 			
-			ArrayList<Tiquete> tiquetesVencidos = 
-					Tiquete.buscarTiquetesVencidos(pasajero.getTiquetes());
-
-			System.out.println("Tiquetes validos:");
-
-			for (Tiquete tiquete : tiquetesValidos) {
+			for(Tiquete tiquete : tiquetesValidos) {
 				System.out.println(tiquete.toString());
 			}
+			
+			System.out.println();
+			
+			System.out.println("TIQUETES VENCIDOS");
+			
+			for (int i = 0; i < 80; i++) {
+				System.out.print("-");
+			}
 
-			System.out.println("Tiquetes vencidos:");
+			System.out.println();
 
+			System.out.print("    NOMBRE          ASIENTO   FECHA DE COMPRA    " 
+			+ "NUMERO DE COMPRA");
+
+			System.out.println();
+
+			for (int i = 0; i < 80; i++) {
+				System.out.print("-");
+			}
+			
+			System.out.println();
+
+			ArrayList<Tiquete> tiquetesVencidos = 
+					Tiquete.buscarTiquetes(pasajero.getTiquetes(), "vencidos");
+			
 			for (Tiquete tiquete : tiquetesVencidos) {
 				System.out.println(tiquete.toString());
 			}
+			
+			System.out.println();
 
 			System.out.print("Escoja el tiquete ingresando " 
-			+ "el número de referencia:");
+			+ "el número de reserva:");
 			
-			String numeroReferencia = sc.nextLine();
-
-			Tiquete tiqueteEscogido = Tiquete.buscarTiquete(numeroReferencia);
-
+			String numeroReserva = sc.nextLine();
+			
 			for (Tiquete tiquete : tiquetesVencidos) {
-				if (tiqueteEscogido == tiquete) {
-					System.out.println(tiqueteEscogido);
-				}
+				if (tiquete.getNumeroReserva().equals(numeroReserva)) {
+					System.out.println(tiquete);
+					break;
+				} 
 			}
-
+			
 			for (Tiquete tiquete : tiquetesValidos) {
-				if (tiqueteEscogido == tiquete) {
+				if (tiquete.getNumeroReserva().equals(numeroReserva)) {
+					System.out.println("¿Qué desea hacer?");
+					
+					System.out.println();
+					
 					System.out.println("1. Cancelarlo");
+					
 					System.out.println("2. Modificarlo");
-				}
+					
+					System.out.println();
+					
+					System.out.println("Ingrese el número: ");
+					
+					String respuesta1 = sc.nextLine();
+					
+					if (respuesta1.equals("1")) {
+						tiquete.getViaje().liberarAsiento(tiquete.
+								getAsiento().getNumeroAsiento());
+						
+						for(Tiquete tiqueteCancelado : pasajero.getTiquetes()) {
+							if(tiqueteCancelado.equals(tiquete)) {
+								pasajero.getTiquetes().remove(tiqueteCancelado);
+								break;
+							}
+						}
+					} else {
+						System.out.println("¿Qué desea hacer?");
+						
+						System.out.println();
+						
+						System.out.println("1. Cambiar de asiento");
+						
+						System.out.println("2. Elegir otro viaje");
+						
+						System.out.println();
+						
+						System.out.println("Ingrese el número: ");
+						
+						String respuesta2 = sc.nextLine();
+						
+						System.out.println();
+						
+						if(respuesta2.equals("1")) {
+							System.out.println("Asientos disponibles:");
+
+							System.out.println();
+
+							Viaje viaje = tiquete.getViaje();
+
+							for (Asiento asiento : viaje.listaAsientos()) {
+								if (asiento.getNumeroAsiento().length() == 2) {
+									if (asiento.isReservado()) {
+										if (asiento.getNumeroAsiento().
+												contains("D")) {
+											System.out.print("  ");
+											
+											System.out.println();
+										} else {
+											System.out.print("    ");
+										}
+									} else {
+										if (asiento.getNumeroAsiento().
+												contains("D")) {
+											System.out.print(asiento.
+													getNumeroAsiento());
+											
+											System.out.println();
+										} else {
+											System.out.print(asiento.
+													getNumeroAsiento() 
+											+ "  ");
+										}
+									}
+
+								} else {
+									if (asiento.isReservado()) {
+										if (asiento.getNumeroAsiento().
+												contains("D")) {
+											System.out.print("   ");
+											
+											System.out.println();
+										} else {
+											System.out.print("    ");
+										}
+									} else {
+										if (asiento.getNumeroAsiento().
+												contains("D")) {
+											System.out.print(asiento.
+													getNumeroAsiento());
+											
+											System.out.println();
+										} else {
+											System.out.print(asiento.
+													getNumeroAsiento() 
+											+ " ");
+										}
+									}
+								}
+							}
+
+							System.out.println();
+							
+							System.out.println("Ingrese el número del asiento");
+							
+							String asiento = sc.nextLine();
+							
+							tiquete.cambiarAsiento(viaje.buscarAsiento(asiento),
+									tiquete.getAsiento());
+						} else {
+							Viaje viaje = tiquete.getViaje();
+							
+							viaje.liberarAsiento(tiquete.getAsiento().
+									getNumeroAsiento());
+							
+							reservarTiquete();
+						}
+					}
+					
+					break;
+				} 
 			}
-
-			System.out.print("Elija una opción: ");
-			int opcion = sc.nextInt();
-			sc.nextLine();
-
-			if (opcion == 1) {
-
-			} else {
-
-			}
-
 		}
+	}
+	
+	public static void hospedaje() {
+		System.out.println("Ingrese el número de " 
+		+ "identificación del pasajero: ");
+		
+		String idPasajero = sc.nextLine();
+		
+		System.out.println();
 
+		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
+
+		if (pasajero == null) {
+			System.out.println("No hay tiquetes asociados " 
+			+ "con el número de identificación");
+			
+			System.out.println();
+		} else {
+			System.out.println("TIQUETES VALIDOS");
+			
+		}
+	}
+	
+	public static void administrador() {
+		
 	}
 
-	public static void salirDelSistema(Empresa empresa, Viaje viaje, Bus bus,
-			ArrayList<Terminal> terminales) {
+	public static void salirDelSistema(ArrayList<Empresa> empresas) {
 		System.out.println("Ten un buen viaje");
 		Serializador.limpiarArchivos();
-		Serializador.serializar(empresa);
-		Serializador.serializar(viaje);
-		Serializador.serializar(bus);
-		Serializador.serializar(terminales);
+		Serializador.serializar(empresas);
+//		Serializador.serializar(viaje1);
+//		Serializador.serializar(bus1);
+//		Serializador.serializar(viaje2);
+//		Serializador.serializar(bus2);
 		System.exit(0);
 	}
 
 	public static void main(String[] args) {
-		ArrayList<Terminal> terminales = null;
-		Deserializador.deserializar(terminales); 
+		Terminal medellin = new Terminal("MEDELLIN");
+		Terminal bogota = new Terminal("BOGOTA");
+		Terminal cali = new Terminal("CALI");
+		Terminal bucaramanga = new Terminal("BUCARAMANGA");
+		Terminal pereira = new Terminal("PEREIRA");
+		Terminal santaMarta = new Terminal("SANTA MARTA");
 		
-		Empresa empresa = new Empresa();
-		Viaje viaje = new Viaje();
-		Bus bus = new Bus();
+//		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+//		
+//		Empresa empresa1 = new Empresa("Coord");
+//		Empresa empresa2 = new Empresa("Telm");
+//		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
+//		Viaje viaje2 = new Viaje(medellin, cali, "0002");
+//		Bus bus1 = new Bus("1234", 12);
+//		Bus bus2 = new Bus("12345", 13);
+//		
+//		empresas.add(empresa1);
+//		empresas.add(empresa2);
+//		
+//		empresa1.getViajes().add(viaje1);
+//		
+//		viaje1.setEmpresa(empresa1);
+//		viaje1.setBus(bus1);
+//		
+//		viaje1.setFecha(LocalDate.parse("2024-07-30"));
+//		viaje1.setHora(LocalTime.of(15, 37));
+//		
+//		empresa2.getViajes().add(viaje2);
+//		
+//		viaje2.setEmpresa(empresa2);
+//		viaje2.setBus(bus2);
+//		
+//		viaje2.setFecha(LocalDate.parse("2024-07-30"));
+//		viaje2.setHora(LocalTime.of(15, 37));
 		
-		int opcion;
+		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+		
+		Empresa empresa1 = new Empresa();
+		Viaje viaje1 = new Viaje();
+		Bus bus1 = new Bus();
+		
+		Empresa empresa2 = new Empresa();
+		Viaje viaje2 = new Viaje();
+		Bus bus2 = new Bus();
+		
+		empresas.add(empresa2);
+		empresas.add(empresa1);
+			
+		String opcion;
 
 		do {
 			System.out.println("MENU PRINCIPAL");
@@ -896,26 +1092,31 @@ public class Interfaz{
 
 			System.out.print("Ingrese el número de la operación: ");
 
-			opcion = sc.nextInt();
-			sc.nextLine();
-
+			opcion = sc.nextLine();
+			
 			System.out.println();
 
 			switch (opcion) {
-			case 1:
+			case "1":
 				verViajes();
 				break;
-			case 2:
+			case "2":
 				reservarTiquete();
 				break;
-			case 3:
+			case "3":
 				gestionarTiquetes();
 				break;
-			case 6:
-				salirDelSistema(empresa, viaje, bus, terminales);
+			case "4":
+				hospedaje();
+				break;
+			case "5":
+				administrador();
+				break;
+			case "6":
+				salirDelSistema(empresas);
 				break;
 			}
-		} while (opcion != 6);
+		} while (!opcion.equals("6"));
 
 	}
 

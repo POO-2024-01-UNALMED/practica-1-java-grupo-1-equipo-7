@@ -9,9 +9,9 @@ import baseDatos.Deserializador;
 
 public class Empresa implements Serializable {
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
-	static final long serialVersionUID = 1L;
-	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private String nombre;
+//	static final long serialVersionUID = 1L;
+	public ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+	public String nombre;
 	
 	public Empresa() {
 		Deserializador.deserializar(this);
@@ -23,18 +23,6 @@ public class Empresa implements Serializable {
 		empresas.add(this);
 	}
 	
-	public static ArrayList<Viaje> listaViajes() {
-		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-		
-		for(Empresa empresa : empresas) {
-			for(Viaje viaje : empresa.getViajes()) {
-				viajes.add(viaje);
-			}
-		}
-		
-		return viajes;
-	}
-
 	public static ArrayList<Viaje> buscarViajes(LocalDate fecha) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 

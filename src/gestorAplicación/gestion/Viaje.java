@@ -9,12 +9,14 @@ import java.util.ArrayList;
 
 import baseDatos.Deserializador;
 import gestorAplicación.personas.Conductor;
+import gestorAplicación.personas.Pasajero;
 import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	static final long serialVersionUID = 2L;
+//	static final long serialVersionUID = 2L;
+	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private Empresa empresa;
@@ -25,7 +27,8 @@ public class Viaje implements Serializable {
 	private Bus bus;
 	
 	public Viaje() {
-		Deserializador.deserializar(this);
+//		Deserializador.deserializar(this);
+		viajes.add(this);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
@@ -60,9 +63,7 @@ public class Viaje implements Serializable {
 		}
 	}
 	
-	
-	
-	public void descongelarAsiento(String numeroAsiento) {
+	public void liberarAsiento(String numeroAsiento) {
 		for(Asiento asiento : this.listaAsientos()) {
 			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
 				asiento.setReservado(false);
@@ -70,13 +71,23 @@ public class Viaje implements Serializable {
 		}
 	}
 	
+	public Asiento buscarAsiento(String numeroAsiento) {
+		for (Asiento asiento : this.getBus().getAsientos()) {
+			if (asiento.getNumeroAsiento().equals(numeroAsiento)) {
+				return asiento;
+			}
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return "    " + getStrFecha() + 
 				"     " + getTerminalOrigen().getUbicacion() + 
 				"     " + getTerminalDestino().getUbicacion() + 
-				"     " + getHora() + "		" + getId() + 
-				"     " + getBus().getPlaca() + "    ";
+				"     " + getHora() + "              " + getId() + 
+				"     " + getBus().getPlaca();
 	}
 
 	public Bus getBus() {
