@@ -7,6 +7,8 @@ import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
 
 public class Pasajero extends Persona implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private static ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	
@@ -45,5 +47,19 @@ public class Pasajero extends Persona implements Serializable {
 	public void setTiquetes(ArrayList<Tiquete> tiquetes) {
 		this.tiquetes = tiquetes;
 	}
+	
+	public void agregarTiquete(Tiquete tiquete) {
+		tiquetes.add(tiquete);
+	}
+
+	public static ArrayList<Pasajero> getPasajeros() {
+		return pasajeros;
+	}
+
+	public static void setPasajeros(ArrayList<Pasajero> pasajeros) {
+		Pasajero.pasajeros = pasajeros;
+	}
+	
+	
 
 }
