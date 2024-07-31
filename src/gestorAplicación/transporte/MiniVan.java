@@ -1,5 +1,9 @@
 package gestorAplicación.transporte;
 
-public class MiniVan {
+public class MiniVan extends Vehiculo{
+	
+	public MiniVan() {
+		
+	}
 
 }

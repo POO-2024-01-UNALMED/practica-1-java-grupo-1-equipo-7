@@ -17,14 +17,16 @@ public class Tiquete implements Serializable {
 	private Asiento asiento;
 	private LocalDateTime fechaCompra;
 	private String numeroReserva;
+	private Hospedaje hospedaje;
 	
 	public Tiquete() {
 		
 	}
 	
-	public Tiquete(Pasajero pasajero, Viaje viaje) {
+	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
+		this.asiento = asiento;
 		this.numeroReserva = String.valueOf(referencias);
 		tiquetes.add(this);
 		referencias++;
@@ -110,5 +112,13 @@ public class Tiquete implements Serializable {
 	
 	public static ArrayList<Tiquete> getTiquetes() {
 		return tiquetes;
+	}
+
+	public Hospedaje getHospedaje() {
+		return hospedaje;
+	}
+
+	public void setHospedaje(Hospedaje hospedaje) {
+		this.hospedaje = hospedaje;
 	}
 } 

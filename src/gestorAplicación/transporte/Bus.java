@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import baseDatos.Deserializador;
 import gestorAplicación.gestion.Viaje;
 
-public class Bus implements Serializable {
+public class Bus extends Vehiculo implements Serializable {
 	private static ArrayList<Bus> buses = new ArrayList<Bus>();
 //	static final long serialVersionUID = 4L;
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private int totalAsientos;
 	private String placa;
 	
 	public Bus() {
@@ -19,32 +18,23 @@ public class Bus implements Serializable {
 		buses.add(this);
 	}
 	
-	public Bus(String placa, int totalAsientos) {
+	public Bus(String placa, int asientos) {
 		this.placa = placa;
-		this.totalAsientos = totalAsientos;
-		this.crearAsientos(totalAsientos);
+		this.crearAsientos(asientos);
 		buses.add(this);
 	}
 
-	public void crearAsientos(int totalAsientos) {
+	public void crearAsientos(int asientos) {
 		String letras = "ABCD";
 
-		for (int numero = 1; numero < totalAsientos + 1; numero++) {
+		for (int numero = 1; numero < asientos + 1; numero++) {
 			for (int letra = 0; letra < 4; letra++) {
 				String numeroAsiento = String.valueOf(numero) + 
 				letras.charAt(letra);
 				
-				asientos.add(new Asiento(numeroAsiento));
+				this.asientos.add(new Asiento(numeroAsiento));
 			}
 		}
-	}
-
-	public int getTotalAsientos() {
-		return totalAsientos;
-	}
-
-	public void setTotalAsientos(int totalAsientos) {
-		this.totalAsientos = totalAsientos;
 	}
 
 	public String getPlaca() {
@@ -66,5 +56,4 @@ public class Bus implements Serializable {
 	public ArrayList<Viaje> getViajes() {
 		return viajes;
 	}
-
 }

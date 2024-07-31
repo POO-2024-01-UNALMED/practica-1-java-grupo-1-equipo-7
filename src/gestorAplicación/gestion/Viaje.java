@@ -2,12 +2,10 @@ package gestorAplicación.gestion;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import baseDatos.Deserializador;
 import gestorAplicación.personas.Conductor;
 import gestorAplicación.personas.Pasajero;
 import gestorAplicación.transporte.Asiento;
@@ -15,8 +13,9 @@ import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-//	static final long serialVersionUID = 2L;
+	static final long serialVersionUID = 2L;
 	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
+	private ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private Empresa empresa;
@@ -75,6 +74,16 @@ public class Viaje implements Serializable {
 		for (Asiento asiento : this.getBus().getAsientos()) {
 			if (asiento.getNumeroAsiento().equals(numeroAsiento)) {
 				return asiento;
+			}
+		}
+		
+		return null;
+	}
+	
+	public Hospedaje buscarHospedaje(String nombre) {
+		for (Hospedaje hospedaje : this.getHospedajes()) {
+			if (hospedaje.getNombre().equals(nombre)) {
+				return hospedaje;
 			}
 		}
 		
@@ -157,5 +166,21 @@ public class Viaje implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public ArrayList<Hospedaje> getHospedajes() {
+		return hospedajes;
+	}
+
+	public void setHospedajes(ArrayList<Hospedaje> hospedajes) {
+		this.hospedajes = hospedajes;
+	}
+
+	public ArrayList<Pasajero> getPasajeros() {
+		return pasajeros;
+	}
+
+	public void setPasajeros(ArrayList<Pasajero> pasajeros) {
+		this.pasajeros = pasajeros;
 	}
 }

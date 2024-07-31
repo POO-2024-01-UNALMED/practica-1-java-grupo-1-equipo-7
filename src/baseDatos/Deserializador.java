@@ -22,8 +22,6 @@ public class Deserializador {
 		FileInputStream fis;
 		ObjectInputStream ois;
 		
-		System.out.println(contador);
-		
 		for (File file : docs) {
 //			if (file.getAbsolutePath().contains("viajes")) {
 //				try {

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import gestorAplicación.gestion.Tiquete;
+import gestorAplicación.gestion.Viaje;
 
 public class Pasajero extends Persona implements Serializable {
 	private static ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
@@ -24,6 +25,16 @@ public class Pasajero extends Persona implements Serializable {
 				return pasajero;
 			}
 		}
+		return null;
+	}
+	
+	public Tiquete buscarTiquete(Viaje viaje) {
+		for(Tiquete tiquete : tiquetes) {
+			if(tiquete.getViaje().equals(viaje)) {
+				return tiquete;
+			}
+		}
+		
 		return null;
 	}
 

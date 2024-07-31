@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import baseDatos.Deserializador;
 import baseDatos.Serializador;
 import gestorAplicación.gestion.Empresa;
+import gestorAplicación.gestion.Habitacion;
+import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
@@ -760,7 +762,8 @@ public class Interfaz{
 		
 		Pasajero pasajero = new Pasajero(nombre, idPasajero, correo, telefono);
 		
-		pasajero.getTiquetes().add(new Tiquete(pasajero, viaje));
+		pasajero.getTiquetes().add(new Tiquete(pasajero, viaje, 
+				viaje.buscarAsiento(asiento)));
 
 		System.out.println("Confirmación de reserva del tiquete:");
 		
@@ -996,12 +999,106 @@ public class Interfaz{
 		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
 
 		if (pasajero == null) {
-			System.out.println("No hay tiquetes asociados " 
-			+ "con el número de identificación");
+			System.out.println("El pasajero no ha reservado tiquetes para " 
+			+ "ningún viaje");
 			
 			System.out.println();
 		} else {
-			System.out.println("TIQUETES VALIDOS");
+			System.out.println("¿Para que viaje desea agregar el servicio " 
+			+ "de hospedaje?");
+			
+				for (int i = 0; i < 80; i++) {
+					System.out.print("-");
+				}
+
+				System.out.println();
+
+				System.out.print("    FECHA          ORIGEN       DESTINO    " 
+				+ "HORA DE SALIDA     ID       PLACA     ");
+
+				System.out.println();
+
+				for (int i = 0; i < 80; i++) {
+					System.out.print("-");
+				}
+
+				System.out.println();
+			
+			for (Tiquete tiquete : pasajero.getTiquetes()) {
+				System.out.println(tiquete.getViaje().toString());
+			}
+			
+			System.out.print("Ingrese el id del viaje: ");
+			
+			String id = sc.nextLine();
+			
+			System.out.println();
+			
+			Viaje viaje = Empresa.buscarViaje(id);
+			
+			for (int i = 0; i < 80; i++) {
+				System.out.print("-");
+			}
+
+			System.out.println();
+
+			System.out.print("    NOMBRE	CALIFICACION	 ");
+
+			System.out.println();
+
+			for (int i = 0; i < 80; i++) {
+				System.out.print("-");
+			}
+			
+			System.out.println();
+
+			for (Hospedaje hospedaje : viaje.getHospedajes()) {
+				System.out.println(hospedaje.toString());
+			}
+			
+			System.out.println();
+		
+			System.out.print("Ingrese el nombre del hospedaje que desea: ");
+			
+			String nombre = sc.nextLine();
+			
+			System.out.println();
+			
+			Hospedaje hospedaje = viaje.buscarHospedaje(nombre);
+			
+			System.out.println("Habitaciones disponibles:");
+			
+			for (Habitacion habitacion : hospedaje.getHabitaciones()) {
+				System.out.println(habitacion.getNumeroHabitacion());
+			}
+			
+			System.out.print("Ingrese el número de la habitación: ");
+			
+			String numeroHabitacion = sc.nextLine();
+			
+			System.out.println();
+			
+			System.out.println("¿Por cuánto tiempo desea quedarse? " 
+			+ "(horas/dias)");
+			
+			String tiempo = sc.nextLine();
+			
+			System.out.println();
+			
+			ScheduledExecutorService service = 
+					Executors.newScheduledThreadPool(1);
+			
+			Runnable task = () -> {
+				
+			};
+			
+			service.schedule(task, Integer.valueOf(tiempo), 
+							TimeUnit.MINUTES);
+			
+			Tiquete tiquete = pasajero.buscarTiquete(viaje);	
+			
+			tiquete.setHospedaje(hospedaje);
+			
 			
 		}
 	}
@@ -1029,43 +1126,43 @@ public class Interfaz{
 		Terminal pereira = new Terminal("PEREIRA");
 		Terminal santaMarta = new Terminal("SANTA MARTA");
 		
-//		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
-//		
-//		Empresa empresa1 = new Empresa("Coord");
-//		Empresa empresa2 = new Empresa("Telm");
-//		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
-//		Viaje viaje2 = new Viaje(medellin, cali, "0002");
-//		Bus bus1 = new Bus("1234", 12);
-//		Bus bus2 = new Bus("12345", 13);
-//		
-//		empresas.add(empresa1);
-//		empresas.add(empresa2);
-//		
-//		empresa1.getViajes().add(viaje1);
-//		
-//		viaje1.setEmpresa(empresa1);
-//		viaje1.setBus(bus1);
-//		
-//		viaje1.setFecha(LocalDate.parse("2024-07-30"));
-//		viaje1.setHora(LocalTime.of(15, 37));
-//		
-//		empresa2.getViajes().add(viaje2);
-//		
-//		viaje2.setEmpresa(empresa2);
-//		viaje2.setBus(bus2);
-//		
-//		viaje2.setFecha(LocalDate.parse("2024-07-30"));
-//		viaje2.setHora(LocalTime.of(15, 37));
-		
 		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 		
-		Empresa empresa1 = new Empresa();
-		Viaje viaje1 = new Viaje();
-		Bus bus1 = new Bus();
+		Empresa empresa1 = new Empresa("Coord");
+		Empresa empresa2 = new Empresa("Telm");
+		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
+		Viaje viaje2 = new Viaje(medellin, cali, "0002");
+		Bus bus1 = new Bus("1234", 12);
+		Bus bus2 = new Bus("12345", 13);
 		
-		Empresa empresa2 = new Empresa();
-		Viaje viaje2 = new Viaje();
-		Bus bus2 = new Bus();
+		empresas.add(empresa1);
+		empresas.add(empresa2);
+		
+		empresa1.getViajes().add(viaje1);
+		
+		viaje1.setEmpresa(empresa1);
+		viaje1.setBus(bus1);
+		
+		viaje1.setFecha(LocalDate.parse("2024-07-31"));
+		viaje1.setHora(LocalTime.of(15, 37));
+		
+		empresa2.getViajes().add(viaje2);
+		
+		viaje2.setEmpresa(empresa2);
+		viaje2.setBus(bus2);
+		
+		viaje2.setFecha(LocalDate.parse("2024-08-12"));
+		viaje2.setHora(LocalTime.of(15, 37));
+		
+//		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+//		
+//		Empresa empresa1 = new Empresa();
+//		Viaje viaje1 = new Viaje();
+//		Bus bus1 = new Bus();
+//		
+//		Empresa empresa2 = new Empresa();
+//		Viaje viaje2 = new Viaje();
+//		Bus bus2 = new Bus();
 		
 		empresas.add(empresa2);
 		empresas.add(empresa1);
@@ -1117,7 +1214,5 @@ public class Interfaz{
 				break;
 			}
 		} while (!opcion.equals("6"));
-
 	}
-
 }
