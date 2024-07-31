@@ -7,19 +7,23 @@ import baseDatos.Deserializador;
 import gestorAplicación.gestion.Viaje;
 
 public class Bus extends Vehiculo implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private static ArrayList<Bus> buses = new ArrayList<Bus>();
 //	static final long serialVersionUID = 4L;
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private String placa;
+
 	
 	public Bus() {
 //		Deserializador.deserializar(this);
+		this.setPeritaje(true);
 		buses.add(this);
 	}
 	
 	public Bus(String placa, int asientos) {
-		this.placa = placa;
+		this.setPlaca(placa);
+		this.setPeritaje(true);
 		this.crearAsientos(asientos);
 		buses.add(this);
 	}
@@ -37,13 +41,6 @@ public class Bus extends Vehiculo implements Serializable {
 		}
 	}
 
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
 
 	public ArrayList<Asiento> getAsientos() {
 		return asientos;
@@ -56,4 +53,6 @@ public class Bus extends Vehiculo implements Serializable {
 	public ArrayList<Viaje> getViajes() {
 		return viajes;
 	}
+
+
 }
