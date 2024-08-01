@@ -762,8 +762,10 @@ public class Interfaz{
 		
 		Pasajero pasajero = new Pasajero(nombre, idPasajero, correo, telefono);
 		
-		pasajero.getTiquetes().add(new Tiquete(pasajero, viaje, 
-				viaje.buscarAsiento(asiento)));
+		LocalDateTime fechaCompra = LocalDateTime.now();
+		
+		pasajero.agregarTiquete(new Tiquete(pasajero, viaje, 
+				viaje.buscarAsiento(asiento), fechaCompra));
 
 		System.out.println("Confirmación de reserva del tiquete:");
 		
@@ -803,8 +805,8 @@ public class Interfaz{
 
 			System.out.println();
 
-			System.out.print("    NOMBRE      ASIENTO     FECHA DE COMPRA    " 
-			+ "NUMERO DE COMPRA");
+			System.out.print("    NOMBRE     ASIENTO     FECHA DE COMPRA" 
+			+ "     NUMERO DE RESERVA");
 
 			System.out.println();
 
@@ -831,8 +833,8 @@ public class Interfaz{
 
 			System.out.println();
 
-			System.out.print("    NOMBRE          ASIENTO   FECHA DE COMPRA    " 
-			+ "NUMERO DE COMPRA");
+			System.out.print("    NOMBRE     ASIENTO     FECHA DE COMPRA" 
+			+ "     NUMERO DE RESERVA");
 
 			System.out.println();
 
@@ -852,7 +854,7 @@ public class Interfaz{
 			System.out.println();
 
 			System.out.print("Escoja el tiquete ingresando " 
-			+ "el número de reserva:");
+			+ "el número de reserva: ");
 			
 			String numeroReserva = sc.nextLine();
 			
@@ -989,7 +991,7 @@ public class Interfaz{
 	}
 	
 	public static void hospedaje() {
-		System.out.println("Ingrese el número de " 
+		System.out.print("Ingrese el número de " 
 		+ "identificación del pasajero: ");
 		
 		String idPasajero = sc.nextLine();
@@ -1007,26 +1009,28 @@ public class Interfaz{
 			System.out.println("¿Para que viaje desea agregar el servicio " 
 			+ "de hospedaje?");
 			
-				for (int i = 0; i < 80; i++) {
-					System.out.print("-");
-				}
+			for (int i = 0; i < 80; i++) {
+				System.out.print("-");
+			}
 
-				System.out.println();
+			System.out.println();
 
-				System.out.print("    FECHA          ORIGEN       DESTINO    " 
-				+ "HORA DE SALIDA     ID       PLACA     ");
+			System.out.print("    FECHA          ORIGEN       DESTINO    " 
+			+ "HORA DE SALIDA     ID       PLACA     ");
 
-				System.out.println();
+			System.out.println();
 
-				for (int i = 0; i < 80; i++) {
-					System.out.print("-");
-				}
+			for (int i = 0; i < 80; i++) {
+				System.out.print("-");
+			}
 
-				System.out.println();
+			System.out.println();
 			
 			for (Tiquete tiquete : pasajero.getTiquetes()) {
 				System.out.println(tiquete.getViaje().toString());
 			}
+			
+			System.out.println();
 			
 			System.out.print("Ingrese el id del viaje: ");
 			
@@ -1036,17 +1040,19 @@ public class Interfaz{
 			
 			Viaje viaje = Empresa.buscarViaje(id);
 			
-			for (int i = 0; i < 80; i++) {
+			System.out.println("Hospedajes disponibles:");
+			
+			for (int i = 0; i < 32; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 
-			System.out.print("    NOMBRE	CALIFICACION	 ");
+			System.out.print("    NOMBRE	CALIFICACION");
 
 			System.out.println();
 
-			for (int i = 0; i < 80; i++) {
+			for (int i = 0; i < 32; i++) {
 				System.out.print("-");
 			}
 			
@@ -1098,8 +1104,6 @@ public class Interfaz{
 			Tiquete tiquete = pasajero.buscarTiquete(viaje);	
 			
 			tiquete.setHospedaje(hospedaje);
-			
-			
 		}
 	}
 	
@@ -1132,8 +1136,11 @@ public class Interfaz{
 		Empresa empresa2 = new Empresa("Telm");
 		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
 		Viaje viaje2 = new Viaje(medellin, cali, "0002");
+		Hospedaje hospedaje1 = new Hospedaje("Hostal", 4, 5);
 		Bus bus1 = new Bus("1234", 12);
 		Bus bus2 = new Bus("12345", 13);
+		
+		viaje2.getHospedajes().add(hospedaje1);
 		
 		empresas.add(empresa1);
 		empresas.add(empresa2);
@@ -1163,9 +1170,9 @@ public class Interfaz{
 //		Empresa empresa2 = new Empresa();
 //		Viaje viaje2 = new Viaje();
 //		Bus bus2 = new Bus();
-		
-		empresas.add(empresa2);
-		empresas.add(empresa1);
+//		
+//		empresas.add(empresa2);
+//		empresas.add(empresa1);
 			
 		String opcion;
 

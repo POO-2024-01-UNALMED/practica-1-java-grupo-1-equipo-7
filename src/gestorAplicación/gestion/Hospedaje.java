@@ -35,7 +35,7 @@ public class Hospedaje {
 	
 	@Override
 	public String toString() {
-		return nombre + calificacion;
+		return "    " + nombre + "     " + calificacion;
 	}
 	
 	public String getNombre() {

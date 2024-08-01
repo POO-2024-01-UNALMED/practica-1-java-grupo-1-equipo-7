@@ -3,6 +3,7 @@ package gestorAplicación.gestion;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import gestorAplicación.personas.Pasajero;
@@ -23,10 +24,12 @@ public class Tiquete implements Serializable {
 		
 	}
 	
-	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento) {
+	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, 
+			LocalDateTime fechaCompra) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
 		this.asiento = asiento;
+		this.fechaCompra = fechaCompra;
 		this.numeroReserva = String.valueOf(referencias);
 		tiquetes.add(this);
 		referencias++;
@@ -74,8 +77,18 @@ public class Tiquete implements Serializable {
 	
 	@Override
 	public String toString() {
-		return pasajero.getNombre() + asiento.getNumeroAsiento()
-		+ fechaCompra + numeroReserva;
+		return "    " + pasajero.getNombre() + "     " 
+				+ asiento.getNumeroAsiento() + "         " + getStrFecha() 
+				+ "    " + numeroReserva;
+	}
+	
+	public String getStrFecha() {
+		DateTimeFormatter formateoFecha = 
+		DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+		
+		String strFecha = fechaCompra.format(formateoFecha);
+				
+		return strFecha;
 	}
 	
 	public Viaje getViaje() {

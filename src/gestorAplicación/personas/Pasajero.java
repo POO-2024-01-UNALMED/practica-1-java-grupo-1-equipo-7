@@ -39,6 +39,10 @@ public class Pasajero extends Persona implements Serializable {
 		
 		return null;
 	}
+	
+	public void agregarTiquete(Tiquete tiquete) {
+		tiquetes.add(tiquete);
+	}
 
 	public ArrayList<Tiquete> getTiquetes() {
 		return tiquetes;
@@ -48,9 +52,7 @@ public class Pasajero extends Persona implements Serializable {
 		this.tiquetes = tiquetes;
 	}
 	
-	public void agregarTiquete(Tiquete tiquete) {
-		tiquetes.add(tiquete);
-	}
+	
 
 	public static ArrayList<Pasajero> getPasajeros() {
 		return pasajeros;
