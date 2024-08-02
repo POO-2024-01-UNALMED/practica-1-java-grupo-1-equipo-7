@@ -1074,8 +1074,25 @@ public class Interfaz{
 			
 			System.out.println("Habitaciones disponibles:");
 			
+			for (int i = 0; i < 60; i++) {
+				System.out.print("-");
+			}
+
+			System.out.println();
+
+			System.out.print("    PISO     NUMERO DE HABITACIÓN" 
+			+ "     RESERVADA     DISPONIBLE EN     CATEGORIA");
+
+			System.out.println();
+
+			for (int i = 0; i < 60; i++) {
+				System.out.print("-");
+			}
+			
+			System.out.println();
+			
 			for (Habitacion habitacion : hospedaje.getHabitaciones()) {
-				System.out.println(habitacion.getNumeroHabitacion());
+				System.out.println(habitacion.toString());
 			}
 			
 			System.out.print("Ingrese el número de la habitación: ");

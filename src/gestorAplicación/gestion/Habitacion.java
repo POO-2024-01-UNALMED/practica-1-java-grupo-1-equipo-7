@@ -18,6 +18,17 @@ public class Habitacion {
 	public Habitacion(String numeroHabitacion) {
 		this.numeroHabitacion = numeroHabitacion;
 	}
+	
+	@Override
+	public String toString() {
+		if(reservada) {
+			
+		} else {
+			
+		}
+		return "    " + numeroHabitacion.charAt(0) + "     "
+				+ numeroHabitacion.substring(1) + reservada;
+	}
 
 	public Persona getPersona() {
 		return persona;
