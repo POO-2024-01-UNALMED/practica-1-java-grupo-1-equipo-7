@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import gestorAplicación.personas.Pasajero;
 import gestorAplicación.transporte.Asiento;
+import gestorAplicación.transporte.tipoVehiculo;
 
 public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
@@ -19,9 +20,24 @@ public class Tiquete implements Serializable {
 	private LocalDateTime fechaCompra;
 	private String numeroReserva;
 	private Hospedaje hospedaje;
+	private tipoVehiculo tipovehiculo;
 	
 	public Tiquete() {
 		
+	}
+	
+	public Tiquete(Pasajero pasajero, String costo, Viaje viaje, Asiento asiento, 
+			LocalDateTime fechaCompra, Hospedaje hospedaje, tipoVehiculo tipovehiculo) {
+		this.pasajero = pasajero;
+		this.viaje = viaje;
+		this.asiento = asiento;
+		this.costo=costo;
+		this.fechaCompra = fechaCompra;
+		this.numeroReserva = String.valueOf(referencias);
+		this.hospedaje=hospedaje;
+		this.tipovehiculo=tipovehiculo;
+		tiquetes.add(this);
+		referencias++;
 	}
 	
 	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, 
@@ -133,5 +149,21 @@ public class Tiquete implements Serializable {
 
 	public void setHospedaje(Hospedaje hospedaje) {
 		this.hospedaje = hospedaje;
+	}
+
+	public String getCosto() {
+		return costo;
+	}
+
+	public void setCosto(String costo) {
+		this.costo = costo;
+	}
+
+	public tipoVehiculo getTipovehiculo() {
+		return tipovehiculo;
+	}
+
+	public void setTipovehiculo(tipoVehiculo tipovehiculo) {
+		this.tipovehiculo = tipovehiculo;
 	}
 } 

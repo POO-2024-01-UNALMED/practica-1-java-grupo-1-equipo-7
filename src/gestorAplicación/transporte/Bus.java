@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import baseDatos.Deserializador;
 import gestorAplicación.gestion.Viaje;
 
+
 public class Bus extends Vehiculo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -52,6 +53,14 @@ public class Bus extends Vehiculo implements Serializable {
 	
 	public ArrayList<Viaje> getViajes() {
 		return viajes;
+	}
+	
+	public void añadirViaje(Viaje viaje) {
+		viajes.add(viaje);
+	}
+	
+	public void setViajes(ArrayList<Viaje> viaje) {
+		viajes=viaje;
 	}
 
 

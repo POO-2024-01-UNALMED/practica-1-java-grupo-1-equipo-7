@@ -1,9 +1,13 @@
 package gestorAplicación.transporte;
 
+import gestorAplicación.personas.Conductor;
+
 public class Vehiculo {
 	private String placa;
 	private boolean disponible;
 	private boolean peritaje;
+	private int capacidad=0;
+	private Conductor conductor;
 	
 	public Vehiculo() {
 		peritaje=true;
@@ -11,6 +15,12 @@ public class Vehiculo {
 	
 	public Vehiculo(String placa) {
 		this.placa=placa;
+		peritaje=true;
+	}
+	
+	public Vehiculo(String placa, int capacidad) {
+		this.placa=placa;
+		this.setCapacidad(capacidad);
 		peritaje=true;
 	}
 	
@@ -31,5 +41,21 @@ public class Vehiculo {
 	}
 	public void setPeritaje(boolean peritaje) {
 		this.peritaje = peritaje;
+	}
+
+	public int getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public Conductor getConductor() {
+		return conductor;
+	}
+
+	public void setConductor(Conductor conductor) {
+		this.conductor = conductor;
 	}
 }

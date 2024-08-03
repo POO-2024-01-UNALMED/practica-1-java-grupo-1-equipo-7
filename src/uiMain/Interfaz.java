@@ -1236,7 +1236,12 @@ public class Interfaz{
 			case "6":
 				salirDelSistema(empresas);
 				break;
+			default:
+				System.out.println("Opción no válida");
+				System.out.println();
+				break;
 			}
+			
 		} while (!opcion.equals("6"));
 	}
 }

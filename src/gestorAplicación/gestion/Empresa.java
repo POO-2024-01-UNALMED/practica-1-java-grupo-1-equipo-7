@@ -6,12 +6,16 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import baseDatos.Deserializador;
+import gestorAplicación.personas.Aseador;
+import gestorAplicación.personas.Conductor;
 
 public class Empresa implements Serializable {
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 //	static final long serialVersionUID = 1L;
 	public ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	public String nombre;
+	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
+	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	
 	public Empresa() {
 		Deserializador.deserializar(this);
@@ -141,6 +145,54 @@ public class Empresa implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public ArrayList<Conductor> getConductores() {
+		return conductores;
+	}
+
+	public void setConductores(ArrayList<Conductor> conductores) {
+		this.conductores = conductores;
+	}
+	
+	public void añadirConductor(Conductor conductor) {
+		Boolean conductorNuevo=true;
+		for (Conductor c: conductores) {
+			if (conductor.equals(c)) {
+				conductorNuevo=false;
+			}
+		}
+		if (conductorNuevo) {
+			conductores.add(conductor);
+		}
+		
+		else {
+			System.out.println("El conductor ya ha sido registrado");
+		}
+	}
+
+	public ArrayList<Terminal> getTerminales() {
+		return terminales;
+	}
+
+	public void setTerminales(ArrayList<Terminal> terminales) {
+		this.terminales = terminales;
+	}
+	
+	public void añadirTerminal(Terminal terminal) {
+		Boolean terminalNueva=true;
+		for (Terminal t: terminales) {
+			if (terminal.equals(t)) {
+				terminalNueva=false;
+			}
+		}
+		if (terminalNueva) {
+			terminales.add(terminal);
+		}
+		
+		else {
+			System.out.println("La terminal ya ha sido registrada");
+		}
 	}
 
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import gestorAplicación.personas.Conductor;
 import gestorAplicación.personas.Pasajero;
+import gestorAplicación.personas.Revisor;
 import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
@@ -24,6 +25,8 @@ public class Viaje implements Serializable {
 	private String id;
 	private Conductor conductor;
 	private Bus bus;
+	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
+	private ArrayList<Revisor> revisores= new ArrayList<Revisor>();
 	
 	public Viaje() {
 //		Deserializador.deserializar(this);
@@ -33,6 +36,34 @@ public class Viaje implements Serializable {
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
+		this.id = id;
+		viajes.add(this);
+	}
+	
+	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
+		this.terminalOrigen = terminalOrigen;
+		this.terminalDestino = terminalDestino;
+		this.empresa=empresa;
+		this.fecha=fecha;
+		this.hora=hora;
+		this.conductor=conductor;
+		this.bus=bus;
+		this.id = id;
+		viajes.add(this);
+	}
+	
+	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, ArrayList<Tiquete> tiquetes,ArrayList<Revisor> revisores,  Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
+		this.hospedajes=hospedajes;
+		this.pasajeros=pasajeros;
+		this.tiquetes=tiquetes;
+		this.revisores=revisores;
+		this.terminalOrigen = terminalOrigen;
+		this.terminalDestino = terminalDestino;
+		this.empresa=empresa;
+		this.fecha=fecha;
+		this.hora=hora;
+		this.conductor=conductor;
+		this.bus=bus;
 		this.id = id;
 		viajes.add(this);
 	}
@@ -182,5 +213,85 @@ public class Viaje implements Serializable {
 
 	public void setPasajeros(ArrayList<Pasajero> pasajeros) {
 		this.pasajeros = pasajeros;
+	}
+
+	public ArrayList<Tiquete> getTiquetes() {
+		return tiquetes;
+	}
+
+	public void setTiquetes(ArrayList<Tiquete> tiquetes) {
+		this.tiquetes = tiquetes;
+	}
+	
+	public void añadirTiquete(Tiquete tiquete) {
+		Boolean tiqueteNuevo=true;
+		for (Tiquete t: tiquetes) {
+			if (tiquete.equals(t)) {
+				tiqueteNuevo=false;
+			}
+		}
+		if (tiqueteNuevo) {
+			tiquetes.add(tiquete);
+		}
+		
+		else {
+			System.out.println("El tiquete ya ha sido registrado");
+		}
+	}
+
+	public ArrayList<Revisor> getRevisores() {
+		return revisores;
+	}
+
+	public void setRevisores(ArrayList<Revisor> revisores) {
+		this.revisores = revisores;
+	}
+	
+	public void añadirHospedaje(Hospedaje hospedaje) {
+		Boolean hospedajeNuevo=true;
+		for (Hospedaje h: hospedajes) {
+			if (hospedaje.equals(h)) {
+				hospedajeNuevo=false;
+			}
+		}
+		if (hospedajeNuevo) {
+			hospedajes.add(hospedaje);
+		}
+		
+		else {
+			System.out.println("El hospedaje ya ha sido registrado");
+		}
+	}
+	
+	public void añadirPasajero(Pasajero pasajero) {
+		Boolean pasajeroNuevo=true;
+		for (Pasajero p: pasajeros) {
+			if (pasajero.equals(p)) {
+				pasajeroNuevo=false;
+			}
+		}
+		if (pasajeroNuevo) {
+			pasajeros.add(pasajero);
+		}
+		
+		else {
+			System.out.println("El pasajero ya ha sido registrado");
+		}
+	}
+	
+	public void añadirRevisor(Revisor revisor) {
+		Boolean revisorNuevo=true;
+		for (Revisor r: revisores) {
+			if (revisor.equals(r)) {
+				revisorNuevo=false;
+			}
+		}
+		if (revisorNuevo) {
+			revisores.add(revisor);
+		}
+		
+		else {
+			System.out.println("El revisor ya ha sido registrado");
+		}
 	}
 }

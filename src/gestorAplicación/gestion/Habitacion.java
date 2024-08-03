@@ -1,15 +1,16 @@
 package gestorAplicación.gestion;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
 import gestorAplicación.personas.Persona;
 
 public class Habitacion {
-	private Persona persona;
+	private ArrayList<Persona> persona = new ArrayList<Persona>();
 	private Hospedaje hospedaje;
 	private String numeroHabitacion;
 	private boolean reservada;
 	private LocalDateTime tiempoReserva;
+	private String ubicacion;
 	
 	public Habitacion() {
 		
@@ -19,22 +20,29 @@ public class Habitacion {
 		this.numeroHabitacion = numeroHabitacion;
 	}
 	
+	public Habitacion(Hospedaje hospedaje,String numero,String ubicacion) {
+		this.hospedaje=hospedaje;
+		numeroHabitacion=numero;
+		this.ubicacion=ubicacion;
+	}
+	
 	@Override
 	public String toString() {
+		String strBoolean;
 		if(reservada) {
-			
+			strBoolean="si";
 		} else {
-			
+			strBoolean="no";
 		}
 		return "    " + numeroHabitacion.charAt(0) + "     "
-				+ numeroHabitacion.substring(1) + reservada;
+				+ numeroHabitacion.substring(1) + strBoolean;
 	}
 
-	public Persona getPersona() {
+	public ArrayList<Persona> getPersona() {
 		return persona;
 	}
 
-	public void setPersona(Persona persona) {
+	public void setPersona(ArrayList<Persona> persona) {
 		this.persona = persona;
 	}
 
@@ -68,5 +76,13 @@ public class Habitacion {
 
 	public void setTiempoReserva(LocalDateTime tiempoReserva) {
 		this.tiempoReserva = tiempoReserva;
+	}
+
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 }

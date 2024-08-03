@@ -9,7 +9,7 @@ public class MiniVan extends Vehiculo{
 
 		private static ArrayList<MiniVan> minivan = new ArrayList<MiniVan>();
 		private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-		private int cantidadAsientos;
+		private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	
 	
 	public MiniVan() {
@@ -17,10 +17,10 @@ public class MiniVan extends Vehiculo{
 		minivan.add(this);
 	}
 	
-	public MiniVan(String placa, int cantidadAsientos) {
+	public MiniVan(String placa, ArrayList<Asiento> asientos) {
 		this.setPlaca(placa);
 		this.setPeritaje(true);
-		this.cantidadAsientos=cantidadAsientos;
+		this.setAsientos(asientos);
 		minivan.add(this);
 	}
 
@@ -28,12 +28,21 @@ public class MiniVan extends Vehiculo{
 		return viajes;
 	}
 
-	public int getCantidadAsientos() {
-		return cantidadAsientos;
+
+	public ArrayList<Asiento> getAsientos() {
+		return asientos;
 	}
 
-	public void setCantidadAsientos(int cantidadAsientos) {
-		this.cantidadAsientos = cantidadAsientos;
+	public void setAsientos(ArrayList<Asiento> asientos) {
+		this.asientos = asientos;
+	}
+	
+	public void añadirViaje(Viaje viaje) {
+		viajes.add(viaje);
+	}
+	
+	public void setViajes(ArrayList<Viaje> viaje) {
+		viajes=viaje;
 	}
 
 }

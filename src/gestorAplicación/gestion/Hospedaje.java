@@ -6,6 +6,7 @@ public class Hospedaje {
 	private ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private int calificacion;
 	private String nombre;
+	private String ubicacion;
 	
 	public Hospedaje() {
 		
@@ -14,6 +15,13 @@ public class Hospedaje {
 	public Hospedaje(String nombre, int pisos, int habitacionesPiso) {
 		this.nombre = nombre;
 		crearHabitaciones(pisos, habitacionesPiso);
+	}
+	
+	public Hospedaje(String nombre,String ubicacion,ArrayList<Habitacion> habitacion) {
+		this.nombre = nombre;
+		this.setUbicacion(ubicacion);
+		this.habitaciones=habitacion;
+
 	}
 	
 	public void crearHabitaciones(int pisos, int habitacionesPiso) {
@@ -53,4 +61,22 @@ public class Hospedaje {
 	public void setHabitaciones(ArrayList<Habitacion> habitaciones) {
 		this.habitaciones = habitaciones;
 	}
+
+	public int getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(int calificacion) {
+		this.calificacion = calificacion;
+	}
+
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+	
+	
 }
