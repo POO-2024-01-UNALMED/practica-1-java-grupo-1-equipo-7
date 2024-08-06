@@ -56,13 +56,24 @@ public class Interfaz{
 			}
 		}
 		
+		
+		
+		
+		while (true) {
 		System.out.println("¿Desea filtrar por alguna categoría (si/no)");
+		
 
 		String respuesta1 = sc.nextLine();
 
 		System.out.println();
-
+		
+		
 		if (respuesta1.toLowerCase().equals("si")) {
+			
+		
+			boolean aux=true;
+			while (aux) {
+				
 			System.out.println("¿Por cuál categoría desea filtrar?");
 
 			String categoria = sc.nextLine();
@@ -317,8 +328,173 @@ public class Interfaz{
 				System.out.println();
 
 				break;
-			}
+			}if (categoria.toUpperCase().equals("FECHA") || categoria.toUpperCase().equals("ORIGEN") || 
+					categoria.toUpperCase().equals("DESTINO") || categoria.toUpperCase().equals("HORA DE SALIDA") || 
+					categoria.toUpperCase().equals("ID") || categoria.toUpperCase().equals("PLACA")) {
+				
+				aux=false;
+			}else {	System.out.println("Ingrese una opción válida (FECHA | ORIGEN "
+					+ "| DESTINO | HORA DE SALIDA | ID | PLACA)");}}
+			
+			
+			System.out.println("¿Desea ver más detalles sobre un viaje? " 
+			+ "(si/no)");
 
+			String respuesta2 = sc.nextLine();
+
+			System.out.println();
+
+			if (respuesta2.toLowerCase().equals("si")) {
+				System.out.print("Ingrese el id del viaje: ");
+
+				String id = sc.nextLine();
+
+				System.out.println();
+
+				System.out.println("Asientos disponibles:");
+
+				System.out.println();
+
+				Viaje viaje = Empresa.buscarViaje(id);
+
+				for (Asiento asiento : viaje.listaAsientos()) {
+					if (asiento.getNumeroAsiento().length() == 2) {
+						if (asiento.isReservado()) {
+							if (asiento.getNumeroAsiento().contains("D")) {
+								System.out.print("  ");
+								
+								System.out.println();
+							} else {
+								System.out.print("    ");
+							}
+						} else {
+							if (asiento.getNumeroAsiento().contains("D")) {
+								System.out.print(asiento.getNumeroAsiento());
+								
+								System.out.println();
+							} else {
+								System.out.print(asiento.getNumeroAsiento() 
+								+ "  ");
+							}
+						}
+
+					} else {
+						if (asiento.isReservado()) {
+							if (asiento.getNumeroAsiento().contains("D")) {
+								System.out.print("   ");
+								
+								System.out.println();
+							} else {
+								System.out.print("    ");
+							}
+						} else {
+							if (asiento.getNumeroAsiento().contains("D")) {
+								System.out.print(asiento.getNumeroAsiento());
+								
+								System.out.println();
+							} else {
+								System.out.print(asiento.getNumeroAsiento() 
+								+ " ");
+							}
+						}
+					}
+				}
+				
+			
+
+				System.out.println();
+
+				System.out.println("¿Desea reservar un asiento por un " 
+				+ "cierto período de tiempo? (si/no)");
+
+				String respuesta3 = sc.nextLine();
+
+				System.out.println();
+
+				if (respuesta3.toLowerCase().equals("si")) {
+					System.out.print("Ingrese el número del asiento: ");
+
+					String asiento = sc.nextLine();
+
+					System.out.println();
+					
+					viaje.reservarAsiento(asiento);
+
+					System.out.println("¿Por cuánto tiempo desea reservarlo?" 
+					+ " (minutos/horas/dias)");
+
+					String tiempo = sc.nextLine();
+
+					System.out.println();
+					
+					String[] arrayTiempo = tiempo.split("[\s]");
+					
+					String cantidad = arrayTiempo[0];
+					
+					LocalDateTime fechaReserva;
+
+					if (tiempo.toLowerCase().contains("minutos") 
+							|| tiempo.toLowerCase().contains("minuto")) {
+						fechaReserva = LocalDateTime.now().
+								plusMinutes(Integer.valueOf(cantidad));
+					} else if (tiempo.toLowerCase().contains("horas") 
+									|| tiempo.toLowerCase().contains("hora")) {
+						fechaReserva = LocalDateTime.now().
+								plusHours(Integer.valueOf(cantidad));
+					} else {
+						fechaReserva = LocalDateTime.now().
+								plusDays(Integer.valueOf(cantidad));
+					}
+
+					LocalDateTime fechaViaje = 
+							LocalDateTime.
+							of(viaje.getFecha(), viaje.getHora());
+
+					while (fechaViaje.isBefore(fechaReserva)) {
+						System.out.println("La reserva debe ser " 
+						+ "antes del viaje ");
+
+						System.out.println();
+						
+						System.out.println("¿Por cuánto tiempo desea " 
+						+ "reservarlo? (minutos/horas/dias)");
+
+						tiempo = sc.nextLine();
+						
+						arrayTiempo = tiempo.split("[\s]");
+						
+						cantidad = arrayTiempo[0];
+
+						System.out.println();
+
+						if (tiempo.toLowerCase().contains("minutos") 
+								|| tiempo.toLowerCase().contains("minuto")) {
+							fechaReserva = LocalDateTime.now().
+									plusMinutes(Integer.valueOf(cantidad));
+						} else if (tiempo.toLowerCase().contains("horas") 
+										|| tiempo.toLowerCase().
+												contains("hora")) {
+							fechaReserva = LocalDateTime.now().
+									plusHours(Integer.valueOf(cantidad));
+						} else {
+							fechaReserva = LocalDateTime.now().
+									plusDays(Integer.valueOf(cantidad));
+						}
+					}
+					
+					ScheduledExecutorService service = 
+							Executors.newScheduledThreadPool(1);
+					
+					Runnable task = () -> {
+						viaje.liberarAsiento(asiento);
+					};
+					
+					service.schedule(task, Integer.valueOf(cantidad), 
+									TimeUnit.MINUTES);
+				}
+			}break;
+			
+		} else if(respuesta1.toLowerCase().equals("si")) {
 			System.out.println("¿Desea ver más detalles sobre un viaje? " 
 			+ "(si/no)");
 
@@ -472,163 +648,10 @@ public class Interfaz{
 					service.schedule(task, Integer.valueOf(cantidad), 
 									TimeUnit.MINUTES);
 				}
-			}
-		} else {
-			System.out.println("¿Desea ver más detalles sobre un viaje? " 
-			+ "(si/no)");
-
-			String respuesta2 = sc.nextLine();
-
-			System.out.println();
-
-			if (respuesta2.toLowerCase().equals("si")) {
-				System.out.print("Ingrese el id del viaje: ");
-
-				String id = sc.nextLine();
-
-				System.out.println();
-
-				System.out.println("Asientos disponibles:");
-
-				System.out.println();
-
-				Viaje viaje = Empresa.buscarViaje(id);
-
-				for (Asiento asiento : viaje.listaAsientos()) {
-					if (asiento.getNumeroAsiento().length() == 2) {
-						if (asiento.isReservado()) {
-							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print("  ");
-								
-								System.out.println();
-							} else {
-								System.out.print("    ");
-							}
-						} else {
-							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print(asiento.getNumeroAsiento());
-								
-								System.out.println();
-							} else {
-								System.out.print(asiento.getNumeroAsiento() 
-								+ "  ");
-							}
-						}
-
-					} else {
-						if (asiento.isReservado()) {
-							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print("   ");
-								
-								System.out.println();
-							} else {
-								System.out.print("    ");
-							}
-						} else {
-							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print(asiento.getNumeroAsiento());
-								
-								System.out.println();
-							} else {
-								System.out.print(asiento.getNumeroAsiento() 
-								+ " ");
-							}
-						}
-					}
-				}
-
-				System.out.println();
-
-				System.out.println("¿Desea reservar un asiento por un " 
-				+ "cierto período de tiempo? (si/no)");
-
-				String respuesta3 = sc.nextLine();
-
-				System.out.println();
-
-				if (respuesta3.toLowerCase().equals("si")) {
-					System.out.print("Ingrese el número del asiento: ");
-
-					String asiento = sc.nextLine();
-
-					System.out.println();
-					
-					viaje.reservarAsiento(asiento);
-
-					System.out.println("¿Por cuánto tiempo desea reservarlo?" 
-					+ " (minutos/horas/dias)");
-
-					String tiempo = sc.nextLine();
-
-					System.out.println();
-					
-					String[] arrayTiempo = tiempo.split("[\s]");
-					
-					String cantidad = arrayTiempo[0];
-					
-					LocalDateTime fechaReserva;
-
-					if (tiempo.toLowerCase().contains("minutos") 
-							|| tiempo.toLowerCase().contains("minuto")) {
-						fechaReserva = LocalDateTime.now().
-								plusMinutes(Integer.valueOf(cantidad));
-					} else if (tiempo.toLowerCase().contains("horas") 
-									|| tiempo.toLowerCase().contains("hora")) {
-						fechaReserva = LocalDateTime.now().
-								plusHours(Integer.valueOf(cantidad));
-					} else {
-						fechaReserva = LocalDateTime.now().
-								plusDays(Integer.valueOf(cantidad));
-					}
-
-					LocalDateTime fechaViaje = 
-							LocalDateTime.
-							of(viaje.getFecha(), viaje.getHora());
-
-					while (fechaViaje.isBefore(fechaReserva)) {
-						System.out.println("La reserva debe ser " 
-						+ "antes del viaje ");
-
-						System.out.println();
-						
-						System.out.println("¿Por cuánto tiempo desea " 
-						+ "reservarlo? (minutos/horas/dias)");
-
-						tiempo = sc.nextLine();
-						
-						arrayTiempo = tiempo.split("[\s]");
-						
-						cantidad = arrayTiempo[0];
-
-						System.out.println();
-
-						if (tiempo.toLowerCase().contains("minutos") 
-								|| tiempo.toLowerCase().contains("minuto")) {
-							fechaReserva = LocalDateTime.now().
-									plusMinutes(Integer.valueOf(cantidad));
-						} else if (tiempo.toLowerCase().contains("horas") 
-										|| tiempo.toLowerCase().
-												contains("hora")) {
-							fechaReserva = LocalDateTime.now().
-									plusHours(Integer.valueOf(cantidad));
-						} else {
-							fechaReserva = LocalDateTime.now().
-									plusDays(Integer.valueOf(cantidad));
-						}
-					}
-					
-					ScheduledExecutorService service = 
-							Executors.newScheduledThreadPool(1);
-					
-					Runnable task = () -> {
-						viaje.liberarAsiento(asiento);
-					};
-					
-					service.schedule(task, Integer.valueOf(cantidad), 
-									TimeUnit.MINUTES);
-				}
-			}
+			}break;
+		}System.out.println("Ingrese una opción válida");
 		}
+	
 	}
 
 	public static void reservarTiquete() {
@@ -1125,7 +1148,460 @@ public class Interfaz{
 	}
 	
 	public static void administrador() {
+		System.out.println("Bienvenido Administrador, ¿Qué desea modificar?");
 		
+		System.out.println();
+		
+		System.out.println("1. Empresas");
+		System.out.println("2. Hospedajes");
+		System.out.println("3. Terminales");
+		System.out.println("4. Viajes");
+		System.out.println("5. Personal");
+		System.out.println("6. Vehiculos");
+		System.out.println("7. Volver");
+		
+		System.out.println();
+		
+		String respuesta1 = sc.nextLine();
+		
+		System.out.println();
+		
+		switch (respuesta1) {
+		
+		case "1":
+			System.out.println("Ingrese una opción");
+			
+			System.out.println();
+			
+			System.out.println("1. Agregar");
+			System.out.println("2. Ver");
+			System.out.println("3. Eliminar");
+			System.out.println("4. Volver");
+			
+			System.out.println();
+			
+			String empresas = sc.nextLine();
+			
+			switch (empresas) {
+			case "1":
+				System.out.println("¿Qué desea agregar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Empresa");
+				System.out.println("2. Conductores a una empresa");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String empresasAgregar = sc.nextLine();
+				break;
+			case "2":
+				System.out.println("¿Qué desea ver?");
+				
+				System.out.println();
+				
+				System.out.println("1. Empresa");
+				System.out.println("2. Volver");
+				
+				System.out.println();
+				
+				String empresasVer = sc.nextLine();
+				break;
+			case "3":
+				System.out.println("¿Qué desea eliminar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Empresa");
+				System.out.println("2. Conductores de una empresa");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String empresasEliminar = sc.nextLine();
+				break;
+			case "4":
+				administrador();
+			}
+			break;
+		case "2":
+			System.out.println("Ingrese una opción");
+			
+			System.out.println();
+			
+			System.out.println("1. Agregar");
+			System.out.println("2. Ver");
+			System.out.println("3. Eliminar");
+			System.out.println("4. Volver");
+			
+			System.out.println();
+			
+			String hospedajes = sc.nextLine();
+			
+			
+			switch (hospedajes) {
+			case "1":
+				System.out.println("¿Qué desea agregar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Hospedaje");
+				System.out.println("2. habitaciones a un hospedaje");
+				System.out.println("3. Calificación a un hospedaje");
+				System.out.println("4. Volver");
+				
+				System.out.println();
+				
+				String hospedajesAgregar = sc.nextLine();
+				break;
+			case "2":
+				System.out.println("¿Qué desea ver?");
+				
+				System.out.println();
+				
+				System.out.println("1. Hospedajes");
+				System.out.println("2. Volver");
+				
+				System.out.println();
+				
+				String hospedajesVer = sc.nextLine();
+				break;
+			case "3":
+				System.out.println("¿Qué desea eliminar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Hospedaje");
+				System.out.println("2. Habitaciones de un hospedaje");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String hospedajesEliminar = sc.nextLine();
+				break;
+			case "4":
+				administrador();
+			}
+			
+			break;
+		case "3":
+			System.out.println("Ingrese una opción");
+			
+			System.out.println();
+			
+			System.out.println("1. Agregar");
+			System.out.println("2. Anclar");
+			System.out.println("3. Ver");
+			System.out.println("4. Eliminar");
+			System.out.println("5. Volver");
+			
+			System.out.println();
+			
+			String terminales = sc.nextLine();
+			
+			
+			switch(terminales) {
+			case "1":
+				System.out.println("¿Qué desea agregar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Terminal");
+				System.out.println("2. Empresa a una terminal");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String terminalesAgregar = sc.nextLine();
+				break;
+			case "2":
+				System.out.println("¿Qué desea anclar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Revisor a una terminal");
+				System.out.println("2. Aseador a una terminal");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String terminalesAnclar = sc.nextLine();
+				break;
+			case "3":
+				System.out.println("¿Qué desea ver?");
+				
+				System.out.println();
+				
+				System.out.println("1. Terminales");
+				System.out.println("2. Volver");
+				
+				System.out.println();
+				
+				String terminalesVer = sc.nextLine();
+				break;
+			case "4":
+				System.out.println("¿Qué desea eliminar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Terminal");
+				System.out.println("2. Empresa de una terminal");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String terminalesEliminar = sc.nextLine();
+				break;
+			case "5":
+				administrador();
+			}
+			break;
+		case "4":
+			System.out.println("Ingrese una opción");
+			
+			System.out.println();
+			
+			System.out.println("1. Agregar");
+			System.out.println("2. Añadir");
+			System.out.println("3. Modificar");
+			System.out.println("4. Ver");
+			System.out.println("5. Eliminar");
+			System.out.println("6. Volver");
+			
+			System.out.println();
+			
+			String viaje = sc.nextLine();
+			
+			switch (viaje) {
+			case "1":
+				System.out.println("¿Qué desea agregar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Viaje");
+				System.out.println("2. Tiquete");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String viajesAgregar = sc.nextLine();
+				break;
+			case "2":
+				System.out.println("¿Qué desea añadir?");
+				
+				System.out.println();
+				
+				System.out.println("1. Hospedajes");
+				System.out.println("2. Pasajeros");
+				System.out.println("3. Revisores");
+				System.out.println("4. Volver");
+				
+				System.out.println();
+				
+				String viajesAñadir = sc.nextLine();
+				break;
+			case "3":
+				System.out.println("¿Qué desea modificar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Viaje");
+				System.out.println("2. Volver");
+				
+				System.out.println();
+				
+				String viajesModificar = sc.nextLine();
+				break;
+			case "4":
+				System.out.println("¿Qué desea ver?");
+				
+				System.out.println();
+				
+				System.out.println("1. Viajes");
+				System.out.println("2. Tiquetes");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String viajesVer = sc.nextLine();
+			
+				break;
+			case "5":
+				System.out.println("¿Qué desea eliminar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Viajes");
+				System.out.println("2. Revisores");
+				System.out.println("3. Hospedajes");
+				System.out.println("4. Pasajeros");
+				System.out.println("5. Volver");
+				
+				System.out.println();
+				
+				String viajesEliminar = sc.nextLine();
+				break;
+			case "6":
+				administrador();
+			}
+			break;
+	
+		case "5":
+			System.out.println("Ingrese una opción");
+			
+			System.out.println();
+			
+			System.out.println("1. Agregar");
+			System.out.println("2. Modificar");
+			System.out.println("3. Ver");
+			System.out.println("4. Eliminar");
+			System.out.println("5. Volver");
+			
+			System.out.println();
+			
+			String personal = sc.nextLine();
+			
+			switch (personal) {
+			case "1":
+				System.out.println("¿Qué desea agregar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Pasajero");
+				System.out.println("2. Conductor");
+				System.out.println("3. Revisor");
+				System.out.println("4. Aseador");
+				System.out.println("5. Volver");
+				
+				System.out.println();
+				
+				String personalAgregar = sc.nextLine();
+				break;
+			case "2":
+				System.out.println("¿Qué desea modificar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Pasajero");
+				System.out.println("2. Conductor");
+				System.out.println("3. Revisor");
+				System.out.println("4. Aseador");
+				System.out.println("5. Volver");
+				
+				System.out.println();
+				
+				String personalmodificar = sc.nextLine();
+				break;
+			case "3":
+				System.out.println("¿Qué desea ver?");
+				
+				System.out.println();
+				
+				System.out.println("1. Pasajeros");
+				System.out.println("2. Conductores");
+				System.out.println("3. Revisores");
+				System.out.println("4. Aseadores");
+				System.out.println("5. Volver");
+				
+				System.out.println();
+				
+				String personalVer = sc.nextLine();
+				break;
+			case "4":
+				System.out.println("¿Qué desea eliminar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Pasajero");
+				System.out.println("2. Conductor");
+				System.out.println("3. Revisor");
+				System.out.println("4. Aseador");
+				System.out.println("5. Volver");
+				
+				System.out.println();
+				
+				String personalEliminar = sc.nextLine();
+				break;
+			case "5":
+				administrador();
+			}
+			break;
+		case "6":
+			System.out.println("Ingrese una opción");
+			
+			System.out.println();
+			
+			System.out.println("1. Agregar");
+			System.out.println("2. Modificar");
+			System.out.println("3. Ver");
+			System.out.println("4. Eliminar");
+			System.out.println("5. Volver");
+			
+			System.out.println();
+			
+			String vehiculos = sc.nextLine();
+			
+			switch (vehiculos) {
+			case "1":
+				System.out.println("¿Qué desea agregar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Bus");
+				System.out.println("2. MiniVan");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String vehiculosAgregar = sc.nextLine();
+				break;
+			case "2":
+				System.out.println("¿Qué desea modificar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Bus");
+				System.out.println("2. MiniVan");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String vehiculosModificar = sc.nextLine();
+				break;
+			case "3":
+				System.out.println("¿Qué desea ver?");
+				
+				System.out.println();
+				
+				System.out.println("1. Bus");
+				System.out.println("2. MiniVan");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String vehiculosVer = sc.nextLine();
+				break;
+			case "4":
+				System.out.println("¿Qué desea eliminar?");
+				
+				System.out.println();
+				
+				System.out.println("1. Bus");
+				System.out.println("2. MiniVan");
+				System.out.println("3. Volver");
+				
+				System.out.println();
+				
+				String vehiculosEliminar = sc.nextLine();
+				break;
+			case "5":
+				administrador();
+			}
+			break;
+		case "7":
+			break;
+		}
 	}
 
 	public static void salirDelSistema(ArrayList<Empresa> empresas) {
