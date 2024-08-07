@@ -2,22 +2,24 @@ package gestorAplicación.transporte;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Asiento implements Serializable{
 	static final long serialVersionUID = 3L;
+	private static ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private String numeroAsiento;
 	private boolean reservado;
 	private LocalDateTime fechaReserva;
 	private TipoAsiento tipoAsiento;
 	private String color;
 
-	
 	public Asiento() {
 		this("Indefinido");
 	}
 	
 	public Asiento(String numeroAsiento) {
 		this.numeroAsiento = numeroAsiento;
+		asientos.add(this);
 	}
 	
 	public Asiento(String numeroAsiento, TipoAsiento tipo) {
@@ -88,5 +90,7 @@ public class Asiento implements Serializable{
 		return color;
 	}
 	
-	
+	public static ArrayList<Asiento> getAsientos() {
+		return asientos;
+	}
 }

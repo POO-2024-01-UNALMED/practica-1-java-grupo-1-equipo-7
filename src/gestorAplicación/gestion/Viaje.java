@@ -123,11 +123,32 @@ public class Viaje implements Serializable {
 	
 	@Override
 	public String toString() {
+		int origen = 11 - (getTerminalOrigen().getUbicacion().length());
+		String strOrigen = String.valueOf(origen);
+		
+		int destino = 11 - (getTerminalDestino().getUbicacion().length());
+		String strDestino = String.valueOf(destino);
+		
+		String spaceOrigen;
+		String spaceDestino; 
+		
+		if(origen == 0) {
+			spaceOrigen = "";
+		} else {
+			spaceOrigen = String.format("%" + strOrigen + "s", ""); 
+		}
+		
+		if(destino == 0) {
+			spaceDestino = "";
+		} else {
+			spaceDestino = String.format("%" + strDestino + "s", "");
+		}
+		
 		return "    " + getStrFecha() + 
 				"     " + getTerminalOrigen().getUbicacion() + 
-				"     " + getTerminalDestino().getUbicacion() + 
-				"     " + getHora() + "              " + getId() + 
-				"     " + getBus().getPlaca();
+				spaceOrigen + "     " + getTerminalDestino().getUbicacion() + 
+				spaceDestino + "     " + getHora() + "              " 
+				+ getId() + "     " + getBus().getPlaca();
 	}
 
 	public Bus getBus() {

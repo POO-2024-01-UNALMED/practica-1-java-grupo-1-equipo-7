@@ -12,8 +12,8 @@ import gestorAplicación.personas.Conductor;
 public class Empresa implements Serializable {
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 //	static final long serialVersionUID = 1L;
-	public ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	public String nombre;
+	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+	private String nombre;
 	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	
