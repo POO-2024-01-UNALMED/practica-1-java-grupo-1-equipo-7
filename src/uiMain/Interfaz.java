@@ -23,6 +23,7 @@ import gestorAplicación.gestion.Viaje;
 import gestorAplicación.personas.Pasajero;
 import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
+import gestorAplicación.transporte.TipoAsiento;
 
 public class Interfaz{
 	static Scanner sc = new Scanner(System.in);
@@ -368,41 +369,130 @@ public class Interfaz{
 
 				Viaje viaje = Empresa.buscarViaje(id);
 
+				int[] tiposAsientoFila = viaje.getBus().getTiposAsiento();
+				int fila = 1;
+				int indice = 0;
+				
+				System.out.println(TipoAsiento.PREFERENCIAL);
+						
+				System.out.println("	       --");
+	
 				for (Asiento asiento : viaje.listaAsientos()) {
 					if (asiento.getNumeroAsiento().length() == 2) {
 						if (asiento.isReservado()) {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print("  ");
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumeroAsiento() + "   |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.println("  " + "   |");
+								}
+								fila++;
 							} else {
 								System.out.print("    ");
 							}
 						} else {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print(asiento.getNumeroAsiento());
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumeroAsiento() + "   |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print(asiento.getNumeroAsiento() 
+									+ "   |");
+									System.out.println();
+								}
+								fila++;
 							} else {
+							
 								System.out.print(asiento.getNumeroAsiento() 
 								+ "  ");
 							}
 						}
-
+	
 					} else {
 						if (asiento.isReservado()) {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print("   ");
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println("   " + "  |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print("   " + "  |");
+									System.out.println();
+								}
+								fila++;
 							} else {
 								System.out.print("    ");
 							}
 						} else {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print(asiento.getNumeroAsiento());
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumeroAsiento() + "  |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print(asiento.getNumeroAsiento() 
+									+ "  |");
+									System.out.println();
+								}
+								fila++;
 							} else {
 								System.out.print(asiento.getNumeroAsiento() 
 								+ " ");
@@ -410,6 +500,8 @@ public class Interfaz{
 						}
 					}
 				}
+				
+				System.out.println("	       --");
 				
 				System.out.println();
 
@@ -525,23 +617,72 @@ public class Interfaz{
 				System.out.println();
 	
 				Viaje viaje = Empresa.buscarViaje(id);
+				
+				int[] tiposAsientoFila = viaje.getBus().getTiposAsiento();
+				int fila = 1;
+				int indice = 0;
+				
+				System.out.println(TipoAsiento.PREFERENCIAL);
+						
+				System.out.println("	       --");
 	
 				for (Asiento asiento : viaje.listaAsientos()) {
 					if (asiento.getNumeroAsiento().length() == 2) {
 						if (asiento.isReservado()) {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print("  ");
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumeroAsiento() + "   |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.println("  " + "   |");
+								}
+								fila++;
 							} else {
 								System.out.print("    ");
 							}
 						} else {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print(asiento.getNumeroAsiento());
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumeroAsiento() + "   |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print(asiento.getNumeroAsiento() 
+									+ "   |");
+									System.out.println();
+								}
+								fila++;
 							} else {
+							
 								System.out.print(asiento.getNumeroAsiento() 
 								+ "  ");
 							}
@@ -550,17 +691,57 @@ public class Interfaz{
 					} else {
 						if (asiento.isReservado()) {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print("   ");
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println("   " + "  |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print("   " + "  |");
+									System.out.println();
+								}
+								fila++;
 							} else {
 								System.out.print("    ");
 							}
 						} else {
 							if (asiento.getNumeroAsiento().contains("D")) {
-								System.out.print(asiento.getNumeroAsiento());
-								
-								System.out.println();
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumeroAsiento() + "  |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print(asiento.getNumeroAsiento() 
+									+ "  |");
+									System.out.println();
+								}
+								fila++;
 							} else {
 								System.out.print(asiento.getNumeroAsiento() 
 								+ " ");
@@ -568,6 +749,8 @@ public class Interfaz{
 						}
 					}
 				}
+				
+				System.out.println("	       --");
 	
 				System.out.println();
 	
@@ -1644,10 +1827,10 @@ public class Interfaz{
 		Viaje viaje3 = new Viaje(santaMarta, bucaramanga, "0003");
 		Viaje viaje4 = new Viaje(pereira, medellin, "0004");
 		Hospedaje hospedaje1 = new Hospedaje("Hostal", 4, 5);
-		Bus bus1 = new Bus("0001", 12);
-		Bus bus2 = new Bus("0002", 13);
-		Bus bus3 = new Bus("0003", 12);
-		Bus bus4 = new Bus("0004", 13);
+		Bus bus1 = new Bus("0001", 15, new int[]{3, 11});
+		Bus bus2 = new Bus("0002", 13, new int[]{3, 4});
+		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});
+		Bus bus4 = new Bus("0004", 13, new int[]{5, 11});
 		
 		viaje2.getHospedajes().add(hospedaje1);
 		

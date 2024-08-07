@@ -26,6 +26,7 @@ public class Asiento implements Serializable{
 		this.numeroAsiento=numeroAsiento;
 		this.tipoAsiento=tipo;
 		this.color=tipo.getColor();
+		asientos.add(this);
 	}
 	
 	public String getNumeroAsiento() {
@@ -54,8 +55,8 @@ public class Asiento implements Serializable{
 
 	public void setTipoPorColor(String color) {
 		if (color.toLowerCase().equals("azul")) {
-			this.tipoAsiento=TipoAsiento.STANDART;
-			this.color=TipoAsiento.STANDART.getColor();
+			this.tipoAsiento=TipoAsiento.ESTANDAR;
+			this.color=TipoAsiento.ESTANDAR.getColor();
 		}
 		if (color.toLowerCase().equals("amarillo")) {
 			this.tipoAsiento=TipoAsiento.PREMIUM;
@@ -68,9 +69,9 @@ public class Asiento implements Serializable{
 	}
 	
 	public void setTipoAsiento(String tipo) {
-		if(tipo.toUpperCase().equals(TipoAsiento.STANDART.toString())) {
-			tipoAsiento=TipoAsiento.STANDART;
-			this.color=TipoAsiento.STANDART.getColor();
+		if(tipo.toUpperCase().equals(TipoAsiento.ESTANDAR.toString())) {
+			tipoAsiento=TipoAsiento.ESTANDAR;
+			this.color=TipoAsiento.ESTANDAR.getColor();
 		}
 		if(tipo.toUpperCase().equals(TipoAsiento.PREFERENCIAL.toString())) {
 			tipoAsiento=TipoAsiento.PREFERENCIAL;

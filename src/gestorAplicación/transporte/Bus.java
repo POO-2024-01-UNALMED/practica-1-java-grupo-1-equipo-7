@@ -9,22 +9,22 @@ import gestorAplicación.gestion.Viaje;
 
 public class Bus extends Vehiculo implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2378919680109241789L;
 	private static ArrayList<Bus> buses = new ArrayList<Bus>();
-//	static final long serialVersionUID = 4L;
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+	private int[] tiposAsientoFila;
 
-	
 	public Bus() {
-//		Deserializador.deserializar(this);
 		this.setPeritaje(true);
 		buses.add(this);
 	}
 	
-	public Bus(String placa, int asientos) {
+	public Bus(String placa, int asientos, 
+			int[] tiposAsientoFila) {
 		this.setPlaca(placa);
 		this.setPeritaje(true);
+		this.tiposAsientoFila = tiposAsientoFila;
 		this.crearAsientos(asientos);
 		buses.add(this);
 	}
@@ -37,11 +37,19 @@ public class Bus extends Vehiculo implements Serializable {
 				String numeroAsiento = String.valueOf(numero) + 
 				letras.charAt(letra);
 				
-				this.asientos.add(new Asiento(numeroAsiento));
+				if (numero <= tiposAsientoFila[0]) {
+					TipoAsiento tipo = TipoAsiento.PREFERENCIAL;
+					this.asientos.add(new Asiento(numeroAsiento, tipo));
+				} else if (numero <= tiposAsientoFila[1]) {
+					TipoAsiento tipo = TipoAsiento.PREMIUM;
+					this.asientos.add(new Asiento(numeroAsiento, tipo));
+				} else {
+					TipoAsiento tipo = TipoAsiento.ESTANDAR;
+					this.asientos.add(new Asiento(numeroAsiento, tipo));
+				}
 			}
 		}
 	}
-
 
 	public ArrayList<Asiento> getAsientos() {
 		return asientos;
@@ -62,6 +70,8 @@ public class Bus extends Vehiculo implements Serializable {
 	public void setViajes(ArrayList<Viaje> viaje) {
 		viajes=viaje;
 	}
-
-
+	
+	public int[] getTiposAsiento() {
+		return tiposAsientoFila;
+	}
 }

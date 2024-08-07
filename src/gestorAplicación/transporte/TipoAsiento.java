@@ -1,7 +1,7 @@
 package gestorAplicación.transporte;
 
 public enum TipoAsiento {
-	STANDART("azul"),
+	ESTANDAR("azul"),
 	PREMIUM("amarillo"),
 	PREFERENCIAL("rojo");
 	
