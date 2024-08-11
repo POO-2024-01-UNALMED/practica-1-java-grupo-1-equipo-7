@@ -8,7 +8,7 @@ public class Aseador extends Persona implements Serializable {
 	private static int cantidadAseadores;
 	
 	public Aseador(String nombre,boolean disponibilidad) {
-		super(nombre,"","","");
+		super(nombre,"");
 		this.disponibilidad=disponibilidad;
 		cantidadAseadores++;
 	}

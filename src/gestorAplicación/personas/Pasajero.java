@@ -1,6 +1,7 @@
 package gestorAplicación.personas;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import gestorAplicación.gestion.Tiquete;
@@ -16,8 +17,8 @@ public class Pasajero extends Persona implements Serializable {
 		pasajeros.add(this);
 	}
 	
-	public Pasajero(String nombre, String id, String correo, String telefono) {
-		super(nombre, id, correo, telefono);
+	public Pasajero(String nombre, String id) {
+		super(nombre, id);
 		pasajeros.add(this);
 	}
 	
@@ -30,6 +31,33 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 	
+	public ArrayList<Tiquete> buscarTiquetes(String tipoTiquetes) {
+		
+		if (tipoTiquetes.equals("validos")) {
+			ArrayList<Tiquete> tiquetesValidos = new ArrayList<Tiquete>();
+			
+			for(Tiquete tiquete : this.getTiquetes()) {
+				if(tiquete.getViaje().getFecha().isAfter(LocalDate.now())) {
+					tiquetesValidos.add(tiquete);
+				}
+			}
+			
+			return tiquetesValidos;
+		} else if (tipoTiquetes.equals("vencidos")){
+			ArrayList<Tiquete> tiquetesVencidos = new ArrayList<Tiquete>();
+			
+			for(Tiquete tiquete : this.getTiquetes()) {
+				if(tiquete.getViaje().getFecha().isBefore(LocalDate.now())) {
+					tiquetesVencidos.add(tiquete);
+				}
+			}
+			
+			return tiquetesVencidos;
+		} else {
+			return null;
+		}
+	}
+	
 	public Tiquete buscarTiquete(Viaje viaje) {
 		for(Tiquete tiquete : tiquetes) {
 			if(tiquete.getViaje().equals(viaje)) {
@@ -38,6 +66,15 @@ public class Pasajero extends Persona implements Serializable {
 		}
 		
 		return null;
+	}
+	
+	public void eliminarTiquete(Tiquete tiquete) {
+		for(Tiquete _tiquete : this.getTiquetes()) {
+			if(_tiquete.equals(tiquete)) {
+				this.getTiquetes().remove(_tiquete);
+				break;
+			}
+		}
 	}
 	
 	public void agregarTiquete(Tiquete tiquete) {

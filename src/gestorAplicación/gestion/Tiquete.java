@@ -12,12 +12,11 @@ import gestorAplicación.transporte.tipoVehiculo;
 
 public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
-	private static int referencias = 1;
+	private static int numerosReserva = 1000000;
 	private Pasajero pasajero;
 	private String costo;
 	private Viaje viaje;
 	private Asiento asiento;
-	private LocalDateTime fechaCompra;
 	private String numeroReserva;
 	private Hospedaje hospedaje;
 	private tipoVehiculo tipovehiculo;
@@ -27,84 +26,64 @@ public class Tiquete implements Serializable {
 	}
 	
 	public Tiquete(Pasajero pasajero, String costo, Viaje viaje, Asiento asiento, 
-			LocalDateTime fechaCompra, Hospedaje hospedaje, tipoVehiculo tipovehiculo) {
+			Hospedaje hospedaje, tipoVehiculo tipovehiculo) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
 		this.asiento = asiento;
 		this.costo=costo;
-		this.fechaCompra = fechaCompra;
-		this.numeroReserva = String.valueOf(referencias);
+		this.numeroReserva = String.valueOf(numerosReserva);
 		this.hospedaje=hospedaje;
 		this.tipovehiculo=tipovehiculo;
 		tiquetes.add(this);
-		referencias++;
+		numerosReserva++;
 	}
 	
-	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, 
-			LocalDateTime fechaCompra) {
+	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
 		this.asiento = asiento;
-		this.fechaCompra = fechaCompra;
-		this.numeroReserva = String.valueOf(referencias);
+		this.numeroReserva = String.valueOf(numerosReserva);
 		tiquetes.add(this);
-		referencias++;
+		numerosReserva++;
 	}
 	
-	public static ArrayList<Tiquete> buscarTiquetes(ArrayList<Tiquete> tiquetes,
-			String tipoTiquetes) {
-		
-		if(tipoTiquetes.equals("validos")) {
-			ArrayList<Tiquete> tiquetesValidos = new ArrayList<Tiquete>();
-			
-			for(Tiquete tiquete : tiquetes) {
-				if(tiquete.getViaje().getFecha().isAfter(LocalDate.now())) {
-					tiquetesValidos.add(tiquete);
-				}
-			}
-			
-			return tiquetesValidos;
-		} else {
-			ArrayList<Tiquete> tiquetesVencidos = new ArrayList<Tiquete>();
-			
-			for(Tiquete tiquete : tiquetes) {
-				if(tiquete.getViaje().getFecha().isBefore(LocalDate.now())) {
-					tiquetesVencidos.add(tiquete);
-				}
-			}
-			
-			return tiquetesVencidos;
-		}
+	public void cambiarAsiento(Asiento nuevoAsiento) {
+		this.liberarAsiento();
+		this.getViaje().reservarAsiento(nuevoAsiento.getNumero());
+		this.setAsiento(nuevoAsiento);
 	}
 	
-	public static Tiquete buscarTiquete(String numeroReserva) {
-		for(Tiquete tiquete : tiquetes) {
-			if(tiquete.getNumeroReserva().equals(numeroReserva)) {
-				return tiquete;
-			}
-		}
-		return null;
-	}
-	
-	public void cambiarAsiento(Asiento nuevo, Asiento viejo) {
-		this.getViaje().reservarAsiento(viejo.getNumeroAsiento());
-		this.setAsiento(nuevo);
+	public void liberarAsiento() {
+		this.getViaje().liberarAsiento(this.
+				getAsiento().getNumero());
 	}
 	
 	@Override
 	public String toString() {
-		return "    " + pasajero.getNombre() + "     " 
-				+ asiento.getNumeroAsiento() + "         " + getStrFecha() 
-				+ "    " + numeroReserva;
-	}
-	
-	public String getStrFecha() {
-		DateTimeFormatter formateoFecha = 
-		DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"); 
+		int nombre = 9 - pasajero.getNombre().length();
+		String strNombre = String.valueOf(nombre);
 		
-		String strFecha = fechaCompra.format(formateoFecha);
-				
-		return strFecha;
+		int _asiento = 3 - asiento.getNumero().length();
+		String strAsiento = String.valueOf(_asiento);
+		
+		String spaceNombre;
+		String spaceAsiento; 
+		
+		if(nombre == 0) {
+			spaceNombre = "";
+		} else {
+			spaceNombre = String.format("%" + strNombre + "s", ""); 
+		}
+		
+		if(_asiento == 0) {
+			spaceAsiento = "";
+		} else {
+			spaceAsiento = String.format("%" + strAsiento + "s", "");
+		}
+		
+		return "    " + numeroReserva + "               " + pasajero.getNombre() + spaceNombre
+				+ "     " + asiento.getNumero() + spaceAsiento + "         " 
+				+ viaje.getStrFecha() + " " + viaje.getHora() + "     " + viaje.getId();
 	}
 	
 	public Viaje getViaje() {

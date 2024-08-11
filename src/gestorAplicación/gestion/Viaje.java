@@ -85,9 +85,13 @@ public class Viaje implements Serializable {
 		return this.getBus().getAsientos();
 	}
 	
+	public int[] tiposAsiento() {
+		return this.getBus().getTiposAsiento();
+	}
+	
 	public void reservarAsiento(String numeroAsiento) {
 		for(Asiento asiento : this.listaAsientos()) {
-			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
+			if(asiento.getNumero().equals(numeroAsiento)) {
 				asiento.setReservado(true);
 			}
 		}
@@ -95,7 +99,7 @@ public class Viaje implements Serializable {
 	
 	public void liberarAsiento(String numeroAsiento) {
 		for(Asiento asiento : this.listaAsientos()) {
-			if(asiento.getNumeroAsiento().equals(numeroAsiento)) {
+			if(asiento.getNumero().equals(numeroAsiento)) {
 				asiento.setReservado(false);
 			}
 		}
@@ -103,7 +107,7 @@ public class Viaje implements Serializable {
 	
 	public Asiento buscarAsiento(String numeroAsiento) {
 		for (Asiento asiento : this.getBus().getAsientos()) {
-			if (asiento.getNumeroAsiento().equals(numeroAsiento)) {
+			if (asiento.getNumero().equals(numeroAsiento)) {
 				return asiento;
 			}
 		}

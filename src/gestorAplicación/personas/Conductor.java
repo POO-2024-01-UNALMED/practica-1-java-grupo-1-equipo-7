@@ -12,7 +12,7 @@ public class Conductor extends Persona implements Serializable{
 	private tipoVehiculo tipovehiculo;
 	
 	public Conductor(String nombre) {
-		super(nombre, "", "", "");
+		super(nombre, "");
 	}
 
 	public boolean isDisponible() {

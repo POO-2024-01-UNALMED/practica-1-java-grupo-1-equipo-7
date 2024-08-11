@@ -9,7 +9,7 @@ public class Revisor extends Persona implements Serializable {
 	private static int cantidadRevisores;
 	
 	public Revisor(String nombre, boolean disponibilidad, String ubicacion) {
-		super(nombre,"","","");
+		super(nombre,"");
 		this.disponibilidad=disponibilidad;
 		this.ubicacion=ubicacion;
 		cantidadRevisores++;	

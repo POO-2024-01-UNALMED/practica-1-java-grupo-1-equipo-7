@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Asiento implements Serializable{
 	static final long serialVersionUID = 3L;
 	private static ArrayList<Asiento> asientos = new ArrayList<Asiento>();
-	private String numeroAsiento;
+	private String numero;
 	private boolean reservado;
 	private LocalDateTime fechaReserva;
 	private TipoAsiento tipoAsiento;
@@ -17,24 +17,24 @@ public class Asiento implements Serializable{
 		this("Indefinido");
 	}
 	
-	public Asiento(String numeroAsiento) {
-		this.numeroAsiento = numeroAsiento;
+	public Asiento(String numero) {
+		this.numero = numero;
 		asientos.add(this);
 	}
 	
-	public Asiento(String numeroAsiento, TipoAsiento tipo) {
-		this.numeroAsiento=numeroAsiento;
+	public Asiento(String numero, TipoAsiento tipo) {
+		this.numero = numero;
 		this.tipoAsiento=tipo;
 		this.color=tipo.getColor();
 		asientos.add(this);
 	}
 	
-	public String getNumeroAsiento() {
-		return numeroAsiento;
+	public String getNumero() {
+		return numero;
 	}
 	
-	public void setNumeroAsiento(String numeroAsiento) {
-		this.numeroAsiento = numeroAsiento;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 	
 	public boolean isReservado() {
