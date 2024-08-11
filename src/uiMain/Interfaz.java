@@ -70,7 +70,7 @@ public class Interfaz{
 			System.out.println();
 
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
-			+ "         HORA DE SALIDA     ID       PLACA     ");
+			+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 			for (int i = 0; i < 88; i++) {
 				System.out.print("-");
@@ -126,7 +126,7 @@ public class Interfaz{
 				System.out.println();
 
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA     ");
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 				for (int i = 0; i < 88; i++) {
 					System.out.print("-");
@@ -161,7 +161,7 @@ public class Interfaz{
 				System.out.println();
 
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA     ");
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 				for (int i = 0; i < 88; i++) {
 					System.out.print("-");
@@ -196,7 +196,7 @@ public class Interfaz{
 				System.out.println();
 
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA     ");
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 				for (int i = 0; i < 88; i++) {
 					System.out.print("-");
@@ -238,7 +238,7 @@ public class Interfaz{
 				System.out.println();
 
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA     ");
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 				for (int i = 0; i < 88; i++) {
 					System.out.print("-");
@@ -273,7 +273,7 @@ public class Interfaz{
 				System.out.println();
 
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA     ");
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 				for (int i = 0; i < 88; i++) {
 					System.out.print("-");
@@ -308,7 +308,7 @@ public class Interfaz{
 				System.out.println();
 
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA     ");
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 				for (int i = 0; i < 88; i++) {
 					System.out.print("-");
@@ -851,7 +851,7 @@ public class Interfaz{
 			System.out.println();
 
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
-			+ "         HORA DE SALIDA     ID       PLACA     ");
+			+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 			for (int i = 0; i < 88; i++) {
 				System.out.print("-");
@@ -1149,7 +1149,7 @@ public class Interfaz{
 						System.out.println();
 	
 						System.out.println("    FECHA          ORIGEN          DESTINO" 
-						+ "         HORA DE SALIDA     ID       PLACA     ");
+						+ "         HORA DE SALIDA     ID       PLACA BUS");
 	
 						for (int i = 0; i < 88; i++) {
 							System.out.print("-");
@@ -1409,7 +1409,7 @@ public class Interfaz{
 									System.out.println();
 
 									System.out.println("    FECHA          ORIGEN          DESTINO" 
-									+ "         HORA DE SALIDA     ID       PLACA     ");
+									+ "         HORA DE SALIDA     ID       PLACA BUS");
 
 									for (int i = 0; i < 88; i++) {
 										System.out.print("-");
@@ -1603,8 +1603,7 @@ public class Interfaz{
 	}
 	
 	public static void hospedaje() {
-		System.out.print("Ingrese el número de " 
-		+ "identificación del pasajero: ");
+		System.out.print("Ingrese el número de identificación del pasajero: ");
 		
 		String idPasajero = sc.nextLine();
 		
@@ -1612,127 +1611,130 @@ public class Interfaz{
 
 		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
 
-		if (pasajero == null) {
+		if (pasajero == null || pasajero.getTiquetes().isEmpty()) {
 			System.out.println("El pasajero no ha reservado tiquetes para " 
 			+ "ningún viaje");
 			
 			System.out.println();
 		} else {
-			System.out.println("¿Para que viaje desea agregar el servicio " 
-			+ "de hospedaje?");
-			
-			for (int i = 0; i < 80; i++) {
+			for (int i = 0; i < 88; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 
-			System.out.print("    FECHA          ORIGEN       DESTINO    " 
-			+ "HORA DE SALIDA     ID       PLACA     ");
+			System.out.println("    FECHA          ORIGEN          DESTINO" 
+			+ "         HORA DE SALIDA     ID       PLACA BUS");
 
-			System.out.println();
-
-			for (int i = 0; i < 80; i++) {
+			for (int i = 0; i < 88; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 			
 			for (Tiquete tiquete : pasajero.getTiquetes()) {
-				System.out.println(tiquete.getViaje().toString());
+				System.out.println(tiquete.getViaje());
 			}
 			
 			System.out.println();
 			
-			System.out.print("Ingrese el id del viaje: ");
-			
-			String id = sc.nextLine();
-			
-			System.out.println();
-			
-			Viaje viaje = Empresa.buscarViaje(id);
-			
-			System.out.println("Hospedajes disponibles:");
-			
-			for (int i = 0; i < 32; i++) {
-				System.out.print("-");
-			}
-
-			System.out.println();
-
-			System.out.print("    NOMBRE	CALIFICACION");
-
-			System.out.println();
-
-			for (int i = 0; i < 32; i++) {
-				System.out.print("-");
-			}
-			
-			System.out.println();
-
-			for (Hospedaje hospedaje : viaje.getHospedajes()) {
-				System.out.println(hospedaje.toString());
-			}
-			
-			System.out.println();
-		
-			System.out.print("Ingrese el nombre del hospedaje que desea: ");
-			
-			String nombre = sc.nextLine();
-			
-			System.out.println();
-			
-			Hospedaje hospedaje = viaje.buscarHospedaje(nombre);
-			
-			System.out.println("Habitaciones disponibles:");
-			
-			for (int i = 0; i < 60; i++) {
-				System.out.print("-");
-			}
-
-			System.out.println();
-
-			System.out.print("    PISO     NUMERO DE HABITACIÓN" 
-			+ "     RESERVADA     DISPONIBLE EN     CATEGORIA");
-
-			System.out.println();
-
-			for (int i = 0; i < 60; i++) {
-				System.out.print("-");
-			}
-			
-			System.out.println();
-			
-			for (Habitacion habitacion : hospedaje.getHabitaciones()) {
-				System.out.println(habitacion.toString());
-			}
-			
-			System.out.print("Ingrese el número de la habitación: ");
-			
-			String numeroHabitacion = sc.nextLine();
-			
-			System.out.println();
-			
-			System.out.println("¿Por cuánto tiempo desea quedarse? " 
-			+ "(horas/dias)");
-			
-			String tiempo = sc.nextLine();
-			
-			System.out.println();
-			
-			ScheduledExecutorService service = 
-					Executors.newScheduledThreadPool(1);
-			
-			Runnable task = () -> {
+			System.out.println("¿Desea agregar el servicio de hospedaje a algún viaje? (si/no)");
 				
-			};
+			String respuesta1 = sc.nextLine();
 			
-			service.schedule(task, Integer.valueOf(tiempo), 
-							TimeUnit.MINUTES);
+			System.out.println();
 			
-			Tiquete tiquete = pasajero.buscarTiquete(viaje);	
+			if (respuesta1.toLowerCase().equals("si")) {
+				
+				System.out.print("Ingrese el id del viaje: ");
+				
+				String id = sc.nextLine();
+				
+				System.out.println();
+				
+				Viaje viaje = Empresa.buscarViaje(id);
+				
+				System.out.println("Hospedajes disponibles en " 
+				+ viaje.getTerminalDestino().getUbicacion() + ":");
+				
+				for (int i = 0; i < 32; i++) {
+					System.out.print("-");
+				}
+	
+				System.out.println();
+	
+				System.out.println("    NOMBRE     CALIFICACION     HABITACION DISPONIBLES");
+	
+				for (int i = 0; i < 32; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+	
+				for (Hospedaje hospedaje : viaje.hospedajesDisponibles()) {
+					System.out.println(hospedaje);
+				}
+				
+				System.out.println();
 			
-			tiquete.setHospedaje(hospedaje);
+				System.out.print("Ingrese el nombre del hospedaje que desea: ");
+				
+				String nombre = sc.nextLine();
+				
+				System.out.println();
+				
+				Hospedaje hospedaje = viaje.buscarHospedaje(nombre);
+				
+				System.out.println("Habitaciones disponibles:");
+				
+				for (int i = 0; i < 60; i++) {
+					System.out.print("-");
+				}
+	
+				System.out.println();
+	
+				System.out.print("    PISO     NUMERO DE HABITACIÓN" 
+				+ "     RESERVADA     DISPONIBLE EN     CATEGORIA");
+	
+				System.out.println();
+	
+				for (int i = 0; i < 60; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				for (Habitacion habitacion : hospedaje.getHabitaciones()) {
+					System.out.println(habitacion.toString());
+				}
+				
+				System.out.print("Ingrese el número de la habitación: ");
+				
+				String numeroHabitacion = sc.nextLine();
+				
+				System.out.println();
+				
+				System.out.println("¿Por cuánto tiempo desea quedarse? " 
+				+ "(horas/dias)");
+				
+				String tiempo = sc.nextLine();
+				
+				System.out.println();
+				
+				ScheduledExecutorService service = 
+						Executors.newScheduledThreadPool(1);
+				
+				Runnable task = () -> {
+					
+				};
+				
+				service.schedule(task, Integer.valueOf(tiempo), 
+								TimeUnit.MINUTES);
+				
+				Tiquete tiquete = pasajero.buscarTiquete(viaje);	
+				
+				tiquete.setHospedaje(hospedaje);
+			}
 		}
 	}
 	
@@ -2227,7 +2229,7 @@ public class Interfaz{
 		Bus bus4 = new Bus("0004", 13, new int[]{5, 11});
 		Pasajero pasajero = new Pasajero("samuel", "123");
 		
-		viaje2.getHospedajes().add(hospedaje1);
+		cali.getHospedajes().add(hospedaje1);
 		
 		empresas.add(empresa1);
 		empresas.add(empresa2);

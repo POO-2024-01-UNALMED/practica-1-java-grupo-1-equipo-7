@@ -11,6 +11,7 @@ public class Terminal implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+	private ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private ArrayList<Aseador> aseadores= new ArrayList<Aseador>();
 	private ArrayList<Revisor> revisores= new ArrayList<Revisor>();
 	private String ubicacion;
@@ -95,6 +96,14 @@ public class Terminal implements Serializable {
 		else {
 			System.out.println("El aseador ya ha sido registrado");
 		}
+	}
+
+	public ArrayList<Hospedaje> getHospedajes() {
+		return hospedajes;
+	}
+
+	public void setHospedajes(ArrayList<Hospedaje> hospedajes) {
+		this.hospedajes = hospedajes;
 	}
 	
 }

@@ -41,9 +41,16 @@ public class Hospedaje {
 		}
 	}
 	
+	public int habitacionesDisponibles() {
+		for (Habitacion habitacion : this.getHabitaciones()) {
+			
+		}
+		return 0;
+	}
+	
 	@Override
 	public String toString() {
-		return "    " + nombre + "     " + calificacion;
+		return "    " + nombre + "     " + calificacion + "estrellas";
 	}
 	
 	public String getNombre() {

@@ -13,17 +13,15 @@ import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
-	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	static final long serialVersionUID = 2L;
+	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
-	private ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private Empresa empresa;
 	private LocalDate fecha;
 	private LocalTime hora;
 	private String id;
-	private Conductor conductor;
 	private Bus bus;
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private ArrayList<Revisor> revisores= new ArrayList<Revisor>();
@@ -40,20 +38,22 @@ public class Viaje implements Serializable {
 		viajes.add(this);
 	}
 	
-	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
+	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
+			LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
 		this.empresa=empresa;
 		this.fecha=fecha;
 		this.hora=hora;
-		this.conductor=conductor;
 		this.bus=bus;
 		this.id = id;
 		viajes.add(this);
 	}
 	
-	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, ArrayList<Tiquete> tiquetes,ArrayList<Revisor> revisores,  Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
-		this.hospedajes=hospedajes;
+	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, 
+			ArrayList<Tiquete> tiquetes,ArrayList<Revisor> revisores, 
+			Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
+			LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
 		this.pasajeros=pasajeros;
 		this.tiquetes=tiquetes;
 		this.revisores=revisores;
@@ -62,7 +62,6 @@ public class Viaje implements Serializable {
 		this.empresa=empresa;
 		this.fecha=fecha;
 		this.hora=hora;
-		this.conductor=conductor;
 		this.bus=bus;
 		this.id = id;
 		viajes.add(this);
@@ -116,7 +115,7 @@ public class Viaje implements Serializable {
 	}
 	
 	public Hospedaje buscarHospedaje(String nombre) {
-		for (Hospedaje hospedaje : this.getHospedajes()) {
+		for (Hospedaje hospedaje : this.hospedajesDisponibles()) {
 			if (hospedaje.getNombre().equals(nombre)) {
 				return hospedaje;
 			}
@@ -125,6 +124,9 @@ public class Viaje implements Serializable {
 		return null;
 	}
 	
+	public ArrayList<Hospedaje> hospedajesDisponibles() {
+		return this.getTerminalDestino().getHospedajes();
+	}
 	@Override
 	public String toString() {
 		int origen = 11 - (getTerminalOrigen().getUbicacion().length());
@@ -161,14 +163,6 @@ public class Viaje implements Serializable {
 
 	public void setBus(Bus bus) {
 		this.bus = bus;
-	}
-
-	public Conductor getConductor() {
-		return conductor;
-	}
-
-	public void setConductor(Conductor conductor) {
-		this.conductor = conductor;
 	}
 
 	public LocalDate getFecha() {		
@@ -224,14 +218,6 @@ public class Viaje implements Serializable {
 		this.empresa = empresa;
 	}
 
-	public ArrayList<Hospedaje> getHospedajes() {
-		return hospedajes;
-	}
-
-	public void setHospedajes(ArrayList<Hospedaje> hospedajes) {
-		this.hospedajes = hospedajes;
-	}
-
 	public ArrayList<Pasajero> getPasajeros() {
 		return pasajeros;
 	}
@@ -272,9 +258,9 @@ public class Viaje implements Serializable {
 		this.revisores = revisores;
 	}
 	
-	public void añadirHospedaje(Hospedaje hospedaje) {
+	/*public void añadirHospedaje(Hospedaje hospedaje) {
 		Boolean hospedajeNuevo=true;
-		for (Hospedaje h: hospedajes) {
+		for (Hospedaje h: this.hospedajesDisponibles()) {
 			if (hospedaje.equals(h)) {
 				hospedajeNuevo=false;
 			}
@@ -286,7 +272,7 @@ public class Viaje implements Serializable {
 		else {
 			System.out.println("El hospedaje ya ha sido registrado");
 		}
-	}
+	}*/
 	
 	public void añadirPasajero(Pasajero pasajero) {
 		Boolean pasajeroNuevo=true;
