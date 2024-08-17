@@ -68,9 +68,20 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 	
-	public void eliminarTiquete(Tiquete tiquete) {
+	public Tiquete buscarTiquete(String numeroReserva) {
+		for(Tiquete tiquete : tiquetes) {
+			if(tiquete.getNumeroReserva().equals(numeroReserva)) {
+				return tiquete;
+			}
+		}
+		
+		return null;
+	}
+	
+	public void cancelarTiquete(Tiquete tiquete) {
 		for(Tiquete _tiquete : this.getTiquetes()) {
 			if(_tiquete.equals(tiquete)) {
+				_tiquete.liberarAsiento();
 				this.getTiquetes().remove(_tiquete);
 				break;
 			}
@@ -89,8 +100,6 @@ public class Pasajero extends Persona implements Serializable {
 		this.tiquetes = tiquetes;
 	}
 	
-	
-
 	public static ArrayList<Pasajero> getPasajeros() {
 		return pasajeros;
 	}

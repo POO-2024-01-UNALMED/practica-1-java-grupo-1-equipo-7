@@ -14,7 +14,7 @@ import gestorAplicación.transporte.tipoVehiculo;
 public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
-	private Persona pasajero;
+	private Pasajero pasajero;
 	private Viaje viaje;
 	private Asiento asiento;
 	private String numeroReserva;
@@ -37,7 +37,7 @@ public class Tiquete implements Serializable {
 		numerosReserva++;
 	}
 	
-	public Tiquete(Persona pasajero, Viaje viaje, Asiento asiento) {
+	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
 		this.asiento = asiento;
@@ -51,6 +51,13 @@ public class Tiquete implements Serializable {
 		this.liberarAsiento();
 		this.getViaje().reservarAsiento(nuevoAsiento.getNumero());
 		this.setAsiento(nuevoAsiento);
+	}
+	
+	public void cambiarViaje(Viaje viaje, String numeroAsiento) {
+		this.liberarAsiento();
+		this.setViaje(viaje);
+		this.setAsiento(viaje.buscarAsiento(numeroAsiento));
+		viaje.reservarAsiento(numeroAsiento);
 	}
 	
 	public void liberarAsiento() {
@@ -95,7 +102,7 @@ public class Tiquete implements Serializable {
 		this.viaje = viaje;
 	}
 	
-	public Persona getPasajero() {
+	public Pasajero getPasajero() {
 		return pasajero;
 	}
 	

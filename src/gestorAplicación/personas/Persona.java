@@ -30,8 +30,4 @@ public class Persona {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public void agregarTiquete(Tiquete tiquete) {
-		
-	}
 }

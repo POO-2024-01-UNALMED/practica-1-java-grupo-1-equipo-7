@@ -563,16 +563,18 @@ public class Interfaz {
 			
 								String numeroAsiento = input();
 								
-								if (viaje.buscarAsiento(numeroAsiento).isReservado()) {
+								if (viaje.buscarAsiento(numeroAsiento).isReservado() 
+										|| viaje.buscarAsiento(numeroAsiento) == null) {
 									while (true) {
 										System.out.println();
-										System.out.println("El asiento ya está reservado");
+										System.out.println("El asiento no está disponible");
 										System.out.println();
 										System.out.print("Ingrese otro número de asiento: ");
 										
 										numeroAsiento = input();
 										
-										if (!viaje.buscarAsiento(numeroAsiento).isReservado()) {
+										if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
+												&& viaje.buscarAsiento(numeroAsiento) != null) {
 											System.out.println();
 											break;
 										}
@@ -857,16 +859,18 @@ public class Interfaz {
 			
 							System.out.println();
 							
-							if (viaje.buscarAsiento(numeroAsiento).isReservado()) {
+							if (viaje.buscarAsiento(numeroAsiento).isReservado() 
+									|| viaje.buscarAsiento(numeroAsiento) == null) {
 								while (true) {
 									System.out.println();
-									System.out.println("El asiento ya está reservado");
+									System.out.println("El asiento no está disponible");
 									System.out.println();
 									System.out.print("Ingrese otro número de asiento: ");
 									
 									numeroAsiento = input();
 									
-									if (!viaje.buscarAsiento(numeroAsiento).isReservado()) {
+									if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
+											&& viaje.buscarAsiento(numeroAsiento) != null) {
 										System.out.println();
 										break;
 									}
@@ -1165,25 +1169,25 @@ public class Interfaz {
 				
 				System.out.println();
 				
-				if (viaje.buscarAsiento(numeroAsiento).isReservado()) {
+				if (viaje.buscarAsiento(numeroAsiento).isReservado() 
+						|| viaje.buscarAsiento(numeroAsiento) == null) {
 					while (true) {
 						System.out.println();
-						System.out.println("El asiento ya está reservado");
+						System.out.println("El asiento no está disponible");
 						System.out.println();
 						System.out.print("Ingrese otro número de asiento: ");
 						
 						numeroAsiento = input();
 						
-						if (!viaje.buscarAsiento(numeroAsiento).isReservado()) {
+						if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
+								&& viaje.buscarAsiento(numeroAsiento) != null) {
 							System.out.println();
 							break;
 						}
 					}
 				}
-				
-				final String numeroAsiento2 = numeroAsiento;
-				
-				viaje.reservarAsiento(numeroAsiento2);
+
+				viaje.reservarAsiento(numeroAsiento);
 		
 				System.out.println("Ingrese sus datos:");
 				
@@ -1204,9 +1208,9 @@ public class Interfaz {
 				
 				System.out.println();
 				
-				Persona pasajero = new Pasajero(nombre, idPasajero);
+				Pasajero pasajero = new Pasajero(nombre, idPasajero);
 				
-				Asiento asiento = viaje.buscarAsiento(numeroAsiento2);
+				Asiento asiento = viaje.buscarAsiento(numeroAsiento);
 				
 				Tiquete tiquete = new Tiquete(pasajero, viaje, asiento);
 				
@@ -1334,487 +1338,543 @@ public class Interfaz {
 				
 				System.out.println();
 				
-				for (Tiquete tiquete : tiquetesVencidos) {
-					if (tiquete.getNumeroReserva().equals(numeroReserva)) {
-						System.out.println("Detalles del viaje");
-						
-						for (int i = 0; i < 92; i++) {
-							System.out.print("-");
-						}
-	
-						System.out.println();
-	
-						System.out.println("    FECHA          ORIGEN          DESTINO" 
-						+ "         HORA DE SALIDA     ID       PLACA BUS");
-	
-						for (int i = 0; i < 92; i++) {
-							System.out.print("-");
-						}
-						
-						System.out.println();
-						
-						System.out.println(tiquete.getViaje());
-						
-						System.out.println();
-						
-						System.out.println("Detalles del tiquete");
-						
-						for (int i = 0; i < 85; i++) {
-							System.out.print("-");
-						}
-	
-						System.out.println();
-	
-						System.out.println("    NUMERO DE RESERVA     NOMBRE        ASIENTO" 
-						+ "     FECHA DEL VIAJE      ID VIAJE     ");
-						
-						for (int i = 0; i < 85; i++) {
-							System.out.print("-");
-						}
-						
-						System.out.println();
-						
-						System.out.println(tiquete);
-						
-						System.out.println();
-						
-						break;
-					} 
-				}
+				if (pasajero.buscarTiquete(numeroReserva) == null)  {
+					System.out.println("No se encontró ningún tiquete con el número de reserva " 
+							+ numeroReserva);
+					System.out.println();
+				} else {
 				
-				for (Tiquete tiquete : tiquetesValidos) {
-					if (tiquete.getNumeroReserva().equals(numeroReserva)) {
-						System.out.println("¿Qué desea hacer?");
-						
-						System.out.println();
-						
-						System.out.println("1. Cancelarlo");
-						
-						System.out.println("2. Modificarlo");
-						
-						System.out.println();
-						
-						System.out.print("Ingrese el número de la operación: ");
-						
-						String respuesta2 = input();
-						
-						System.out.println();
-						
-						if (respuesta2.equals("1")) {
-							tiquete.liberarAsiento();
-							pasajero.eliminarTiquete(tiquete);
+					for (Tiquete tiquete : tiquetesVencidos) {
+						if (tiquete.getNumeroReserva().equals(numeroReserva)) {
+							System.out.println("Detalles del viaje");
 							
-							System.out.println("Tiquete cancelado " 
-							+ "exitosamente");
+							for (int i = 0; i < 92; i++) {
+								System.out.print("-");
+							}
+		
+							System.out.println();
+		
+							System.out.println("    FECHA          ORIGEN          DESTINO" 
+							+ "         HORA DE SALIDA     ID       PLACA BUS");
+		
+							for (int i = 0; i < 92; i++) {
+								System.out.print("-");
+							}
 							
 							System.out.println();
-						} else {
+							
+							System.out.println(tiquete.getViaje());
+							
+							System.out.println();
+							
+							System.out.println("Detalles del tiquete");
+							
+							for (int i = 0; i < 85; i++) {
+								System.out.print("-");
+							}
+		
+							System.out.println();
+		
+							System.out.println("    NUMERO DE RESERVA     NOMBRE        ASIENTO" 
+							+ "     FECHA DEL VIAJE      ID VIAJE     ");
+							
+							for (int i = 0; i < 85; i++) {
+								System.out.print("-");
+							}
+							
+							System.out.println();
+							
+							System.out.println(tiquete);
+							
+							System.out.println();
+							
+							break;
+						} 
+					}
+					
+					for (Tiquete tiquete : tiquetesValidos) {
+						if (tiquete.getNumeroReserva().equals(numeroReserva)) {
 							System.out.println("¿Qué desea hacer?");
 							
 							System.out.println();
 							
-							System.out.println("1. Cambiar de asiento");
+							System.out.println("1. Cancelarlo");
 							
-							System.out.println("2. Elegir otro viaje");
-							
-							System.out.println();
-							
-							System.out.print("Ingrese el número " 
-							+ "de la operación: ");
-							
-							String respuesta3 = input();
+							System.out.println("2. Modificarlo");
 							
 							System.out.println();
 							
-							if(respuesta3.equals("1")) {
-								if (!tiquete.getViaje().tieneSillas()) {
-									System.out.println("No hay sillas disponibles");
-									System.out.println();
-									System.out.println("¿Qué desea hacer?");
-									System.out.println();
-									System.out.println("1. Ver otros viajes");
-									System.out.println();
-									System.out.println("2. Ir al menú principal");
-									
-									String opcion = input();
-									
-									if (opcion.equals("1")) {
-										verViajes();
-									} else if (opcion.equals("2")) {
-										
-									}
-								}
-								
-								System.out.println("Asientos disponibles:");
-	
-								System.out.println();
-	
-								Viaje viaje = tiquete.getViaje();
-	
-								int[] tiposAsientoFila = viaje.tiposAsiento();
-								int fila = 1;
-								int indice = 0;
-								
-								System.out.println(TipoAsiento.PREFERENCIAL);
-										
-								System.out.println("	       --");
-					
-								for (Asiento asiento : viaje.listaAsientos()) {
-									if (asiento.getNumero().length() == 2) {
-										if (asiento.isReservado()) {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println(asiento.
-															getNumero() + "   |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.println("  " + "   |");
-												}
-												fila++;
-											} else {
-												System.out.print("    ");
-											}
-										} else {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println(asiento.
-															getNumero() + "   |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.print(asiento.getNumero() 
-													+ "   |");
-													System.out.println();
-												}
-												fila++;
-											} else {
-											
-												System.out.print(asiento.getNumero() 
-												+ "  ");
-											}
-										}
-					
-									} else {
-										if (asiento.isReservado()) {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println("   " + "  |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.print("   " + "  |");
-													System.out.println();
-												}
-												fila++;
-											} else {
-												System.out.print("    ");
-											}
-										} else {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println(asiento.
-															getNumero() + "  |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.print(asiento.getNumero() 
-													+ "  |");
-													System.out.println();
-												}
-												fila++;
-											} else {
-												System.out.print(asiento.getNumero() 
-												+ " ");
-											}
-										}
-									}
-								}
-								
-								System.out.println("	       --");
-	
-								System.out.println();
-								
-								System.out.print("Ingrese el número del asiento: ");
-								
-								String asiento = input();
-								
-								System.out.println();
-								
-								tiquete.cambiarAsiento(viaje.buscarAsiento(asiento));
-							} else {	
-								tiquete.liberarAsiento();
-								pasajero.eliminarTiquete(tiquete);
-								
-								System.out.print("Ingrese el origen: ");
-								
-								String origen = input();
-								
-								System.out.println();
-
-								System.out.print("Ingrese el destino: ");
-								
-								String destino = input();
-								
-								System.out.println();
-
-								System.out.println("Estos son los viajes disponibles para la ruta " 
-								+ origen.toUpperCase() + " --> " + destino.toUpperCase() + ":");
-								
-								for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
-										destino.toUpperCase())) {
-								
-									for (int i = 0; i < 92; i++) {
-										System.out.print("-");
-									}
-
-									System.out.println();
-
-									System.out.println("    FECHA          ORIGEN          DESTINO" 
-									+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-									for (int i = 0; i < 92; i++) {
-										System.out.print("-");
-									}
-
-									System.out.println();
-
-									System.out.println(viaje);
-
-									System.out.println();
-								}
-
-								System.out.print("Ingrese el id del viaje: ");
-								
-								String id = input();
-								
-								System.out.println();
-
-								Viaje viaje = Empresa.buscarViaje(id);
-
-								System.out.println("Asientos disponibles:");
-								
-								System.out.println();
-								
-								int[] tiposAsientoFila = viaje.tiposAsiento();
-								int fila = 1;
-								int indice = 0;
-								
-								System.out.println(TipoAsiento.PREFERENCIAL);
-										
-								System.out.println("	       --");
-								
-								for (Asiento asiento : viaje.listaAsientos()) {
-									if (asiento.getNumero().length() == 2) {
-										if (asiento.isReservado()) {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println(asiento.
-															getNumero() + "   |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.println("  " + "   |");
-												}
-												fila++;
-											} else {
-												System.out.print("    ");
-											}
-										} else {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println(asiento.
-															getNumero() + "   |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.print(asiento.getNumero() 
-													+ "   |");
-													System.out.println();
-												}
-												fila++;
-											} else {
-											
-												System.out.print(asiento.getNumero() 
-												+ "  ");
-											}
-										}
-
-									} else {
-										if (asiento.isReservado()) {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println("   " + "  |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.print("   " + "  |");
-													System.out.println();
-												}
-												fila++;
-											} else {
-												System.out.print("    ");
-											}
-										} else {
-											if (asiento.getNumero().contains("D")) {
-												if (fila == tiposAsientoFila[indice]) {
-													System.out.println(asiento.
-															getNumero() + "  |");
-													System.out.println("	       --");
-													
-													if (indice == 0) {
-														System.out.
-															println(TipoAsiento.PREMIUM);
-														System.out.println("	       --");
-													} else {
-														System.out.
-															println(TipoAsiento.ESTANDAR);
-														System.out.println("	       --");
-													}
-													
-													if(indice < tiposAsientoFila.length - 1) {
-														indice++;
-													}
-												} else {
-													System.out.print(asiento.getNumero() 
-													+ "  |");
-													System.out.println();
-												}
-												fila++;
-											} else {
-												System.out.print(asiento.getNumero() 
-												+ " ");
-											}
-										}
-									}
-								}
-								
-								System.out.println("	       --");
-								
-								System.out.println();
-								
-								System.out.print("Ingrese el número del asiento: ");
-								
-								String asiento = input();
-								
-								System.out.println();
-								
-								viaje.reservarAsiento(asiento);
-								
-								LocalDateTime fechaCompra = LocalDateTime.now();
-								
-								pasajero.agregarTiquete(new Tiquete(pasajero, viaje, 
-										viaje.buscarAsiento(asiento)));
-
-								System.out.println("Confirmación de reserva del tiquete:");
-								
-								System.out.println();
-								
-								System.out.println("Empresa: " + viaje.getEmpresa().getNombre());
-								System.out.println("Id del viaje: " + viaje.getId());
-								System.out.println("Asiento: " + asiento);
-								System.out.println("Nombre del pasajero: " + pasajero.getNombre());
+							System.out.print("Ingrese el número de la operación: ");
 							
+							String respuesta2 = input();
+							
+							System.out.println();
+							
+							if (respuesta2.equals("1")) {
+								pasajero.cancelarTiquete(tiquete);
+								
+								System.out.println("Tiquete cancelado " 
+								+ "exitosamente");
+								
+								System.out.println();
+							} else {
+								System.out.println("¿Qué desea hacer?");
+								
+								System.out.println();
+								
+								System.out.println("1. Cambiar de asiento");
+								
+								System.out.println("2. Elegir otro viaje");
+								
+								System.out.println();
+								
+								System.out.print("Ingrese el número " 
+								+ "de la operación: ");
+								
+								String respuesta3 = input();
+								
+								System.out.println();
+								
+								if(respuesta3.equals("1")) {
+									if (!tiquete.getViaje().tieneSillas()) {
+										System.out.println("No hay más sillas disponibles");
+										System.out.println();
+									} else {
+										System.out.println("Asientos disponibles:");
+			
+										System.out.println();
+			
+										Viaje viaje = tiquete.getViaje();
+			
+										int[] tiposAsientoFila = viaje.tiposAsiento();
+										int fila = 1;
+										int indice = 0;
+										
+										System.out.println(TipoAsiento.PREFERENCIAL);
+												
+										System.out.println("	       --");
+							
+										for (Asiento asiento : viaje.listaAsientos()) {
+											if (asiento.getNumero().length() == 2) {
+												if (asiento.isReservado()) {
+													if (asiento.getNumero().contains("D")) {
+														if (fila == tiposAsientoFila[indice]) {
+															System.out.println(asiento.
+																	getNumero() + "   |");
+															System.out.println("	       --");
+															
+															if (indice == 0) {
+																System.out.
+																	println(TipoAsiento.PREMIUM);
+																System.out.println("	       --");
+															} else {
+																System.out.
+																	println(TipoAsiento.ESTANDAR);
+																System.out.println("	       --");
+															}
+															
+															if(indice < tiposAsientoFila.
+																	length - 1) {
+																indice++;
+															}
+														} else {
+															System.out.println("  " + "   |");
+														}
+														fila++;
+													} else {
+														System.out.print("    ");
+													}
+												} else {
+													if (asiento.getNumero().contains("D")) {
+														if (fila == tiposAsientoFila[indice]) {
+															System.out.println(asiento.
+																	getNumero() + "   |");
+															System.out.println("	       --");
+															
+															if (indice == 0) {
+																System.out.
+																	println(TipoAsiento.PREMIUM);
+																System.out.println("	       --");
+															} else {
+																System.out.
+																	println(TipoAsiento.ESTANDAR);
+																System.out.println("	       --");
+															}
+															
+															if(indice < tiposAsientoFila.
+																	length - 1) {
+																indice++;
+															}
+														} else {
+															System.out.print(asiento.getNumero() 
+															+ "   |");
+															System.out.println();
+														}
+														fila++;
+													} else {
+													
+														System.out.print(asiento.getNumero() 
+														+ "  ");
+													}
+												}
+							
+											} else {
+												if (asiento.isReservado()) {
+													if (asiento.getNumero().contains("D")) {
+														if (fila == tiposAsientoFila[indice]) {
+															System.out.println("   " + "  |");
+															System.out.println("	       --");
+															
+															if (indice == 0) {
+																System.out.
+																	println(TipoAsiento.PREMIUM);
+																System.out.println("	       --");
+															} else {
+																System.out.
+																	println(TipoAsiento.ESTANDAR);
+																System.out.println("	       --");
+															}
+															
+															if(indice < tiposAsientoFila.
+																	length - 1) {
+																indice++;
+															}
+														} else {
+															System.out.print("   " + "  |");
+															System.out.println();
+														}
+														fila++;
+													} else {
+														System.out.print("    ");
+													}
+												} else {
+													if (asiento.getNumero().contains("D")) {
+														if (fila == tiposAsientoFila[indice]) {
+															System.out.println(asiento.
+																	getNumero() + "  |");
+															System.out.println("	       --");
+															
+															if (indice == 0) {
+																System.out.
+																	println(TipoAsiento.PREMIUM);
+																System.out.println("	       --");
+															} else {
+																System.out.
+																	println(TipoAsiento.ESTANDAR);
+																System.out.println("	       --");
+															}
+															
+															if(indice < tiposAsientoFila.
+																	length - 1) {
+																indice++;
+															}
+														} else {
+															System.out.print(asiento.getNumero() 
+															+ "  |");
+															System.out.println();
+														}
+														fila++;
+													} else {
+														System.out.print(asiento.getNumero() 
+														+ " ");
+													}
+												}
+											}
+										}
+										
+										System.out.println("	       --");
+			
+										System.out.println();
+										
+										System.out.print("Ingrese el número del asiento: ");
+										
+										String numeroAsiento = input();
+										
+										System.out.println();
+										
+										if (viaje.buscarAsiento(numeroAsiento).isReservado() 
+												|| viaje.buscarAsiento(numeroAsiento) == null) {
+											while (true) {
+												System.out.println();
+												System.out.println("El asiento no " 
+																	+ "está disponible");
+												System.out.println();
+												System.out.print("Ingrese otro número " 
+																	+ "de asiento: ");
+												
+												numeroAsiento = input();
+												
+												if (!viaje.buscarAsiento(numeroAsiento).
+														isReservado() 
+														&& viaje.buscarAsiento(numeroAsiento) 
+														!= null) {
+													System.out.println();
+													break;
+												}
+											}
+										}
+										
+										tiquete.cambiarAsiento(viaje.buscarAsiento(numeroAsiento));
+									}
+								} else {	
+									System.out.print("Ingrese el origen: ");
+									
+									String origen = input();
+									
+									System.out.println();
+	
+									System.out.print("Ingrese el destino: ");
+									
+									String destino = input();
+									
+									System.out.println();
+	
+									System.out.println("Estos son los viajes disponibles " + 
+														"para la ruta " + origen.toUpperCase() 
+														+ " --> " + destino.toUpperCase() + ":");
+									
+									for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
+											destino.toUpperCase())) {
+									
+										for (int i = 0; i < 92; i++) {
+											System.out.print("-");
+										}
+	
+										System.out.println();
+	
+										System.out.println("    FECHA          " 
+										+ "ORIGEN          DESTINO" 
+										+ "         HORA DE SALIDA     ID       PLACA BUS");
+	
+										for (int i = 0; i < 92; i++) {
+											System.out.print("-");
+										}
+	
+										System.out.println();
+	
+										System.out.println(viaje);
+	
+										System.out.println();
+									}
+	
+									System.out.print("Ingrese el id del viaje: ");
+									
+									String id = input();
+									
+									System.out.println();
+	
+									Viaje viaje = Empresa.buscarViaje(id);
+	
+									System.out.println("Asientos disponibles:");
+									
+									System.out.println();
+									
+									int[] tiposAsientoFila = viaje.tiposAsiento();
+									int fila = 1;
+									int indice = 0;
+									
+									System.out.println(TipoAsiento.PREFERENCIAL);
+												
+									System.out.println("	       --");
+									
+									for (Asiento asiento : viaje.listaAsientos()) {
+										if (asiento.getNumero().length() == 2) {
+											if (asiento.isReservado()) {
+												if (asiento.getNumero().contains("D")) {
+													if (fila == tiposAsientoFila[indice]) {
+														System.out.println(asiento.
+																getNumero() + "   |");
+														System.out.println("	       --");
+														
+														if (indice == 0) {
+															System.out.
+																println(TipoAsiento.PREMIUM);
+															System.out.println("	       --");
+														} else {
+															System.out.
+																println(TipoAsiento.ESTANDAR);
+															System.out.println("	       --");
+														}
+														
+														if(indice < tiposAsientoFila.length - 1) {
+															indice++;
+														}
+													} else {
+														System.out.println("  " + "   |");
+													}
+													fila++;
+												} else {
+													System.out.print("    ");
+												}
+											} else {
+												if (asiento.getNumero().contains("D")) {
+													if (fila == tiposAsientoFila[indice]) {
+														System.out.println(asiento.
+																getNumero() + "   |");
+														System.out.println("	       --");
+														
+														if (indice == 0) {
+															System.out.
+																println(TipoAsiento.PREMIUM);
+															System.out.println("	       --");
+														} else {
+															System.out.
+																println(TipoAsiento.ESTANDAR);
+															System.out.println("	       --");
+														}
+														
+														if(indice < tiposAsientoFila.length - 1) {
+															indice++;
+														}
+													} else {
+														System.out.print(asiento.getNumero() 
+														+ "   |");
+														System.out.println();
+													}
+													fila++;
+												} else {
+												
+													System.out.print(asiento.getNumero() 
+													+ "  ");
+												}
+											}
+	
+										} else {
+											if (asiento.isReservado()) {
+												if (asiento.getNumero().contains("D")) {
+													if (fila == tiposAsientoFila[indice]) {
+														System.out.println("   " + "  |");
+														System.out.println("	       --");
+														
+														if (indice == 0) {
+															System.out.
+																println(TipoAsiento.PREMIUM);
+															System.out.println("	       --");
+														} else {
+															System.out.
+																println(TipoAsiento.ESTANDAR);
+															System.out.println("	       --");
+														}
+														
+														if(indice < tiposAsientoFila.length - 1) {
+															indice++;
+														}
+													} else {
+														System.out.print("   " + "  |");
+														System.out.println();
+													}
+													fila++;
+												} else {
+													System.out.print("    ");
+												}
+											} else {
+												if (asiento.getNumero().contains("D")) {
+													if (fila == tiposAsientoFila[indice]) {
+														System.out.println(asiento.
+																getNumero() + "  |");
+														System.out.println("	       --");
+														
+														if (indice == 0) {
+															System.out.
+																println(TipoAsiento.PREMIUM);
+															System.out.println("	       --");
+														} else {
+															System.out.
+																println(TipoAsiento.ESTANDAR);
+															System.out.println("	       --");
+														}
+														
+														if(indice < tiposAsientoFila.length - 1) {
+															indice++;
+														}
+													} else {
+														System.out.print(asiento.getNumero() 
+														+ "  |");
+														System.out.println();
+													}
+													fila++;
+												} else {
+													System.out.print(asiento.getNumero() 
+													+ " ");
+												}
+											}
+										}
+									}
+									
+									System.out.println("	       --");
+									
+									System.out.println();
+									
+									System.out.print("Ingrese el número del asiento: ");
+									
+									String numeroAsiento = input();
+									
+									System.out.println();
+									
+									if (viaje.buscarAsiento(numeroAsiento).isReservado() 
+											|| viaje.buscarAsiento(numeroAsiento) == null) {
+										while (true) {
+											System.out.println();
+											System.out.println("El asiento no está disponible");
+											System.out.println();
+											System.out.print("Ingrese otro número de asiento: ");
+											
+											numeroAsiento = input();
+											
+											if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
+													&& viaje.buscarAsiento(numeroAsiento) != null) {
+												System.out.println();
+												break;
+											}
+										}
+									}
+									
+									tiquete.cambiarViaje(viaje, numeroAsiento);
+								}
+								
+								System.out.println("Tiquete modificado exitosamente");
+								
+								System.out.println();
+					
+								for (int i = 0; i < 34; i++) {
+									System.out.print("-");
+								}
+								
+								System.out.println();
+								
+								System.out.println("    Tiquete No." + tiquete.getNumeroReserva());
+								
+								for (int i = 0; i < 34; i++) {
+									System.out.print("-");
+								}
+					
+								System.out.println();
+								
+								System.out.println("Nombre del pasajero: " 
+													+ tiquete.getPasajero().getNombre());
+								System.out.println("Asiento: " + tiquete.getAsiento());
+								System.out.println("Empresa: " 
+													+ tiquete.getViaje().getEmpresa().getNombre());
+								System.out.println("Id del viaje: " + tiquete.getViaje().getId());
+								System.out.println("Fecha y hora: " + tiquete.getViaje().getFecha() 
+													+ " " + tiquete.getViaje().getHora());
+								System.out.println("Origen: " 
+													+ tiquete.getViaje().getTerminalOrigen().
+													getUbicacion());
+								System.out.println("Destino: " + tiquete.getViaje().
+													getTerminalDestino().getUbicacion());
+								
+								for (int i = 0; i < 34; i++) {
+									System.out.print("-");
+								}
+					
+								System.out.println();
 								System.out.println();
 							}
-						}
-						break;
-					} 
+							break;
+						} 
+					}
 				}
-				System.out.println("No se encontró ningún tiquete con el número de reserva " 
-						+ numeroReserva);
-				System.out.println();
 			}
 		}
 	}
