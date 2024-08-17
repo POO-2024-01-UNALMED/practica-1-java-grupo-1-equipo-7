@@ -7,14 +7,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import gestorAplicación.personas.Pasajero;
+import gestorAplicación.personas.Persona;
 import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.tipoVehiculo;
 
 public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
-	private Pasajero pasajero;
-	private String costo;
+	private Persona pasajero;
 	private Viaje viaje;
 	private Asiento asiento;
 	private String numeroReserva;
@@ -25,12 +25,11 @@ public class Tiquete implements Serializable {
 		
 	}
 	
-	public Tiquete(Pasajero pasajero, String costo, Viaje viaje, Asiento asiento, 
+	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, 
 			Hospedaje hospedaje, tipoVehiculo tipovehiculo) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
 		this.asiento = asiento;
-		this.costo=costo;
 		this.numeroReserva = String.valueOf(numerosReserva);
 		this.hospedaje=hospedaje;
 		this.tipovehiculo=tipovehiculo;
@@ -38,11 +37,12 @@ public class Tiquete implements Serializable {
 		numerosReserva++;
 	}
 	
-	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento) {
+	public Tiquete(Persona pasajero, Viaje viaje, Asiento asiento) {
 		this.pasajero = pasajero;
 		this.viaje = viaje;
 		this.asiento = asiento;
 		this.numeroReserva = String.valueOf(numerosReserva);
+		this.hospedaje = null;
 		tiquetes.add(this);
 		numerosReserva++;
 	}
@@ -63,7 +63,8 @@ public class Tiquete implements Serializable {
 		int nombre = 9 - pasajero.getNombre().length();
 		String strNombre = String.valueOf(nombre);
 		
-		int _asiento = 3 - asiento.getNumero().length();
+		int _asiento = 16 - Integer.valueOf((String.valueOf(asiento.getNumero() + " " 
+															+ asiento.getTipoAsiento())).length());
 		String strAsiento = String.valueOf(_asiento);
 		
 		String spaceNombre;
@@ -82,7 +83,7 @@ public class Tiquete implements Serializable {
 		}
 		
 		return "    " + numeroReserva + "               " + pasajero.getNombre() + spaceNombre
-				+ "     " + asiento.getNumero() + spaceAsiento + "         " 
+				+ "     " + asiento + spaceAsiento + "    " 
 				+ viaje.getStrFecha() + " " + viaje.getHora() + "     " + viaje.getId();
 	}
 	
@@ -94,7 +95,7 @@ public class Tiquete implements Serializable {
 		this.viaje = viaje;
 	}
 	
-	public Pasajero getPasajero() {
+	public Persona getPasajero() {
 		return pasajero;
 	}
 	
@@ -129,15 +130,7 @@ public class Tiquete implements Serializable {
 	public void setHospedaje(Hospedaje hospedaje) {
 		this.hospedaje = hospedaje;
 	}
-
-	public String getCosto() {
-		return costo;
-	}
-
-	public void setCosto(String costo) {
-		this.costo = costo;
-	}
-
+	
 	public tipoVehiculo getTipovehiculo() {
 		return tipovehiculo;
 	}

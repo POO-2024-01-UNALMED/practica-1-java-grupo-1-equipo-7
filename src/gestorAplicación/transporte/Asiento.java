@@ -52,6 +52,10 @@ public class Asiento implements Serializable{
 	public void setFechaReserva(LocalDateTime fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
+	
+	public String toString() {
+		return numero + " " + tipoAsiento;
+	}
 
 	public void setTipoPorColor(String color) {
 		if (color.toLowerCase().equals("azul")) {

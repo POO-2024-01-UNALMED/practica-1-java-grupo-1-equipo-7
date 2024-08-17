@@ -14,7 +14,7 @@ import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
 	static final long serialVersionUID = 2L;
-	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+	
 	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
@@ -28,14 +28,12 @@ public class Viaje implements Serializable {
 	
 	public Viaje() {
 //		Deserializador.deserializar(this);
-		viajes.add(this);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
 		this.id = id;
-		viajes.add(this);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
@@ -47,7 +45,6 @@ public class Viaje implements Serializable {
 		this.hora=hora;
 		this.bus=bus;
 		this.id = id;
-		viajes.add(this);
 	}
 	
 	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, 
@@ -64,20 +61,6 @@ public class Viaje implements Serializable {
 		this.hora=hora;
 		this.bus=bus;
 		this.id = id;
-		viajes.add(this);
-	}
-
-	public static ArrayList<Viaje> buscarViajes(String terminalOrigen, String terminalDestino) {
-		ArrayList<Viaje> listaViajes = new ArrayList<Viaje>();
-
-		for (Viaje viaje : viajes) {
-			if (viaje.getTerminalOrigen() == Terminal.buscarTerminal(terminalOrigen)
-					&& viaje.getTerminalDestino() == Terminal.buscarTerminal(terminalDestino)) {
-				listaViajes.add(viaje);
-			}
-		}
-		
-		return listaViajes;
 	}
 	
 	public ArrayList<Asiento> listaAsientos() {
@@ -88,10 +71,22 @@ public class Viaje implements Serializable {
 		return this.getBus().getTiposAsiento();
 	}
 	
+	public boolean tieneSillas() {
+		for (Asiento asiento : listaAsientos()) {
+			if (!asiento.isReservado()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public void reservarAsiento(String numeroAsiento) {
 		for(Asiento asiento : this.listaAsientos()) {
-			if(asiento.getNumero().equals(numeroAsiento)) {
-				asiento.setReservado(true);
+			if (!asiento.isReservado()) {
+				if(asiento.getNumero().equals(numeroAsiento)) {
+					asiento.setReservado(true);
+				}
 			}
 		}
 	}
@@ -118,6 +113,16 @@ public class Viaje implements Serializable {
 		for (Hospedaje hospedaje : this.hospedajesDisponibles()) {
 			if (hospedaje.getNombre().equals(nombre)) {
 				return hospedaje;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static Viaje buscarViaje(ArrayList<Viaje> viajes, String id) {
+		for (Viaje viaje : viajes) {
+			if (viaje.getId().equals(id)) {
+				return viaje;
 			}
 		}
 		
@@ -204,10 +209,6 @@ public class Viaje implements Serializable {
 
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
-	}
-	
-	public static ArrayList<Viaje> getViajes() {
-		return viajes;
 	}
 
 	public Empresa getEmpresa() {

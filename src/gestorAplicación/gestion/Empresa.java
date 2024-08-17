@@ -2,6 +2,7 @@ package gestorAplicación.gestion;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -16,17 +17,17 @@ public class Empresa implements Serializable {
 	private String nombre;
 	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
-	
+
 	public Empresa() {
 		Deserializador.deserializar(this);
 		empresas.add(this);
 	}
-	
+
 	public Empresa(String nombre) {
 		this.nombre = nombre;
 		empresas.add(this);
 	}
-	
+
 	public static ArrayList<Viaje> buscarViajes(LocalDate fecha) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
@@ -47,10 +48,7 @@ public class Empresa implements Serializable {
 		if (destino.isBlank()) {
 			for (Empresa empresa : empresas) {
 				for (Viaje viaje : empresa.getViajes()) {
-					if 
-					(
-					origen.equals(viaje.getTerminalOrigen().getUbicacion())
-					) {
+					if (origen.equals(viaje.getTerminalOrigen().getUbicacion())) {
 						viajes.add(viaje);
 					}
 				}
@@ -58,10 +56,7 @@ public class Empresa implements Serializable {
 		} else if (origen.isBlank()) {
 			for (Empresa empresa : empresas) {
 				for (Viaje viaje : empresa.getViajes()) {
-					if 
-					(
-					destino.equals(viaje.getTerminalDestino().getUbicacion())
-					) {
+					if (destino.equals(viaje.getTerminalDestino().getUbicacion())) {
 						viajes.add(viaje);
 					}
 				}
@@ -69,12 +64,13 @@ public class Empresa implements Serializable {
 		} else {
 			for (Empresa empresa : empresas) {
 				for (Viaje viaje : empresa.getViajes()) {
-					if 
-					(
-					origen.equals(viaje.getTerminalOrigen().getUbicacion()) &&
-					destino.equals(viaje.getTerminalDestino().getUbicacion())  					
-					) {
-						viajes.add(viaje);
+					if (viaje.tieneSillas()) {
+						if (origen.equals(viaje.getTerminalOrigen().getUbicacion())
+								&& destino.equals(viaje.getTerminalDestino().getUbicacion())
+								&& LocalDateTime.now().
+									isBefore(LocalDateTime.of(viaje.getFecha(), viaje.getHora()))) {
+							viajes.add(viaje);
+						}
 					}
 				}
 			}
@@ -82,10 +78,10 @@ public class Empresa implements Serializable {
 
 		return viajes;
 	}
-	
+
 	public static ArrayList<Viaje> buscarViajes(LocalTime hora) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-		
+
 		for (Empresa empresa : empresas) {
 			for (Viaje viaje : empresa.getViajes()) {
 				if (hora.equals(viaje.getHora())) {
@@ -96,10 +92,10 @@ public class Empresa implements Serializable {
 
 		return viajes;
 	}
-	
+
 	public static ArrayList<Viaje> buscarViajes(String string) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-		
+
 		for (Empresa empresa : empresas) {
 			for (Viaje viaje : empresa.getViajes()) {
 				if (string.equals(viaje.getId())) {
@@ -110,7 +106,7 @@ public class Empresa implements Serializable {
 
 		return viajes;
 	}
-	
+
 	public static Viaje buscarViaje(String id) {
 		for (Empresa empresa : empresas) {
 			for (Viaje viaje : empresa.getViajes()) {
@@ -119,7 +115,7 @@ public class Empresa implements Serializable {
 				}
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -154,18 +150,18 @@ public class Empresa implements Serializable {
 	public void setConductores(ArrayList<Conductor> conductores) {
 		this.conductores = conductores;
 	}
-	
+
 	public void añadirConductor(Conductor conductor) {
-		Boolean conductorNuevo=true;
-		for (Conductor c: conductores) {
+		Boolean conductorNuevo = true;
+		for (Conductor c : conductores) {
 			if (conductor.equals(c)) {
-				conductorNuevo=false;
+				conductorNuevo = false;
 			}
 		}
 		if (conductorNuevo) {
 			conductores.add(conductor);
 		}
-		
+
 		else {
 			System.out.println("El conductor ya ha sido registrado");
 		}
@@ -178,18 +174,18 @@ public class Empresa implements Serializable {
 	public void setTerminales(ArrayList<Terminal> terminales) {
 		this.terminales = terminales;
 	}
-	
+
 	public void añadirTerminal(Terminal terminal) {
-		Boolean terminalNueva=true;
-		for (Terminal t: terminales) {
+		Boolean terminalNueva = true;
+		for (Terminal t : terminales) {
 			if (terminal.equals(t)) {
-				terminalNueva=false;
+				terminalNueva = false;
 			}
 		}
 		if (terminalNueva) {
 			terminales.add(terminal);
 		}
-		
+
 		else {
 			System.out.println("La terminal ya ha sido registrada");
 		}

@@ -1,15 +1,17 @@
 package gestorAplicación.gestion;
 
+import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import gestorAplicación.personas.Persona;
 
-public class Habitacion {
+public class Habitacion implements Serializable {
 	private ArrayList<Persona> persona = new ArrayList<Persona>();
 	private Hospedaje hospedaje;
 	private String numeroHabitacion;
 	private boolean reservada;
-	private LocalDateTime tiempoReserva;
+	private LocalDateTime fechaReserva;
 	private String ubicacion;
 	
 	public Habitacion() {
@@ -26,16 +28,39 @@ public class Habitacion {
 		this.ubicacion=ubicacion;
 	}
 	
+	public void reservar(LocalDateTime fechaReserva) {
+		this.setReservada(true);
+		this.setFechaReserva(fechaReserva);
+	}
+	
+	public void liberar() {
+		this.setReservada(false);
+		this.setFechaReserva(null);
+	}
+	
+	public String disponibleEn() {
+		if (fechaReserva != null) {
+			Duration duration = Duration.between(LocalDateTime.now(), fechaReserva);
+			return String.valueOf(duration.toDaysPart()) + " días "
+					+ String.valueOf(duration.toHoursPart()) + " horas "
+					+ String.valueOf(duration.toMinutesPart()) + " minutos";
+		}
+		
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		String strBoolean;
+		
 		if(reservada) {
-			strBoolean="si";
+			strBoolean="Sí";
 		} else {
-			strBoolean="no";
+			strBoolean="No";
 		}
-		return "    " + numeroHabitacion.charAt(0) + "     "
-				+ numeroHabitacion.substring(1) + strBoolean;
+		
+		return "    " + numeroHabitacion + "                      " + strBoolean + "            " 
+				+ disponibleEn();
 	}
 
 	public ArrayList<Persona> getPersona() {
@@ -70,19 +95,19 @@ public class Habitacion {
 		this.reservada = reservada;
 	}
 
-	public LocalDateTime getTiempoReserva() {
-		return tiempoReserva;
-	}
-
-	public void setTiempoReserva(LocalDateTime tiempoReserva) {
-		this.tiempoReserva = tiempoReserva;
-	}
-
 	public String getUbicacion() {
 		return ubicacion;
 	}
 
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
+	}
+
+	public LocalDateTime getFechaReserva() {
+		return fechaReserva;
+	}
+
+	public void setFechaReserva(LocalDateTime fechaReserva) {
+		this.fechaReserva = fechaReserva;
 	}
 }

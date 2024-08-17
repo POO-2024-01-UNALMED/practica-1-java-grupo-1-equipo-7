@@ -1,5 +1,6 @@
 package uiMain;
 
+import java.text.Normalizer;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,12 +23,20 @@ import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
 import gestorAplicación.personas.Pasajero;
+import gestorAplicación.personas.Persona;
 import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 import gestorAplicación.transporte.TipoAsiento;
 
-public class Interfaz{
+public class Interfaz {
 	static Scanner sc = new Scanner(System.in);
+	
+	public static String input() {
+		String input = sc.nextLine();
+		
+		return Normalizer.normalize(input, Normalizer.Form.NFD)
+				.replaceAll("[^\\p{ASCII}]", "");
+	}
 	
 	public static void chequearAsientos() {
 		for(Asiento asiento : Asiento.getAsientos()) {
@@ -63,7 +72,7 @@ public class Interfaz{
 			System.out.println("Vuelos disponibles de la empresa " 
 			+ empresa.getNombre());
 			
-			for (int i = 0; i < 88; i++) {
+			for (int i = 0; i < 92; i++) {
 				System.out.print("-");
 			}
 
@@ -72,7 +81,7 @@ public class Interfaz{
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
 			+ "         HORA DE SALIDA     ID       PLACA BUS");
 
-			for (int i = 0; i < 88; i++) {
+			for (int i = 0; i < 92; i++) {
 				System.out.print("-");
 			}
 
@@ -88,14 +97,16 @@ public class Interfaz{
 		
 		System.out.println("¿Desea filtrar por alguna categoría (si/no)");
 		
-		String respuesta1 = sc.nextLine();
+		String respuesta1 = input();
 
 		System.out.println();
+		
+		boolean ok = true;
 		
 		if (respuesta1.toLowerCase().equals("si")) {
 			System.out.println("¿Por cuál categoría desea filtrar?");
 
-			String categoria = sc.nextLine();
+			String categoria = input();
 
 			System.out.println();
 
@@ -105,7 +116,7 @@ public class Interfaz{
 			case "FECHA":
 				System.out.print("Ingrese la fecha en formato dd-mm-aaaa: ");
 
-				String fecha = sc.nextLine();
+				String fecha = input();
 
 				System.out.println();
 
@@ -113,110 +124,128 @@ public class Interfaz{
 						DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 				LocalDate nuevaFecha = LocalDate.parse(fecha, formateoFecha);
-
+				
 				viajes = Empresa.buscarViajes(nuevaFecha);
+				
+				if (viajes.isEmpty()) {
+					System.out.println("No se encontraron viajes");
+					System.out.println();
+					ok = false;
+					break;
+				} else {
+					System.out.println("Vuelos filtrados por " 
+					+ categoria.toUpperCase());
 
-				System.out.println("Vuelos filtrados por " 
-				+ categoria.toUpperCase());
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
 
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
+					System.out.println();
+
+					System.out.println("    FECHA          ORIGEN          DESTINO" 
+					+ "         HORA DE SALIDA     ID       PLACA BUS");
+
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+
+					System.out.println();
+
+					for (Viaje viaje : viajes) {
+						System.out.println(viaje);
+					}
+
+					System.out.println();
+		
+					break;
 				}
-
-				System.out.println();
-
-				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				for (Viaje viaje : viajes) {
-					System.out.println(viaje);
-				}
-
-				System.out.println();
-	
-				break;
-
 			case "ORIGEN":
 				System.out.print("Ingrese el origen: ");
 
-				String origen = sc.nextLine();
+				String origen = input();
 
 				System.out.println();
 
 				viajes = Empresa.buscarViajes(origen.toUpperCase(), "");
+				
+				if (viajes.isEmpty()) {
+					System.out.println("No se encontraron viajes");
+					System.out.println();
+					ok = false;
+					break;
+				} else {
+					System.out.println("Vuelos filtrados por " 
+					+ categoria.toUpperCase());
 
-				System.out.println("Vuelos filtrados por " 
-				+ categoria.toUpperCase());
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
 
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
+					System.out.println();
+
+					System.out.println("    FECHA          ORIGEN          DESTINO" 
+					+ "         HORA DE SALIDA     ID       PLACA BUS");
+
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+
+					System.out.println();
+
+					for (Viaje viaje : viajes) {
+						System.out.println(viaje);
+					}
+		
+					System.out.println();
+
+					break;
 				}
-
-				System.out.println();
-
-				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				for (Viaje viaje : viajes) {
-					System.out.println(viaje);
-				}
-	
-				System.out.println();
-
-				break;
-
 			case "DESTINO":
 				System.out.print("Ingrese el destino: ");
 
-				String destino = sc.nextLine();
+				String destino = input();
 
 				System.out.println();
 
 				viajes = Empresa.buscarViajes("", destino.toUpperCase());
-
-				System.out.println("Vuelos filtrados por " 
-				+ categoria.toUpperCase());
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
+				
+				if (viajes.isEmpty()) {
+					System.out.println("No se encontraron viajes");
+					System.out.println();
+					ok = false;
+					break;
+				} else {
+					System.out.println("Vuelos filtrados por " 
+					+ categoria.toUpperCase());
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					System.out.println("    FECHA          ORIGEN          DESTINO" 
+					+ "         HORA DE SALIDA     ID       PLACA BUS");
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					for (Viaje viaje : viajes) {
+						System.out.println(viaje);
+					}
+	
+					System.out.println();
+	
+					break;
 				}
-
-				System.out.println();
-
-				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				for (Viaje viaje : viajes) {
-					System.out.println(viaje);
-				}
-
-				System.out.println();
-
-				break;
-
 			case "HORA DE SALIDA":
 				System.out.print("Ingrese la hora de salida " 
 				+ "en formato 24 horas: ");
 
-				String hora = sc.nextLine();
+				String hora = input();
 
 				System.out.println();
 
@@ -227,599 +256,706 @@ public class Interfaz{
 						LocalTime.parse(hora, formateoHora);
 
 				viajes = Empresa.buscarViajes(nuevaHora);
-
-				System.out.println("Vuelos filtrados por " 
-				+ categoria.toUpperCase());
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				for (Viaje viaje : viajes) {
-					System.out.println(viaje);
-				}
-
-				System.out.println();
-
-				break;
 				
+				if (viajes.isEmpty()) {
+					System.out.println("No se encontraron viajes");
+					System.out.println();
+					ok = false;
+					break;
+				} else {
+					System.out.println("Vuelos filtrados por " 
+					+ categoria.toUpperCase());
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					System.out.println("    FECHA          ORIGEN          DESTINO" 
+					+ "         HORA DE SALIDA     ID       PLACA BUS");
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					for (Viaje viaje : viajes) {
+						System.out.println(viaje);
+					}
+	
+					System.out.println();
+	
+					break;
+				}
 			case "ID":
 				System.out.print("Ingrese el id del viaje: ");
 
-				String id = sc.nextLine();
+				String id = input();
 
 				System.out.println();
 
 				viajes = Empresa.buscarViajes(id);
-
-				System.out.println("Vuelos filtrados por " 
-				+ categoria.toUpperCase());
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				for (Viaje viaje : viajes) {
-					System.out.println(viaje);
-				}
-
-				System.out.println();
-
-				break;
 				
+				if (viajes.isEmpty()) {
+					System.out.println("No se encontraron viajes");
+					System.out.println();
+					ok = false;
+					break;
+				} else {
+					System.out.println("Vuelos filtrados por " 
+					+ categoria.toUpperCase());
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					System.out.println("    FECHA          ORIGEN          DESTINO" 
+					+ "         HORA DE SALIDA     ID       PLACA BUS");
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					for (Viaje viaje : viajes) {
+						System.out.println(viaje);
+					}
+	
+					System.out.println();
+	
+					break;
+				}
 			case "PLACA":
 				System.out.print("Ingrese la placa del vehiculo: ");
 
-				String placa = sc.nextLine();
+				String placa = input();
 
 				System.out.println();
 
 				viajes = Empresa.buscarViajes(placa);
 
-				System.out.println("Vuelos filtrados por " 
-				+ categoria.toUpperCase());
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
+				if (viajes.isEmpty()) {
+					System.out.println("No se encontraron viajes");
+					System.out.println();
+					ok = false;
+					break;
+				} else {
+					System.out.println("Vuelos filtrados por " 
+					+ categoria.toUpperCase());
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					System.out.println("    FECHA          ORIGEN          DESTINO" 
+					+ "         HORA DE SALIDA     ID       PLACA BUS");
+	
+					for (int i = 0; i < 92; i++) {
+						System.out.print("-");
+					}
+	
+					System.out.println();
+	
+					for (Viaje viaje : viajes) {
+						System.out.println(viaje);
+					}
+					
+					System.out.println();
+	
+					break;
 				}
-
-				System.out.println();
-
-				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-				for (int i = 0; i < 88; i++) {
-					System.out.print("-");
-				}
-
-				System.out.println();
-
-				for (Viaje viaje : viajes) {
-					System.out.println(viaje);
-				}
-				
-				System.out.println();
-
-				break;
 			}
-						
-			System.out.println("¿Desea ver más detalles sobre un viaje? " 
-			+ "(si/no)");
-
-			String respuesta2 = sc.nextLine();
-
-			System.out.println();
-
-			if (respuesta2.toLowerCase().equals("si")) {
-				System.out.print("Ingrese el id del viaje: ");
-
-				String id = sc.nextLine();
-
-				System.out.println();
-
-				System.out.println("Asientos disponibles:");
-
-				System.out.println();
-
-				Viaje viaje = Empresa.buscarViaje(id);
-
-				int[] tiposAsientoFila = viaje.tiposAsiento();
-				int fila = 1;
-				int indice = 0;
-				
-				System.out.println(TipoAsiento.PREFERENCIAL);
-						
-				System.out.println("	       --");
+			
+			if (ok) {
+				System.out.println("¿Desea ver más detalles sobre un viaje? " 
+				+ "(si/no)");
 	
-				for (Asiento asiento : viaje.listaAsientos()) {
-					if (asiento.getNumero().length() == 2) {
-						if (asiento.isReservado()) {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println(asiento.
-											getNumero() + "   |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
-									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
-									}
-								} else {
-									System.out.println("  " + "   |");
-								}
-								fila++;
-							} else {
-								System.out.print("    ");
-							}
-						} else {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println(asiento.
-											getNumero() + "   |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
-									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
-									}
-								} else {
-									System.out.print(asiento.getNumero() 
-									+ "   |");
-									System.out.println();
-								}
-								fila++;
-							} else {
+				String respuesta2 = input();
+	
+				System.out.println();
+	
+				if (respuesta2.toLowerCase().equals("si")) {
+					System.out.print("Ingrese el id del viaje: ");
+	
+					String id = input();
+	
+					System.out.println();
+					
+					Viaje viaje = Empresa.buscarViaje(id);
+					
+					if (viaje == null) {
+						System.out.println("No se encontró ningún viaje con el número de id");
+						System.out.println();
+					} else {
+						if (!viaje.tieneSillas()) {
+							System.out.println("No hay sillas disponibles");
+							System.out.println();
+							System.out.println("¿Qué desea hacer?");
+							System.out.println();
+							System.out.println("1. Ver otros viajes");
+							System.out.println();
+							System.out.println("2. Ir al menú principal");
 							
-								System.out.print(asiento.getNumero() 
-								+ "  ");
-							}
-						}
-	
-					} else {
-						if (asiento.isReservado()) {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println("   " + "  |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
-									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
-									}
-								} else {
-									System.out.print("   " + "  |");
-									System.out.println();
-								}
-								fila++;
-							} else {
-								System.out.print("    ");
+							String opcion = input();
+							
+							if (opcion.equals("1")) {
+								verViajes();
+							} else if (opcion.equals("2")) {
+								
 							}
 						} else {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println(asiento.
-											getNumero() + "  |");
-									System.out.println("	       --");
+							System.out.println("Asientos disponibles:");
+			
+							System.out.println();
+			
+							int[] tiposAsientoFila = viaje.tiposAsiento();
+							int fila = 1;
+							int indice = 0;
+							
+							System.out.println(TipoAsiento.PREFERENCIAL);
 									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
+							System.out.println("	       --");
+				
+							for (Asiento asiento : viaje.listaAsientos()) {
+								if (asiento.getNumero().length() == 2) {
+									if (asiento.isReservado()) {
+										if (asiento.getNumero().contains("D")) {
+											if (fila == tiposAsientoFila[indice]) {
+												System.out.println(asiento.
+														getNumero() + "   |");
+												System.out.println("	       --");
+												
+												if (indice == 0) {
+													System.out.
+														println(TipoAsiento.PREMIUM);
+													System.out.println("	       --");
+												} else {
+													System.out.
+														println(TipoAsiento.ESTANDAR);
+													System.out.println("	       --");
+												}
+												
+												if(indice < tiposAsientoFila.length - 1) {
+													indice++;
+												}
+											} else {
+												System.out.println("  " + "   |");
+											}
+											fila++;
+										} else {
+											System.out.print("    ");
+										}
 									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
+										if (asiento.getNumero().contains("D")) {
+											if (fila == tiposAsientoFila[indice]) {
+												System.out.println(asiento.
+														getNumero() + "   |");
+												System.out.println("	       --");
+												
+												if (indice == 0) {
+													System.out.
+														println(TipoAsiento.PREMIUM);
+													System.out.println("	       --");
+												} else {
+													System.out.
+														println(TipoAsiento.ESTANDAR);
+													System.out.println("	       --");
+												}
+												
+												if(indice < tiposAsientoFila.length - 1) {
+													indice++;
+												}
+											} else {
+												System.out.print(asiento.getNumero() 
+												+ "   |");
+												System.out.println();
+											}
+											fila++;
+										} else {
+										
+											System.out.print(asiento.getNumero() 
+											+ "  ");
+										}
 									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
-									}
+				
 								} else {
-									System.out.print(asiento.getNumero() 
-									+ "  |");
-									System.out.println();
+									if (asiento.isReservado()) {
+										if (asiento.getNumero().contains("D")) {
+											if (fila == tiposAsientoFila[indice]) {
+												System.out.println("   " + "  |");
+												System.out.println("	       --");
+												
+												if (indice == 0) {
+													System.out.
+														println(TipoAsiento.PREMIUM);
+													System.out.println("	       --");
+												} else {
+													System.out.
+														println(TipoAsiento.ESTANDAR);
+													System.out.println("	       --");
+												}
+												
+												if(indice < tiposAsientoFila.length - 1) {
+													indice++;
+												}
+											} else {
+												System.out.print("   " + "  |");
+												System.out.println();
+											}
+											fila++;
+										} else {
+											System.out.print("    ");
+										}
+									} else {
+										if (asiento.getNumero().contains("D")) {
+											if (fila == tiposAsientoFila[indice]) {
+												System.out.println(asiento.
+														getNumero() + "  |");
+												System.out.println("	       --");
+												
+												if (indice == 0) {
+													System.out.
+														println(TipoAsiento.PREMIUM);
+													System.out.println("	       --");
+												} else {
+													System.out.
+														println(TipoAsiento.ESTANDAR);
+													System.out.println("	       --");
+												}
+												
+												if(indice < tiposAsientoFila.length - 1) {
+													indice++;
+												}
+											} else {
+												System.out.print(asiento.getNumero() 
+												+ "  |");
+												System.out.println();
+											}
+											fila++;
+										} else {
+											System.out.print(asiento.getNumero() 
+											+ " ");
+										}
+									}
 								}
-								fila++;
-							} else {
-								System.out.print(asiento.getNumero() 
-								+ " ");
+							}
+							
+							System.out.println("	       --");
+							
+							System.out.println();
+			
+							System.out.println("¿Desea reservar un asiento por un " 
+							+ "cierto período de tiempo? (si/no)");
+			
+							String respuesta3 = input();
+			
+							System.out.println();
+			
+							if (respuesta3.toLowerCase().equals("si")) {
+								System.out.print("Ingrese el número del asiento: ");
+			
+								String numeroAsiento = input();
+								
+								if (viaje.buscarAsiento(numeroAsiento).isReservado()) {
+									while (true) {
+										System.out.println();
+										System.out.println("El asiento ya está reservado");
+										System.out.println();
+										System.out.print("Ingrese otro número de asiento: ");
+										
+										numeroAsiento = input();
+										
+										if (!viaje.buscarAsiento(numeroAsiento).isReservado()) {
+											System.out.println();
+											break;
+										}
+									}
+								}
+								
+								final String numeroAsiento2 = numeroAsiento;
+								
+								viaje.reservarAsiento(numeroAsiento2);
+								
+								System.out.println("¿Por cuánto tiempo desea reservarlo?" 
+								+ " (minutos/horas/dias)");
+			
+								String tiempo = input();
+			
+								System.out.println();
+								
+								String[] arrayTiempo = tiempo.split("[\s]");
+								
+								String cantidad = arrayTiempo[0];
+								
+								LocalDateTime fechaReserva;
+			
+								if (tiempo.toLowerCase().contains("minutos") 
+										|| tiempo.toLowerCase().contains("minuto")) {
+									fechaReserva = LocalDateTime.now().
+											plusMinutes(Integer.valueOf(cantidad));
+								} else if (tiempo.toLowerCase().contains("horas") 
+												|| tiempo.toLowerCase().contains("hora")) {
+									fechaReserva = LocalDateTime.now().
+											plusHours(Integer.valueOf(cantidad));
+								} else {
+									fechaReserva = LocalDateTime.now().
+											plusDays(Integer.valueOf(cantidad));
+								}
+			
+								LocalDateTime fechaViaje = 
+										LocalDateTime.
+										of(viaje.getFecha(), viaje.getHora());
+			
+								while (fechaViaje.isBefore(fechaReserva)) {
+									System.out.println("La reserva debe ser " 
+									+ "antes del viaje ");
+			
+									System.out.println();
+									
+									System.out.println("¿Por cuánto tiempo desea " 
+									+ "reservarlo? (minutos/horas/dias)");
+			
+									tiempo = input();
+									
+									arrayTiempo = tiempo.split("[\s]");
+									
+									cantidad = arrayTiempo[0];
+			
+									System.out.println();
+			
+									if (tiempo.toLowerCase().contains("minutos") 
+											|| tiempo.toLowerCase().contains("minuto")) {
+										fechaReserva = LocalDateTime.now().
+												plusMinutes(Integer.valueOf(cantidad));
+									} else if (tiempo.toLowerCase().contains("horas") 
+													|| tiempo.toLowerCase().
+															contains("hora")) {
+										fechaReserva = LocalDateTime.now().
+												plusHours(Integer.valueOf(cantidad));
+									} else {
+										fechaReserva = LocalDateTime.now().
+												plusDays(Integer.valueOf(cantidad));
+									}
+								}
+								
+								Duration duration = 
+										Duration.between(LocalDateTime.now(), fechaReserva);
+								
+								ScheduledExecutorService service = 
+										Executors.newScheduledThreadPool(1);
+								
+								Runnable task = () -> {
+									viaje.liberarAsiento(numeroAsiento2);
+								};
+								
+								service.schedule(task, duration.toMinutes(), 
+												TimeUnit.MINUTES);
+								
+								System.out.println("Asiento reservado exitosamente");
+								System.out.println();
 							}
 						}
 					}
-				}
-				
-				System.out.println("	       --");
-				
-				System.out.println();
-
-				System.out.println("¿Desea reservar un asiento por un " 
-				+ "cierto período de tiempo? (si/no)");
-
-				String respuesta3 = sc.nextLine();
-
-				System.out.println();
-
-				if (respuesta3.toLowerCase().equals("si")) {
-					System.out.print("Ingrese el número del asiento: ");
-
-					String asiento = sc.nextLine();
-
-					System.out.println();
-					
-					viaje.reservarAsiento(asiento);
-
-					System.out.println("¿Por cuánto tiempo desea reservarlo?" 
-					+ " (minutos/horas/dias)");
-
-					String tiempo = sc.nextLine();
-
-					System.out.println();
-					
-					String[] arrayTiempo = tiempo.split("[\s]");
-					
-					String cantidad = arrayTiempo[0];
-					
-					LocalDateTime fechaReserva;
-
-					if (tiempo.toLowerCase().contains("minutos") 
-							|| tiempo.toLowerCase().contains("minuto")) {
-						fechaReserva = LocalDateTime.now().
-								plusMinutes(Integer.valueOf(cantidad));
-					} else if (tiempo.toLowerCase().contains("horas") 
-									|| tiempo.toLowerCase().contains("hora")) {
-						fechaReserva = LocalDateTime.now().
-								plusHours(Integer.valueOf(cantidad));
-					} else {
-						fechaReserva = LocalDateTime.now().
-								plusDays(Integer.valueOf(cantidad));
-					}
-
-					LocalDateTime fechaViaje = 
-							LocalDateTime.
-							of(viaje.getFecha(), viaje.getHora());
-
-					while (fechaViaje.isBefore(fechaReserva)) {
-						System.out.println("La reserva debe ser " 
-						+ "antes del viaje ");
-
-						System.out.println();
-						
-						System.out.println("¿Por cuánto tiempo desea " 
-						+ "reservarlo? (minutos/horas/dias)");
-
-						tiempo = sc.nextLine();
-						
-						arrayTiempo = tiempo.split("[\s]");
-						
-						cantidad = arrayTiempo[0];
-
-						System.out.println();
-
-						if (tiempo.toLowerCase().contains("minutos") 
-								|| tiempo.toLowerCase().contains("minuto")) {
-							fechaReserva = LocalDateTime.now().
-									plusMinutes(Integer.valueOf(cantidad));
-						} else if (tiempo.toLowerCase().contains("horas") 
-										|| tiempo.toLowerCase().
-												contains("hora")) {
-							fechaReserva = LocalDateTime.now().
-									plusHours(Integer.valueOf(cantidad));
-						} else {
-							fechaReserva = LocalDateTime.now().
-									plusDays(Integer.valueOf(cantidad));
-						}
-					}
-					
-					Duration duration = 
-							Duration.between(LocalDateTime.now(), fechaReserva);
-					
-					ScheduledExecutorService service = 
-							Executors.newScheduledThreadPool(1);
-					
-					Runnable task = () -> {
-						viaje.liberarAsiento(asiento);
-					};
-					
-					service.schedule(task, duration.toMinutes(), 
-									TimeUnit.MINUTES);
 				}
 			}
 		} else {
 			System.out.println("¿Desea ver más detalles sobre un viaje? " 
 			+ "(si/no)");
 	
-			String respuesta2 = sc.nextLine();
+			String respuesta2 = input();
 	
 			System.out.println();
 	
 			if (respuesta2.toLowerCase().equals("si")) {
 				System.out.print("Ingrese el id del viaje: ");
 	
-				String id = sc.nextLine();
+				String id = input();
 	
 				System.out.println();
-	
-				System.out.println("Asientos disponibles:");
-	
-				System.out.println();
-	
+				
 				Viaje viaje = Empresa.buscarViaje(id);
 				
-				int[] tiposAsientoFila = viaje.tiposAsiento();
-				int fila = 1;
-				int indice = 0;
-				
-				System.out.println(TipoAsiento.PREFERENCIAL);
+				if (viaje == null) {
+					System.out.println("No se encontró ningún viaje con número de id " + id);
+					System.out.println();
+				} else {
+					if (!viaje.tieneSillas()) {
+						System.out.println("No hay sillas disponibles");
+						System.out.println();
+						System.out.println("¿Qué desea hacer?");
+						System.out.println();
+						System.out.println("1. Ver otros viajes");
+						System.out.println();
+						System.out.println("2. Ir al menú principal");
 						
-				System.out.println("	       --");
-	
-				for (Asiento asiento : viaje.listaAsientos()) {
-					if (asiento.getNumero().length() == 2) {
-						if (asiento.isReservado()) {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println(asiento.
-											getNumero() + "   |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
-									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
-									}
-								} else {
-									System.out.println("  " + "   |");
-								}
-								fila++;
-							} else {
-								System.out.print("    ");
-							}
-						} else {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println(asiento.
-											getNumero() + "   |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
-									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
-									}
-								} else {
-									System.out.print(asiento.getNumero() 
-									+ "   |");
-									System.out.println();
-								}
-								fila++;
-							} else {
+						String opcion = input();
+						
+						if (opcion.equals("1")) {
+							verViajes();
+						} else if (opcion.equals("2")) {
 							
-								System.out.print(asiento.getNumero() 
-								+ "  ");
-							}
 						}
-	
 					} else {
-						if (asiento.isReservado()) {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println("   " + "  |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
+						System.out.println("Asientos disponibles:");
+			
+						System.out.println();
+			
+						int[] tiposAsientoFila = viaje.tiposAsiento();
+						int fila = 1;
+						int indice = 0;
+						
+						System.out.println(TipoAsiento.PREFERENCIAL);
+								
+						System.out.println("	       --");
+			
+						for (Asiento asiento : viaje.listaAsientos()) {
+							if (asiento.getNumero().length() == 2) {
+								if (asiento.isReservado()) {
+									if (asiento.getNumero().contains("D")) {
+										if (fila == tiposAsientoFila[indice]) {
+											System.out.println(asiento.
+													getNumero() + "   |");
+											System.out.println("	       --");
+											
+											if (indice == 0) {
+												System.out.
+													println(TipoAsiento.PREMIUM);
+												System.out.println("	       --");
+											} else {
+												System.out.
+													println(TipoAsiento.ESTANDAR);
+												System.out.println("	       --");
+											}
+											
+											if(indice < tiposAsientoFila.length - 1) {
+												indice++;
+											}
+										} else {
+											System.out.println("  " + "   |");
+										}
+										fila++;
 									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
-									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
+										System.out.print("    ");
 									}
 								} else {
-									System.out.print("   " + "  |");
-									System.out.println();
-								}
-								fila++;
-							} else {
-								System.out.print("    ");
-							}
-						} else {
-							if (asiento.getNumero().contains("D")) {
-								if (fila == tiposAsientoFila[indice]) {
-									System.out.println(asiento.
-											getNumero() + "  |");
-									System.out.println("	       --");
-									
-									if (indice == 0) {
-										System.out.
-											println(TipoAsiento.PREMIUM);
-										System.out.println("	       --");
+									if (asiento.getNumero().contains("D")) {
+										if (fila == tiposAsientoFila[indice]) {
+											System.out.println(asiento.
+													getNumero() + "   |");
+											System.out.println("	       --");
+											
+											if (indice == 0) {
+												System.out.
+													println(TipoAsiento.PREMIUM);
+												System.out.println("	       --");
+											} else {
+												System.out.
+													println(TipoAsiento.ESTANDAR);
+												System.out.println("	       --");
+											}
+											
+											if(indice < tiposAsientoFila.length - 1) {
+												indice++;
+											}
+										} else {
+											System.out.print(asiento.getNumero() 
+											+ "   |");
+											System.out.println();
+										}
+										fila++;
 									} else {
-										System.out.
-											println(TipoAsiento.ESTANDAR);
-										System.out.println("	       --");
-									}
 									
-									if(indice < tiposAsientoFila.length - 1) {
-										indice++;
+										System.out.print(asiento.getNumero() 
+										+ "  ");
+									}
+								}
+			
+							} else {
+								if (asiento.isReservado()) {
+									if (asiento.getNumero().contains("D")) {
+										if (fila == tiposAsientoFila[indice]) {
+											System.out.println("   " + "  |");
+											System.out.println("	       --");
+											
+											if (indice == 0) {
+												System.out.
+													println(TipoAsiento.PREMIUM);
+												System.out.println("	       --");
+											} else {
+												System.out.
+													println(TipoAsiento.ESTANDAR);
+												System.out.println("	       --");
+											}
+											
+											if(indice < tiposAsientoFila.length - 1) {
+												indice++;
+											}
+										} else {
+											System.out.print("   " + "  |");
+											System.out.println();
+										}
+										fila++;
+									} else {
+										System.out.print("    ");
 									}
 								} else {
-									System.out.print(asiento.getNumero() 
-									+ "  |");
-									System.out.println();
+									if (asiento.getNumero().contains("D")) {
+										if (fila == tiposAsientoFila[indice]) {
+											System.out.println(asiento.
+													getNumero() + "  |");
+											System.out.println("	       --");
+											
+											if (indice == 0) {
+												System.out.
+													println(TipoAsiento.PREMIUM);
+												System.out.println("	       --");
+											} else {
+												System.out.
+													println(TipoAsiento.ESTANDAR);
+												System.out.println("	       --");
+											}
+											
+											if(indice < tiposAsientoFila.length - 1) {
+												indice++;
+											}
+										} else {
+											System.out.print(asiento.getNumero() 
+											+ "  |");
+											System.out.println();
+										}
+										fila++;
+									} else {
+										System.out.print(asiento.getNumero() 
+										+ " ");
+									}
 								}
-								fila++;
-							} else {
-								System.out.print(asiento.getNumero() 
-								+ " ");
 							}
 						}
-					}
-				}
-				
-				System.out.println("	       --");
-	
-				System.out.println();
-	
-				System.out.println("¿Desea reservar un asiento por un " 
-				+ "cierto período de tiempo? (si/no)");
-	
-				String respuesta3 = sc.nextLine();
-	
-				System.out.println();
-	
-				if (respuesta3.toLowerCase().equals("si")) {
-					System.out.print("Ingrese el número del asiento: ");
-	
-					String asiento = sc.nextLine();
-	
-					System.out.println();
-					
-					viaje.reservarAsiento(asiento);
-	
-					System.out.println("¿Por cuánto tiempo desea reservarlo?" 
-					+ " (minutos/horas/dias)");
-	
-					String tiempo = sc.nextLine();
-	
-					System.out.println();
-					
-					String[] arrayTiempo = tiempo.split("[\s]");
-					
-					String cantidad = arrayTiempo[0];
-					
-					LocalDateTime fechaReserva;
-	
-					if (tiempo.toLowerCase().contains("minutos") 
-							|| tiempo.toLowerCase().contains("minuto")) {
-						fechaReserva = LocalDateTime.now().
-								plusMinutes(Integer.valueOf(cantidad));
-					} else if (tiempo.toLowerCase().contains("horas") 
-									|| tiempo.toLowerCase().contains("hora")) {
-						fechaReserva = LocalDateTime.now().
-								plusHours(Integer.valueOf(cantidad));
-					} else {
-						fechaReserva = LocalDateTime.now().
-								plusDays(Integer.valueOf(cantidad));
-					}
-	
-					LocalDateTime fechaViaje = 
-							LocalDateTime.
-							of(viaje.getFecha(), viaje.getHora());
-	
-					while (fechaViaje.isBefore(fechaReserva)) {
-						System.out.println("La reserva debe ser " 
-						+ "antes del viaje ");
-	
+						
+						System.out.println("	       --");
+			
 						System.out.println();
-						
-						System.out.println("¿Por cuánto tiempo desea " 
-						+ "reservarlo? (minutos/horas/dias)");
-	
-						tiempo = sc.nextLine();
-						
-						arrayTiempo = tiempo.split("[\s]");
-						
-						cantidad = arrayTiempo[0];
-	
+			
+						System.out.println("¿Desea reservar un asiento por un " 
+						+ "cierto período de tiempo? (si/no)");
+			
+						String respuesta3 = input();
+			
 						System.out.println();
-	
-						if (tiempo.toLowerCase().contains("minutos") 
-								|| tiempo.toLowerCase().contains("minuto")) {
-							fechaReserva = LocalDateTime.now().
-									plusMinutes(Integer.valueOf(cantidad));
-						} else if (tiempo.toLowerCase().contains("horas") 
-										|| tiempo.toLowerCase().
-												contains("hora")) {
-							fechaReserva = LocalDateTime.now().
-									plusHours(Integer.valueOf(cantidad));
-						} else {
-							fechaReserva = LocalDateTime.now().
-									plusDays(Integer.valueOf(cantidad));
+			
+						if (respuesta3.toLowerCase().equals("si")) {
+							System.out.print("Ingrese el número del asiento: ");
+			
+							String numeroAsiento = input();
+			
+							System.out.println();
+							
+							if (viaje.buscarAsiento(numeroAsiento).isReservado()) {
+								while (true) {
+									System.out.println();
+									System.out.println("El asiento ya está reservado");
+									System.out.println();
+									System.out.print("Ingrese otro número de asiento: ");
+									
+									numeroAsiento = input();
+									
+									if (!viaje.buscarAsiento(numeroAsiento).isReservado()) {
+										System.out.println();
+										break;
+									}
+								}
+							}
+							
+							final String numeroAsiento2 = numeroAsiento;
+							
+							viaje.reservarAsiento(numeroAsiento2);
+			
+							System.out.println("¿Por cuánto tiempo desea reservarlo?" 
+							+ " (minutos/horas/dias)");
+			
+							String tiempo = input();
+			
+							System.out.println();
+							
+							String[] arrayTiempo = tiempo.split("[\s]");
+							
+							String cantidad = arrayTiempo[0];
+							
+							LocalDateTime fechaReserva;
+			
+							if (tiempo.toLowerCase().contains("minutos") 
+									|| tiempo.toLowerCase().contains("minuto")) {
+								fechaReserva = LocalDateTime.now().
+										plusMinutes(Integer.valueOf(cantidad));
+							} else if (tiempo.toLowerCase().contains("horas") 
+											|| tiempo.toLowerCase().contains("hora")) {
+								fechaReserva = LocalDateTime.now().
+										plusHours(Integer.valueOf(cantidad));
+							} else {
+								fechaReserva = LocalDateTime.now().
+										plusDays(Integer.valueOf(cantidad));
+							}
+			
+							LocalDateTime fechaViaje = 
+									LocalDateTime.
+									of(viaje.getFecha(), viaje.getHora());
+			
+							while (fechaViaje.isBefore(fechaReserva)) {
+								System.out.println("La reserva debe ser " 
+								+ "antes del viaje ");
+			
+								System.out.println();
+								
+								System.out.println("¿Por cuánto tiempo desea " 
+								+ "reservarlo? (minutos/horas/dias)");
+			
+								tiempo = input();
+								
+								arrayTiempo = tiempo.split("[\s]");
+								
+								cantidad = arrayTiempo[0];
+			
+								System.out.println();
+			
+								if (tiempo.toLowerCase().contains("minutos") 
+										|| tiempo.toLowerCase().contains("minuto")) {
+									fechaReserva = LocalDateTime.now().
+											plusMinutes(Integer.valueOf(cantidad));
+								} else if (tiempo.toLowerCase().contains("horas") 
+												|| tiempo.toLowerCase().
+														contains("hora")) {
+									fechaReserva = LocalDateTime.now().
+											plusHours(Integer.valueOf(cantidad));
+								} else {
+									fechaReserva = LocalDateTime.now().
+											plusDays(Integer.valueOf(cantidad));
+								}
+							}
+							
+							Duration duration = 
+									Duration.between(LocalDateTime.now(), fechaReserva);
+							
+							ScheduledExecutorService service = 
+									Executors.newScheduledThreadPool(1);
+							
+							Runnable task = () -> {
+								viaje.liberarAsiento(numeroAsiento2);
+							};
+							
+							service.schedule(task, duration.toMinutes(), 
+											TimeUnit.MINUTES);
+							
+							System.out.println("Asiento reservado exitosamente");
+							System.out.println();
 						}
 					}
-					
-					Duration duration = 
-							Duration.between(LocalDateTime.now(), fechaReserva);
-					
-					ScheduledExecutorService service = 
-							Executors.newScheduledThreadPool(1);
-					
-					Runnable task = () -> {
-						viaje.liberarAsiento(asiento);
-					};
-					
-					service.schedule(task, duration.toMinutes(), 
-									TimeUnit.MINUTES);
 				}
 			}
 		}
@@ -828,234 +964,294 @@ public class Interfaz{
 	public static void reservarTiquete() {
 		System.out.print("Ingrese el origen: ");
 		
-		String origen = sc.nextLine();
+		String origen = input();
 		
 		System.out.println();
 
 		System.out.print("Ingrese el destino: ");
 		
-		String destino = sc.nextLine();
-		
-		System.out.println();
-
-		System.out.println("Estos son los viajes disponibles para la ruta " 
-		+ origen.toUpperCase() + " --> " + destino.toUpperCase() + ":");
-		
-		for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
-				destino.toUpperCase())) {
-		
-			for (int i = 0; i < 88; i++) {
-				System.out.print("-");
-			}
-
-			System.out.println();
-
-			System.out.println("    FECHA          ORIGEN          DESTINO" 
-			+ "         HORA DE SALIDA     ID       PLACA BUS");
-
-			for (int i = 0; i < 88; i++) {
-				System.out.print("-");
-			}
-
-			System.out.println();
-
-			System.out.println(viaje);
-
-			System.out.println();
-		}
-
-		System.out.print("Ingrese el id del viaje: ");
-		
-		String id = sc.nextLine();
-		
-		System.out.println();
-
-		Viaje viaje = Empresa.buscarViaje(id);
-
-		System.out.println("Asientos disponibles:");
+		String destino = input();
 		
 		System.out.println();
 		
-		int[] tiposAsientoFila = viaje.tiposAsiento();
-		int fila = 1;
-		int indice = 0;
+		ArrayList<Viaje> viajes = Empresa.buscarViajes(origen.toUpperCase(), 
+				destino.toUpperCase());
 		
-		System.out.println(TipoAsiento.PREFERENCIAL);
-				
-		System.out.println("	       --");
-		
-		for (Asiento asiento : viaje.listaAsientos()) {
-			if (asiento.getNumero().length() == 2) {
-				if (asiento.isReservado()) {
-					if (asiento.getNumero().contains("D")) {
-						if (fila == tiposAsientoFila[indice]) {
-							System.out.println(asiento.
-									getNumero() + "   |");
-							System.out.println("	       --");
-							
-							if (indice == 0) {
-								System.out.
-									println(TipoAsiento.PREMIUM);
-								System.out.println("	       --");
-							} else {
-								System.out.
-									println(TipoAsiento.ESTANDAR);
-								System.out.println("	       --");
-							}
-							
-							if(indice < tiposAsientoFila.length - 1) {
-								indice++;
-							}
-						} else {
-							System.out.println("  " + "   |");
-						}
-						fila++;
-					} else {
-						System.out.print("    ");
-					}
-				} else {
-					if (asiento.getNumero().contains("D")) {
-						if (fila == tiposAsientoFila[indice]) {
-							System.out.println(asiento.
-									getNumero() + "   |");
-							System.out.println("	       --");
-							
-							if (indice == 0) {
-								System.out.
-									println(TipoAsiento.PREMIUM);
-								System.out.println("	       --");
-							} else {
-								System.out.
-									println(TipoAsiento.ESTANDAR);
-								System.out.println("	       --");
-							}
-							
-							if(indice < tiposAsientoFila.length - 1) {
-								indice++;
-							}
-						} else {
-							System.out.print(asiento.getNumero() 
-							+ "   |");
-							System.out.println();
-						}
-						fila++;
-					} else {
-					
-						System.out.print(asiento.getNumero() 
-						+ "  ");
-					}
+		if (viajes.isEmpty()) {
+			System.out.println("No se encontraron viajes disponibles para reservar");
+			System.out.println();
+		} else {
+			System.out.println("Estos son los viajes disponibles para la ruta " 
+			+ origen.toUpperCase() + " --> " + destino.toUpperCase() + ":");
+			
+			for (Viaje viaje : viajes) {
+			
+				for (int i = 0; i < 92; i++) {
+					System.out.print("-");
 				}
-
-			} else {
-				if (asiento.isReservado()) {
-					if (asiento.getNumero().contains("D")) {
-						if (fila == tiposAsientoFila[indice]) {
-							System.out.println("   " + "  |");
-							System.out.println("	       --");
-							
-							if (indice == 0) {
-								System.out.
-									println(TipoAsiento.PREMIUM);
-								System.out.println("	       --");
-							} else {
-								System.out.
-									println(TipoAsiento.ESTANDAR);
-								System.out.println("	       --");
-							}
-							
-							if(indice < tiposAsientoFila.length - 1) {
-								indice++;
-							}
-						} else {
-							System.out.print("   " + "  |");
-							System.out.println();
-						}
-						fila++;
-					} else {
-						System.out.print("    ");
-					}
-				} else {
-					if (asiento.getNumero().contains("D")) {
-						if (fila == tiposAsientoFila[indice]) {
-							System.out.println(asiento.
-									getNumero() + "  |");
-							System.out.println("	       --");
-							
-							if (indice == 0) {
-								System.out.
-									println(TipoAsiento.PREMIUM);
-								System.out.println("	       --");
-							} else {
-								System.out.
-									println(TipoAsiento.ESTANDAR);
-								System.out.println("	       --");
-							}
-							
-							if(indice < tiposAsientoFila.length - 1) {
-								indice++;
-							}
-						} else {
-							System.out.print(asiento.getNumero() 
-							+ "  |");
-							System.out.println();
-						}
-						fila++;
-					} else {
-						System.out.print(asiento.getNumero() 
-						+ " ");
-					}
-				}
-			}
-		}
-		
-		System.out.println("	       --");
-		
-		System.out.println();
-		
-		System.out.print("Ingrese el número del asiento: ");
-		
-		String asiento = sc.nextLine();
-		
-		System.out.println();
-		
-		viaje.reservarAsiento(asiento);
-
-		System.out.println("Ingrese sus datos:");
-		
-		System.out.println();
-
-		System.out.print("Nombre: ");
-		
-		String nombre = sc.nextLine();
-		
-		System.out.print("Número de identificación: ");
-		
-		String idPasajero = sc.nextLine();
-		
-		System.out.println();
-		
-		Pasajero pasajero = new Pasajero(nombre, idPasajero);
-		
-		LocalDateTime fechaCompra = LocalDateTime.now();
-		
-		pasajero.agregarTiquete(new Tiquete(pasajero, viaje, viaje.buscarAsiento(asiento)));
-
-		System.out.println("Confirmación de reserva del tiquete:");
-		
-		System.out.println();
-		
-		System.out.println("Empresa: " + viaje.getEmpresa().getNombre());
-		System.out.println("Id del viaje: " + viaje.getId());
-		System.out.println("Asiento: " + asiento);
-		System.out.println("Nombre del pasajero: " + nombre);
 	
-		System.out.println();
+				System.out.println();
+	
+				System.out.println("    FECHA          ORIGEN          DESTINO" 
+				+ "         HORA DE SALIDA     ID       PLACA BUS");
+	
+				for (int i = 0; i < 92; i++) {
+					System.out.print("-");
+				}
+	
+				System.out.println();
+	
+				System.out.println(viaje);
+	
+				System.out.println();
+			}
+	
+			System.out.print("Ingrese el id del viaje: ");
+			
+			String id = input();
+			
+			System.out.println();
+			
+			Viaje viaje = Viaje.buscarViaje(viajes, id);
+			
+			if (viaje == null) {
+				System.out.println("No se encontró ningún viaje con número de id " + id 
+									+ "disponible para reservar");
+				System.out.println();
+			} else {
+				System.out.println("Asientos disponibles:");
+				
+				System.out.println();
+				
+				int[] tiposAsientoFila = viaje.tiposAsiento();
+				int fila = 1;
+				int indice = 0;
+				
+				System.out.println(TipoAsiento.PREFERENCIAL);
+						
+				System.out.println("	       --");
+				
+				for (Asiento asiento : viaje.listaAsientos()) {
+					if (asiento.getNumero().length() == 2) {
+						if (asiento.isReservado()) {
+							if (asiento.getNumero().contains("D")) {
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumero() + "   |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.println("  " + "   |");
+								}
+								fila++;
+							} else {
+								System.out.print("    ");
+							}
+						} else {
+							if (asiento.getNumero().contains("D")) {
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumero() + "   |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print(asiento.getNumero() 
+									+ "   |");
+									System.out.println();
+								}
+								fila++;
+							} else {
+							
+								System.out.print(asiento.getNumero() 
+								+ "  ");
+							}
+						}
+		
+					} else {
+						if (asiento.isReservado()) {
+							if (asiento.getNumero().contains("D")) {
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println("   " + "  |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print("   " + "  |");
+									System.out.println();
+								}
+								fila++;
+							} else {
+								System.out.print("    ");
+							}
+						} else {
+							if (asiento.getNumero().contains("D")) {
+								if (fila == tiposAsientoFila[indice]) {
+									System.out.println(asiento.
+											getNumero() + "  |");
+									System.out.println("	       --");
+									
+									if (indice == 0) {
+										System.out.
+											println(TipoAsiento.PREMIUM);
+										System.out.println("	       --");
+									} else {
+										System.out.
+											println(TipoAsiento.ESTANDAR);
+										System.out.println("	       --");
+									}
+									
+									if(indice < tiposAsientoFila.length - 1) {
+										indice++;
+									}
+								} else {
+									System.out.print(asiento.getNumero() 
+									+ "  |");
+									System.out.println();
+								}
+								fila++;
+							} else {
+								System.out.print(asiento.getNumero() 
+								+ " ");
+							}
+						}
+					}
+				}
+			
+				System.out.println("	       --");
+				
+				System.out.println();
+				
+				System.out.print("Ingrese el número del asiento: ");
+				
+				String numeroAsiento = input();
+				
+				System.out.println();
+				
+				if (viaje.buscarAsiento(numeroAsiento).isReservado()) {
+					while (true) {
+						System.out.println();
+						System.out.println("El asiento ya está reservado");
+						System.out.println();
+						System.out.print("Ingrese otro número de asiento: ");
+						
+						numeroAsiento = input();
+						
+						if (!viaje.buscarAsiento(numeroAsiento).isReservado()) {
+							System.out.println();
+							break;
+						}
+					}
+				}
+				
+				final String numeroAsiento2 = numeroAsiento;
+				
+				viaje.reservarAsiento(numeroAsiento2);
+		
+				System.out.println("Ingrese sus datos:");
+				
+				System.out.println();
+		
+				System.out.print("Nombre: ");
+				
+				String nombre = input();
+				
+				System.out.print("Número de identificación (6 dígitos): ");
+				
+				String idPasajero = input();
+				
+				while (idPasajero.length() != 6) {
+					System.out.print("Número de identificación (6 dígitos): ");
+					idPasajero = input();
+				}
+				
+				System.out.println();
+				
+				Persona pasajero = new Pasajero(nombre, idPasajero);
+				
+				Asiento asiento = viaje.buscarAsiento(numeroAsiento2);
+				
+				Tiquete tiquete = new Tiquete(pasajero, viaje, asiento);
+				
+				pasajero.agregarTiquete(tiquete);
+				
+				System.out.println("Tiquete reservado exitosamente");
+				
+				System.out.println();
+	
+				for (int i = 0; i < 34; i++) {
+					System.out.print("-");
+				}
+				
+				System.out.println();
+				
+				System.out.println("    Tiquete No." + tiquete.getNumeroReserva());
+				
+				for (int i = 0; i < 34; i++) {
+					System.out.print("-");
+				}
+	
+				System.out.println();
+				
+				System.out.println("Nombre del pasajero: " + nombre);
+				System.out.println("Asiento: " + asiento);
+				System.out.println("Empresa: " + viaje.getEmpresa().getNombre());
+				System.out.println("Id del viaje: " + viaje.getId());
+				System.out.println("Fecha y hora: " + viaje.getFecha() + " " + viaje.getHora());
+				System.out.println("Origen: " + viaje.getTerminalOrigen().getUbicacion());
+				System.out.println("Destino: " + viaje.getTerminalDestino().getUbicacion());
+				
+				for (int i = 0; i < 34; i++) {
+					System.out.print("-");
+				}
+	
+				System.out.println();
+				System.out.println();
+			}
+		}
 	}
 
 	public static void gestionarTiquetes() {
 		System.out.print("Ingrese el número de identificación del pasajero: ");
 		
-		String idPasajero = sc.nextLine();
+		String idPasajero = input();
 		
 		System.out.println();
 
@@ -1076,16 +1272,16 @@ public class Interfaz{
 			if(!tiquetesValidos.isEmpty()) {
 				System.out.println("Tiqueres válidos");
 				
-				for (int i = 0; i < 85; i++) {
+				for (int i = 0; i < 93; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
 				System.out.println("    NUMERO DE RESERVA     NOMBRE        ASIENTO" 
-				+ "     FECHA DEL VIAJE      ID VIAJE     ");
+				+ "             FECHA DEL VIAJE      ID VIAJE     ");
 
-				for (int i = 0; i < 85; i++) {
+				for (int i = 0; i < 93; i++) {
 					System.out.print("-");
 				}
 				
@@ -1125,7 +1321,7 @@ public class Interfaz{
 			
 			System.out.println("¿Desea escoger algún tiquete? (si/no)");
 			
-			String respuesta1 = sc.nextLine();
+			String respuesta1 = input();
 			
 			System.out.println();
 			
@@ -1134,7 +1330,7 @@ public class Interfaz{
 				System.out.print("Escoja el tiquete ingresando " 
 				+ "el número de reserva: ");
 				
-				String numeroReserva = sc.nextLine();
+				String numeroReserva = input();
 				
 				System.out.println();
 				
@@ -1142,7 +1338,7 @@ public class Interfaz{
 					if (tiquete.getNumeroReserva().equals(numeroReserva)) {
 						System.out.println("Detalles del viaje");
 						
-						for (int i = 0; i < 88; i++) {
+						for (int i = 0; i < 92; i++) {
 							System.out.print("-");
 						}
 	
@@ -1151,7 +1347,7 @@ public class Interfaz{
 						System.out.println("    FECHA          ORIGEN          DESTINO" 
 						+ "         HORA DE SALIDA     ID       PLACA BUS");
 	
-						for (int i = 0; i < 88; i++) {
+						for (int i = 0; i < 92; i++) {
 							System.out.print("-");
 						}
 						
@@ -1200,7 +1396,7 @@ public class Interfaz{
 						
 						System.out.print("Ingrese el número de la operación: ");
 						
-						String respuesta2 = sc.nextLine();
+						String respuesta2 = input();
 						
 						System.out.println();
 						
@@ -1226,11 +1422,29 @@ public class Interfaz{
 							System.out.print("Ingrese el número " 
 							+ "de la operación: ");
 							
-							String respuesta3 = sc.nextLine();
+							String respuesta3 = input();
 							
 							System.out.println();
 							
 							if(respuesta3.equals("1")) {
+								if (!tiquete.getViaje().tieneSillas()) {
+									System.out.println("No hay sillas disponibles");
+									System.out.println();
+									System.out.println("¿Qué desea hacer?");
+									System.out.println();
+									System.out.println("1. Ver otros viajes");
+									System.out.println();
+									System.out.println("2. Ir al menú principal");
+									
+									String opcion = input();
+									
+									if (opcion.equals("1")) {
+										verViajes();
+									} else if (opcion.equals("2")) {
+										
+									}
+								}
+								
 								System.out.println("Asientos disponibles:");
 	
 								System.out.println();
@@ -1375,7 +1589,7 @@ public class Interfaz{
 								
 								System.out.print("Ingrese el número del asiento: ");
 								
-								String asiento = sc.nextLine();
+								String asiento = input();
 								
 								System.out.println();
 								
@@ -1386,13 +1600,13 @@ public class Interfaz{
 								
 								System.out.print("Ingrese el origen: ");
 								
-								String origen = sc.nextLine();
+								String origen = input();
 								
 								System.out.println();
 
 								System.out.print("Ingrese el destino: ");
 								
-								String destino = sc.nextLine();
+								String destino = input();
 								
 								System.out.println();
 
@@ -1402,7 +1616,7 @@ public class Interfaz{
 								for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
 										destino.toUpperCase())) {
 								
-									for (int i = 0; i < 88; i++) {
+									for (int i = 0; i < 92; i++) {
 										System.out.print("-");
 									}
 
@@ -1411,7 +1625,7 @@ public class Interfaz{
 									System.out.println("    FECHA          ORIGEN          DESTINO" 
 									+ "         HORA DE SALIDA     ID       PLACA BUS");
 
-									for (int i = 0; i < 88; i++) {
+									for (int i = 0; i < 92; i++) {
 										System.out.print("-");
 									}
 
@@ -1424,7 +1638,7 @@ public class Interfaz{
 
 								System.out.print("Ingrese el id del viaje: ");
 								
-								String id = sc.nextLine();
+								String id = input();
 								
 								System.out.println();
 
@@ -1572,7 +1786,7 @@ public class Interfaz{
 								
 								System.out.print("Ingrese el número del asiento: ");
 								
-								String asiento = sc.nextLine();
+								String asiento = input();
 								
 								System.out.println();
 								
@@ -1598,6 +1812,9 @@ public class Interfaz{
 						break;
 					} 
 				}
+				System.out.println("No se encontró ningún tiquete con el número de reserva " 
+						+ numeroReserva);
+				System.out.println();
 			}
 		}
 	}
@@ -1605,7 +1822,7 @@ public class Interfaz{
 	public static void hospedaje() {
 		System.out.print("Ingrese el número de identificación del pasajero: ");
 		
-		String idPasajero = sc.nextLine();
+		String idPasajero = input();
 		
 		System.out.println();
 
@@ -1617,7 +1834,7 @@ public class Interfaz{
 			
 			System.out.println();
 		} else {
-			for (int i = 0; i < 88; i++) {
+			for (int i = 0; i < 92; i++) {
 				System.out.print("-");
 			}
 
@@ -1626,7 +1843,7 @@ public class Interfaz{
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
 			+ "         HORA DE SALIDA     ID       PLACA BUS");
 
-			for (int i = 0; i < 88; i++) {
+			for (int i = 0; i < 92; i++) {
 				System.out.print("-");
 			}
 
@@ -1640,7 +1857,7 @@ public class Interfaz{
 			
 			System.out.println("¿Desea agregar el servicio de hospedaje a algún viaje? (si/no)");
 				
-			String respuesta1 = sc.nextLine();
+			String respuesta1 = input();
 			
 			System.out.println();
 			
@@ -1648,7 +1865,7 @@ public class Interfaz{
 				
 				System.out.print("Ingrese el id del viaje: ");
 				
-				String id = sc.nextLine();
+				String id = input();
 				
 				System.out.println();
 				
@@ -1657,15 +1874,15 @@ public class Interfaz{
 				System.out.println("Hospedajes disponibles en " 
 				+ viaje.getTerminalDestino().getUbicacion() + ":");
 				
-				for (int i = 0; i < 32; i++) {
+				for (int i = 0; i < 60; i++) {
 					System.out.print("-");
 				}
 	
 				System.out.println();
 	
-				System.out.println("    NOMBRE     CALIFICACION     HABITACION DISPONIBLES");
+				System.out.println("    NOMBRE     CALIFICACION     HABITACIONES DISPONIBLES");
 	
-				for (int i = 0; i < 32; i++) {
+				for (int i = 0; i < 60; i++) {
 					System.out.print("-");
 				}
 				
@@ -1679,7 +1896,7 @@ public class Interfaz{
 			
 				System.out.print("Ingrese el nombre del hospedaje que desea: ");
 				
-				String nombre = sc.nextLine();
+				String nombre = input();
 				
 				System.out.println();
 				
@@ -1693,10 +1910,8 @@ public class Interfaz{
 	
 				System.out.println();
 	
-				System.out.print("    PISO     NUMERO DE HABITACIÓN" 
-				+ "     RESERVADA     DISPONIBLE EN     CATEGORIA");
-	
-				System.out.println();
+				System.out.println("    NUMERO DE HABITACIÓN" 
+				+ "     RESERVADA     DISPONIBLE EN");
 	
 				for (int i = 0; i < 60; i++) {
 					System.out.print("-");
@@ -1705,35 +1920,60 @@ public class Interfaz{
 				System.out.println();
 				
 				for (Habitacion habitacion : hospedaje.getHabitaciones()) {
-					System.out.println(habitacion.toString());
+					System.out.println(habitacion);
 				}
+				
+				System.out.println();
 				
 				System.out.print("Ingrese el número de la habitación: ");
 				
-				String numeroHabitacion = sc.nextLine();
+				String numeroHabitacion = input();
 				
 				System.out.println();
 				
 				System.out.println("¿Por cuánto tiempo desea quedarse? " 
 				+ "(horas/dias)");
 				
-				String tiempo = sc.nextLine();
+				String tiempo = input();
 				
 				System.out.println();
+				
+				LocalDateTime fechaViaje = LocalDateTime.of(viaje.getFecha(), viaje.getHora());
+				
+				String[] arrayTiempo = tiempo.split("[\s]");
+				
+				String cantidad = arrayTiempo[0];
+				
+				LocalDateTime fechaReserva = null;
+				
+				if (tiempo.toLowerCase().contains("hora") 
+						|| tiempo.toLowerCase().contains("horas")) {
+					fechaReserva = fechaViaje.
+							plusHours(Integer.valueOf(cantidad));
+				} else if (tiempo.toLowerCase().contains("dia") 
+								|| tiempo.toLowerCase().contains("dias")) {
+					fechaReserva = fechaViaje.
+							plusDays(Integer.valueOf(cantidad));
+				} 
+				
+				hospedaje.reservarHabitacion(numeroHabitacion, fechaReserva);
+				
+				Tiquete tiquete = pasajero.buscarTiquete(viaje);	
+				
+				tiquete.setHospedaje(hospedaje);
+				
+				Duration duration = 
+						Duration.between(LocalDateTime.now(), fechaReserva);
 				
 				ScheduledExecutorService service = 
 						Executors.newScheduledThreadPool(1);
 				
 				Runnable task = () -> {
-					
+					hospedaje.liberarHabitacion(numeroHabitacion);
 				};
 				
-				service.schedule(task, Integer.valueOf(tiempo), 
+				service.schedule(task, duration.toMinutes(), 
 								TimeUnit.MINUTES);
-				
-				Tiquete tiquete = pasajero.buscarTiquete(viaje);	
-				
-				tiquete.setHospedaje(hospedaje);
 			}
 		}
 	}
@@ -1753,7 +1993,7 @@ public class Interfaz{
 		
 		System.out.println();
 		
-		String respuesta1 = sc.nextLine();
+		String respuesta1 = input();
 		
 		System.out.println();
 		
@@ -1771,7 +2011,7 @@ public class Interfaz{
 			
 			System.out.println();
 			
-			String empresas = sc.nextLine();
+			String empresas = input();
 			
 			switch (empresas) {
 			case "1":
@@ -1785,7 +2025,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String empresasAgregar = sc.nextLine();
+				String empresasAgregar = input();
 				break;
 			case "2":
 				System.out.println("¿Qué desea ver?");
@@ -1797,7 +2037,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String empresasVer = sc.nextLine();
+				String empresasVer = input();
 				break;
 			case "3":
 				System.out.println("¿Qué desea eliminar?");
@@ -1810,7 +2050,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String empresasEliminar = sc.nextLine();
+				String empresasEliminar = input();
 				break;
 			case "4":
 				administrador();
@@ -1828,7 +2068,7 @@ public class Interfaz{
 			
 			System.out.println();
 			
-			String hospedajes = sc.nextLine();
+			String hospedajes = input();
 			
 			
 			switch (hospedajes) {
@@ -1844,7 +2084,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String hospedajesAgregar = sc.nextLine();
+				String hospedajesAgregar = input();
 				break;
 			case "2":
 				System.out.println("¿Qué desea ver?");
@@ -1856,7 +2096,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String hospedajesVer = sc.nextLine();
+				String hospedajesVer = input();
 				break;
 			case "3":
 				System.out.println("¿Qué desea eliminar?");
@@ -1869,7 +2109,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String hospedajesEliminar = sc.nextLine();
+				String hospedajesEliminar = input();
 				break;
 			case "4":
 				administrador();
@@ -1889,7 +2129,7 @@ public class Interfaz{
 			
 			System.out.println();
 			
-			String terminales = sc.nextLine();
+			String terminales = input();
 			
 			
 			switch(terminales) {
@@ -1904,7 +2144,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String terminalesAgregar = sc.nextLine();
+				String terminalesAgregar = input();
 				break;
 			case "2":
 				System.out.println("¿Qué desea anclar?");
@@ -1917,7 +2157,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String terminalesAnclar = sc.nextLine();
+				String terminalesAnclar = input();
 				break;
 			case "3":
 				System.out.println("¿Qué desea ver?");
@@ -1929,7 +2169,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String terminalesVer = sc.nextLine();
+				String terminalesVer = input();
 				break;
 			case "4":
 				System.out.println("¿Qué desea eliminar?");
@@ -1942,7 +2182,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String terminalesEliminar = sc.nextLine();
+				String terminalesEliminar = input();
 				break;
 			case "5":
 				administrador();
@@ -1962,7 +2202,7 @@ public class Interfaz{
 			
 			System.out.println();
 			
-			String viaje = sc.nextLine();
+			String viaje = input();
 			
 			switch (viaje) {
 			case "1":
@@ -1976,7 +2216,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String viajesAgregar = sc.nextLine();
+				String viajesAgregar = input();
 				break;
 			case "2":
 				System.out.println("¿Qué desea añadir?");
@@ -1990,7 +2230,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String viajesAñadir = sc.nextLine();
+				String viajesAñadir = input();
 				break;
 			case "3":
 				System.out.println("¿Qué desea modificar?");
@@ -2002,7 +2242,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String viajesModificar = sc.nextLine();
+				String viajesModificar = input();
 				break;
 			case "4":
 				System.out.println("¿Qué desea ver?");
@@ -2015,7 +2255,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String viajesVer = sc.nextLine();
+				String viajesVer = input();
 			
 				break;
 			case "5":
@@ -2031,7 +2271,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String viajesEliminar = sc.nextLine();
+				String viajesEliminar = input();
 				break;
 			case "6":
 				administrador();
@@ -2051,7 +2291,7 @@ public class Interfaz{
 			
 			System.out.println();
 			
-			String personal = sc.nextLine();
+			String personal = input();
 			
 			switch (personal) {
 			case "1":
@@ -2067,7 +2307,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String personalAgregar = sc.nextLine();
+				String personalAgregar = input();
 				break;
 			case "2":
 				System.out.println("¿Qué desea modificar?");
@@ -2082,7 +2322,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String personalmodificar = sc.nextLine();
+				String personalmodificar = input();
 				break;
 			case "3":
 				System.out.println("¿Qué desea ver?");
@@ -2097,7 +2337,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String personalVer = sc.nextLine();
+				String personalVer = input();
 				break;
 			case "4":
 				System.out.println("¿Qué desea eliminar?");
@@ -2112,7 +2352,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String personalEliminar = sc.nextLine();
+				String personalEliminar = input();
 				break;
 			case "5":
 				administrador();
@@ -2131,7 +2371,7 @@ public class Interfaz{
 			
 			System.out.println();
 			
-			String vehiculos = sc.nextLine();
+			String vehiculos = input();
 			
 			switch (vehiculos) {
 			case "1":
@@ -2145,7 +2385,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String vehiculosAgregar = sc.nextLine();
+				String vehiculosAgregar = input();
 				break;
 			case "2":
 				System.out.println("¿Qué desea modificar?");
@@ -2158,7 +2398,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String vehiculosModificar = sc.nextLine();
+				String vehiculosModificar = input();
 				break;
 			case "3":
 				System.out.println("¿Qué desea ver?");
@@ -2171,7 +2411,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String vehiculosVer = sc.nextLine();
+				String vehiculosVer = input();
 				break;
 			case "4":
 				System.out.println("¿Qué desea eliminar?");
@@ -2184,7 +2424,7 @@ public class Interfaz{
 				
 				System.out.println();
 				
-				String vehiculosEliminar = sc.nextLine();
+				String vehiculosEliminar = input();
 				break;
 			case "5":
 				administrador();
@@ -2222,7 +2462,7 @@ public class Interfaz{
 		Viaje viaje2 = new Viaje(medellin, cali, "0002");
 		Viaje viaje3 = new Viaje(santaMarta, bucaramanga, "0003");
 		Viaje viaje4 = new Viaje(pereira, medellin, "0004");
-		Hospedaje hospedaje1 = new Hospedaje("Hostal", 4, 5);
+		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
 		Bus bus1 = new Bus("0001", 15, new int[]{3, 11});
 		Bus bus2 = new Bus("0002", 13, new int[]{3, 4});
 		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});
@@ -2299,7 +2539,7 @@ public class Interfaz{
 
 			System.out.print("Ingrese el número de la operación: ");
 
-			opcion = sc.nextLine();
+			opcion = input();
 			
 			System.out.println();
 

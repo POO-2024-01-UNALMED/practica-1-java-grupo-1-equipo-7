@@ -1,8 +1,10 @@
 package gestorAplicación.gestion;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Hospedaje {
+public class Hospedaje implements Serializable {
 	private ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private int calificacion;
 	private String nombre;
@@ -25,14 +27,13 @@ public class Hospedaje {
 	}
 	
 	public void crearHabitaciones(int pisos, int habitacionesPiso) {
-		for(int piso = 1; piso <= pisos; piso++) {
+		for(int piso = 100; piso <= pisos * 100; piso += 100) {
 			for(int habitacion = 1; habitacion <= habitacionesPiso; 
 					habitacion++) {
-				String strPiso = String.valueOf(piso);
-				String strHabitacion = String.valueOf(habitacion);
+				String numeroHabitacion = String.valueOf(piso + habitacion);
 				
 				Habitacion copiaHabitacion = 
-						new Habitacion(strPiso + strHabitacion);
+						new Habitacion(numeroHabitacion);
 				
 				habitaciones.add(copiaHabitacion);
 				
@@ -42,15 +43,39 @@ public class Hospedaje {
 	}
 	
 	public int habitacionesDisponibles() {
+		int numeroHabitaciones = 0;
+		
 		for (Habitacion habitacion : this.getHabitaciones()) {
-			
+			if (!habitacion.isReservada()) {
+				numeroHabitaciones += 1;
+			}
 		}
-		return 0;
+		
+		return numeroHabitaciones;
+	}
+	
+	public void reservarHabitacion(String numeroHabitacion, LocalDateTime fechaReserva) {
+		for (Habitacion habitacion : this.getHabitaciones()) {
+			if (habitacion.getNumeroHabitacion().equals(numeroHabitacion)) {
+				habitacion.reservar(fechaReserva);
+				break;
+			}
+		}
+	}
+	
+	public void liberarHabitacion(String numeroHabitacion) {
+		for (Habitacion habitacion : this.getHabitaciones()) {
+			if (habitacion.getNumeroHabitacion().equals(numeroHabitacion)) {
+				habitacion.liberar();
+				break;
+			}
+		}
 	}
 	
 	@Override
 	public String toString() {
-		return "    " + nombre + "     " + calificacion + "estrellas";
+		return "    " + nombre + "     " + calificacion + " estrellas" 
+				+ "      " + this.habitacionesDisponibles();
 	}
 	
 	public String getNombre() {

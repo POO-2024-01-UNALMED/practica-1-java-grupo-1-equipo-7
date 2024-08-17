@@ -1,5 +1,7 @@
 package gestorAplicación.personas;
 
+import gestorAplicación.gestion.Tiquete;
+
 public class Persona {
 	protected String nombre;
 	protected String id;
@@ -29,5 +31,7 @@ public class Persona {
 		this.id = id;
 	}
 	
-	
+	public void agregarTiquete(Tiquete tiquete) {
+		
+	}
 }
