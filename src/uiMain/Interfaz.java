@@ -1891,7 +1891,6 @@ public class Interfaz {
 		if (pasajero == null || pasajero.getTiquetes().isEmpty()) {
 			System.out.println("El pasajero no ha reservado tiquetes para " 
 			+ "ningún viaje");
-			
 			System.out.println();
 		} else {
 			for (int i = 0; i < 92; i++) {
@@ -1909,7 +1908,7 @@ public class Interfaz {
 
 			System.out.println();
 			
-			for (Tiquete tiquete : pasajero.getTiquetes()) {
+			for (Tiquete tiquete : pasajero.buscarTiquetes("validos")) {
 				System.out.println(tiquete.getViaje());
 			}
 			
@@ -1931,109 +1930,138 @@ public class Interfaz {
 				
 				Viaje viaje = Empresa.buscarViaje(id);
 				
-				System.out.println("Hospedajes disponibles en " 
-				+ viaje.getTerminalDestino().getUbicacion() + ":");
+				if (viaje == null) {
+					System.out.println("No se encontró ningún viaje con el número de id");
+					System.out.println();
+				} else {
+					System.out.println("Hospedajes disponibles en " 
+					+ viaje.getTerminalDestino().getUbicacion() + ":");
+					
+					for (int i = 0; i < 60; i++) {
+						System.out.print("-");
+					}
+		
+					System.out.println();
+		
+					System.out.println("    NOMBRE     CALIFICACION     HABITACIONES DISPONIBLES");
+		
+					for (int i = 0; i < 60; i++) {
+						System.out.print("-");
+					}
+					
+					System.out.println();
+		
+					for (Hospedaje hospedaje : viaje.hospedajesDisponibles()) {
+						System.out.println(hospedaje);
+					}
+					
+					System.out.println();
 				
-				for (int i = 0; i < 60; i++) {
-					System.out.print("-");
-				}
-	
-				System.out.println();
-	
-				System.out.println("    NOMBRE     CALIFICACION     HABITACIONES DISPONIBLES");
-	
-				for (int i = 0; i < 60; i++) {
-					System.out.print("-");
-				}
-				
-				System.out.println();
-	
-				for (Hospedaje hospedaje : viaje.hospedajesDisponibles()) {
-					System.out.println(hospedaje);
-				}
-				
-				System.out.println();
+					System.out.print("Ingrese el nombre del hospedaje que desea: ");
+					
+					String nombre = input();
+					
+					System.out.println();
+					
+					Hospedaje hospedaje = viaje.buscarHospedaje(nombre);
+					
+					if (hospedaje == null) {
+						System.out.println("El hospedaje " + nombre + " no está " 
+											+ "disponible para este destino");
+						System.out.println();
+					} else {
+						System.out.println("Habitaciones disponibles:");
+						
+						for (int i = 0; i < 60; i++) {
+							System.out.print("-");
+						}
 			
-				System.out.print("Ingrese el nombre del hospedaje que desea: ");
-				
-				String nombre = input();
-				
-				System.out.println();
-				
-				Hospedaje hospedaje = viaje.buscarHospedaje(nombre);
-				
-				System.out.println("Habitaciones disponibles:");
-				
-				for (int i = 0; i < 60; i++) {
-					System.out.print("-");
+						System.out.println();
+			
+						System.out.println("    NUMERO DE HABITACIÓN" 
+						+ "     RESERVADA     DISPONIBLE EN");
+			
+						for (int i = 0; i < 60; i++) {
+							System.out.print("-");
+						}
+						
+						System.out.println();
+						
+						for (Habitacion habitacion : hospedaje.getHabitaciones()) {
+							System.out.println(habitacion);
+						}
+						
+						System.out.println();
+						
+						System.out.print("Ingrese el número de la habitación: ");
+						
+						String numeroHabitacion = input();
+						
+						System.out.println();
+						
+						if (hospedaje.buscarHabitacion(numeroHabitacion).isReservada() 
+								|| hospedaje.buscarHabitacion(numeroHabitacion) == null) {
+							while (true) {
+								System.out.println();
+								System.out.println("La habitación no está disponible");
+								System.out.println();
+								System.out.print("Ingrese otro número de habitación: ");
+								
+								numeroHabitacion = input();
+								
+								if (!hospedaje.buscarHabitacion(numeroHabitacion).isReservada() 
+										&& hospedaje.buscarHabitacion(numeroHabitacion) != null) {
+									System.out.println();
+									break;
+								}
+							}
+						}
+						
+						final String numeroHabitacion2 = numeroHabitacion;
+						
+						System.out.println("¿Por cuánto tiempo desea quedarse? " 
+						+ "(horas/dias)");
+						
+						String tiempo = input();
+						
+						System.out.println();
+						
+						LocalDateTime fechaViaje = 
+								LocalDateTime.of(viaje.getFecha(), viaje.getHora());
+						
+						String[] arrayTiempo = tiempo.split("[\s]");
+						
+						String cantidad = arrayTiempo[0];
+						
+						LocalDateTime fechaReserva = null;
+						
+						if (tiempo.toLowerCase().contains("hora") 
+								|| tiempo.toLowerCase().contains("horas")) {
+							fechaReserva = fechaViaje.
+									plusHours(Integer.valueOf(cantidad));
+						} else if (tiempo.toLowerCase().contains("dia") 
+										|| tiempo.toLowerCase().contains("dias")) {
+							fechaReserva = fechaViaje.
+									plusDays(Integer.valueOf(cantidad));
+						} 
+						
+						hospedaje.reservarHabitacion(numeroHabitacion, fechaReserva, 
+								pasajero.buscarTiquete(viaje));
+						
+						Duration duration = 
+								Duration.between(LocalDateTime.now(), fechaReserva);
+						
+						ScheduledExecutorService service = 
+								Executors.newScheduledThreadPool(1);
+						
+						Runnable task = () -> {
+							hospedaje.liberarHabitacion(numeroHabitacion2);
+						};
+						
+						service.schedule(task, duration.toMinutes(), 
+										TimeUnit.MINUTES);
+					}
 				}
-	
-				System.out.println();
-	
-				System.out.println("    NUMERO DE HABITACIÓN" 
-				+ "     RESERVADA     DISPONIBLE EN");
-	
-				for (int i = 0; i < 60; i++) {
-					System.out.print("-");
-				}
-				
-				System.out.println();
-				
-				for (Habitacion habitacion : hospedaje.getHabitaciones()) {
-					System.out.println(habitacion);
-				}
-				
-				System.out.println();
-				
-				System.out.print("Ingrese el número de la habitación: ");
-				
-				String numeroHabitacion = input();
-				
-				System.out.println();
-				
-				System.out.println("¿Por cuánto tiempo desea quedarse? " 
-				+ "(horas/dias)");
-				
-				String tiempo = input();
-				
-				System.out.println();
-				
-				LocalDateTime fechaViaje = LocalDateTime.of(viaje.getFecha(), viaje.getHora());
-				
-				String[] arrayTiempo = tiempo.split("[\s]");
-				
-				String cantidad = arrayTiempo[0];
-				
-				LocalDateTime fechaReserva = null;
-				
-				if (tiempo.toLowerCase().contains("hora") 
-						|| tiempo.toLowerCase().contains("horas")) {
-					fechaReserva = fechaViaje.
-							plusHours(Integer.valueOf(cantidad));
-				} else if (tiempo.toLowerCase().contains("dia") 
-								|| tiempo.toLowerCase().contains("dias")) {
-					fechaReserva = fechaViaje.
-							plusDays(Integer.valueOf(cantidad));
-				} 
-				
-				hospedaje.reservarHabitacion(numeroHabitacion, fechaReserva);
-				
-				Tiquete tiquete = pasajero.buscarTiquete(viaje);	
-				
-				tiquete.setHospedaje(hospedaje);
-				
-				Duration duration = 
-						Duration.between(LocalDateTime.now(), fechaReserva);
-				
-				ScheduledExecutorService service = 
-						Executors.newScheduledThreadPool(1);
-				
-				Runnable task = () -> {
-					hospedaje.liberarHabitacion(numeroHabitacion);
-				};
-				
-				service.schedule(task, duration.toMinutes(), 
-								TimeUnit.MINUTES);
 			}
 		}
 	}

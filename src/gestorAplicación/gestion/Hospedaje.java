@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import gestorAplicación.transporte.Asiento;
+
 public class Hospedaje implements Serializable {
 	private ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private int calificacion;
@@ -42,6 +44,26 @@ public class Hospedaje implements Serializable {
 		}
 	}
 	
+	public boolean tieneHabitaciones() {
+		for (Habitacion habitacion : habitaciones) {
+			if (!habitacion.isReservada()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public Habitacion buscarHabitacion(String numeroHabitacion) {
+		for (Habitacion habitacion : this.getHabitaciones()) {
+			if (habitacion.getNumeroHabitacion().equals(numeroHabitacion)) {
+				return habitacion;
+			}
+		}
+		
+		return null;
+	}
+	
 	public int habitacionesDisponibles() {
 		int numeroHabitaciones = 0;
 		
@@ -54,10 +76,12 @@ public class Hospedaje implements Serializable {
 		return numeroHabitaciones;
 	}
 	
-	public void reservarHabitacion(String numeroHabitacion, LocalDateTime fechaReserva) {
+	public void reservarHabitacion(String numeroHabitacion, LocalDateTime fechaReserva, 
+			Tiquete tiquete) {
 		for (Habitacion habitacion : this.getHabitaciones()) {
 			if (habitacion.getNumeroHabitacion().equals(numeroHabitacion)) {
 				habitacion.reservar(fechaReserva);
+				tiquete.setHospedaje(this);
 				break;
 			}
 		}
