@@ -94,7 +94,7 @@ public class Viaje implements Serializable {
 	public void liberarAsiento(String numeroAsiento) {
 		for(Asiento asiento : this.listaAsientos()) {
 			if(asiento.getNumero().equals(numeroAsiento)) {
-				asiento.setReservado(false);
+				asiento.liberar();
 			}
 		}
 	}

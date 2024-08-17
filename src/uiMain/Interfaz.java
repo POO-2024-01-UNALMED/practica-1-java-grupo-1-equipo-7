@@ -38,14 +38,13 @@ public class Interfaz {
 				.replaceAll("[^\\p{ASCII}]", "");
 	}
 	
-	public static void chequearAsientos() {
+	public static void chequearAsientosYHabitaciones() {
 		for(Asiento asiento : Asiento.getAsientos()) {
 			if(asiento.getFechaReserva() != null) {
 				if(asiento.getFechaReserva().isEqual(LocalDateTime.now()) 
 						|| asiento.getFechaReserva().
 						isBefore(LocalDateTime.now())) {
-					asiento.setReservado(false);
-					asiento.setFechaReserva(null);
+					asiento.liberar();
 				} else {
 					asiento.setReservado(true);
 					
@@ -57,7 +56,33 @@ public class Interfaz {
 							Executors.newScheduledThreadPool(1);
 					
 					Runnable task = () -> {
-						asiento.setReservado(false);;
+						asiento.liberar();
+					};
+					
+					service.schedule(task, duration.toMinutes(), 
+							TimeUnit.MINUTES);
+				}
+			}
+		}
+		
+		for(Habitacion habitacion : Habitacion.getHabitaciones()) {
+			if(habitacion.getFechaReserva() != null) {
+				if(habitacion.getFechaReserva().isEqual(LocalDateTime.now()) 
+						|| habitacion.getFechaReserva().
+						isBefore(LocalDateTime.now())) {
+					habitacion.liberar();
+				} else {
+					habitacion.setReservada(true);
+					
+					Duration duration = 
+							Duration.between(LocalDateTime.now(), 
+							habitacion.getFechaReserva());
+					
+					ScheduledExecutorService service = 
+							Executors.newScheduledThreadPool(1);
+					
+					Runnable task = () -> {
+						habitacion.liberar();
 					};
 					
 					service.schedule(task, duration.toMinutes(), 
@@ -2527,10 +2552,6 @@ public class Interfaz {
 		System.out.println("Ten un buen viaje");
 		Serializador.limpiarArchivos();
 		Serializador.serializar(empresas);
-//		Serializador.serializar(viaje1);
-//		Serializador.serializar(bus1);
-//		Serializador.serializar(viaje2);
-//		Serializador.serializar(bus2);
 		System.exit(0);
 	}
 
@@ -2603,7 +2624,7 @@ public class Interfaz {
 //		empresas.add(empresa2);
 //		empresas.add(empresa1);
 		
-		chequearAsientos();
+		chequearAsientosYHabitaciones();
 			
 		String opcion;
 

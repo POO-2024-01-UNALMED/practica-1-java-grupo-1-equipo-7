@@ -90,6 +90,11 @@ public class Asiento implements Serializable{
 		return tipoAsiento;
 
 	}
+	
+	public void liberar() {
+		this.setReservado(false);
+		this.setFechaReserva(null);
+	}
 
 	public String getColor() {
 		return color;

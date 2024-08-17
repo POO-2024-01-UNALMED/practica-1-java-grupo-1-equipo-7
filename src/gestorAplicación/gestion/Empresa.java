@@ -11,12 +11,12 @@ import gestorAplicación.personas.Aseador;
 import gestorAplicación.personas.Conductor;
 
 public class Empresa implements Serializable {
+	private static final long serialVersionUID = 7629040699362007263L;
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
-//	static final long serialVersionUID = 1L;
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private String nombre;
 	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
+	private String nombre;
 
 	public Empresa() {
 		Deserializador.deserializar(this);

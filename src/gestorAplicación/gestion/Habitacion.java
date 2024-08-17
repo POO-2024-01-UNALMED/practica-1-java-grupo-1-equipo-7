@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import gestorAplicación.personas.Persona;
 
 public class Habitacion implements Serializable {
+	private static final long serialVersionUID = 6655776532233087484L;
+	private static ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private ArrayList<Persona> persona = new ArrayList<Persona>();
 	private Hospedaje hospedaje;
 	private String numeroHabitacion;
@@ -109,5 +111,9 @@ public class Habitacion implements Serializable {
 
 	public void setFechaReserva(LocalDateTime fechaReserva) {
 		this.fechaReserva = fechaReserva;
+	}
+
+	public static ArrayList<Habitacion> getHabitaciones() {
+		return habitaciones;
 	}
 }
