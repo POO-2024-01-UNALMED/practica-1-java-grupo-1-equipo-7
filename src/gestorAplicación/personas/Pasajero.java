@@ -22,6 +22,11 @@ public class Pasajero extends Persona implements Serializable {
 		pasajeros.add(this);
 	}
 	
+	public Pasajero(String nombre, String idPasajero, String telefono, String correo) {
+		super(nombre,idPasajero,telefono,correo);
+		pasajeros.add(this);
+	}
+
 	public static Pasajero buscarPasajero(String id) {
 		for(Pasajero pasajero : pasajeros) {
 			if(pasajero.getId().equals(id)) {

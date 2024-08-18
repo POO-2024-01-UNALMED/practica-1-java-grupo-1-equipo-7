@@ -5,6 +5,8 @@ import gestorAplicación.gestion.Tiquete;
 public class Persona {
 	protected String nombre;
 	protected String id;
+	private String correo;
+	private String telefono;
 	
 	public Persona() {
 		this("", "");
@@ -15,6 +17,13 @@ public class Persona {
 		this.id = id;
 	}
 	
+	public Persona(String nombre2, String idPasajero, String telefono, String correo) {
+		nombre=nombre2;
+		id=idPasajero;
+		this.setTelefono(telefono);
+		this.setCorreo(correo);
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -29,5 +38,21 @@ public class Persona {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 }

@@ -101,10 +101,12 @@ public class Interfaz {
 				System.out.print("-");
 			}
 
+
 			System.out.println();
 
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
 			+ "         HORA DE SALIDA     ID       PLACA BUS");
+			
 
 			for (int i = 0; i < 92; i++) {
 				System.out.print("-");
@@ -588,13 +590,14 @@ public class Interfaz {
 			
 								String numeroAsiento = input();
 								
-								if (viaje.buscarAsiento(numeroAsiento).isReservado() 
-										|| viaje.buscarAsiento(numeroAsiento) == null) {
+								if (viaje.buscarAsiento(numeroAsiento) == null ||
+										viaje.buscarAsiento(numeroAsiento).isReservado() ) {
 									while (true) {
 										System.out.println();
 										System.out.println("El asiento no está disponible");
 										System.out.println();
 										System.out.print("Ingrese otro número de asiento: ");
+										System.out.println();
 										
 										numeroAsiento = input();
 										
@@ -642,7 +645,7 @@ public class Interfaz {
 			
 								while (fechaViaje.isBefore(fechaReserva)) {
 									System.out.println("La reserva debe ser " 
-									+ "antes del viaje ");
+									+ "antes del viaje (ó Ingrese 'E' para volver al menú principal)" );
 			
 									System.out.println();
 									
@@ -650,6 +653,11 @@ public class Interfaz {
 									+ "reservarlo? (minutos/horas/dias)");
 			
 									tiempo = input();
+								
+									
+									if (tiempo.toUpperCase().equals("E")){
+										break;
+									}
 									
 									arrayTiempo = tiempo.split("[\s]");
 									
@@ -884,8 +892,8 @@ public class Interfaz {
 			
 							System.out.println();
 							
-							if (viaje.buscarAsiento(numeroAsiento).isReservado() 
-									|| viaje.buscarAsiento(numeroAsiento) == null) {
+							if (viaje.buscarAsiento(numeroAsiento) == null||
+									viaje.buscarAsiento(numeroAsiento).isReservado()) {
 								while (true) {
 									System.out.println();
 									System.out.println("El asiento no está disponible");
@@ -938,14 +946,19 @@ public class Interfaz {
 			
 							while (fechaViaje.isBefore(fechaReserva)) {
 								System.out.println("La reserva debe ser " 
-								+ "antes del viaje ");
-			
-								System.out.println();
-								
-								System.out.println("¿Por cuánto tiempo desea " 
-								+ "reservarlo? (minutos/horas/dias)");
-			
-								tiempo = input();
+								+ "antes del viaje (ó Ingrese 'E' para volver al menú principal)" );
+				
+										System.out.println();
+										
+										System.out.println("¿Por cuánto tiempo desea " 
+										+ "reservarlo? (minutos/horas/dias)");
+				
+										tiempo = input();
+									
+										
+										if (tiempo.toUpperCase().equals("E")){
+											break;
+										}
 								
 								arrayTiempo = tiempo.split("[\s]");
 								
@@ -1194,15 +1207,16 @@ public class Interfaz {
 				
 				System.out.println();
 				
-				if (viaje.buscarAsiento(numeroAsiento).isReservado() 
-						|| viaje.buscarAsiento(numeroAsiento) == null) {
+				if (viaje.buscarAsiento(numeroAsiento) == null||
+						viaje.buscarAsiento(numeroAsiento).isReservado()) {
 					while (true) {
 						System.out.println();
 						System.out.println("El asiento no está disponible");
 						System.out.println();
-						System.out.print("Ingrese otro número de asiento: ");
+						System.out.print("Ingrese otro número de asiento:");
 						
 						numeroAsiento = input();
+					
 						
 						if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
 								&& viaje.buscarAsiento(numeroAsiento) != null) {
@@ -1210,6 +1224,7 @@ public class Interfaz {
 							break;
 						}
 					}
+					
 				}
 
 				viaje.reservarAsiento(numeroAsiento);
@@ -1218,7 +1233,7 @@ public class Interfaz {
 				
 				System.out.println();
 		
-				System.out.print("Nombre: ");
+				System.out.print("Nombre completo: ");
 				
 				String nombre = input();
 				
@@ -1228,12 +1243,21 @@ public class Interfaz {
 				
 				while (idPasajero.length() != 6) {
 					System.out.print("Número de identificación (6 dígitos): ");
-					idPasajero = input();
-				}
+					idPasajero = input();}
+				
 				
 				System.out.println();
 				
-				Pasajero pasajero = new Pasajero(nombre, idPasajero);
+				if((Pasajero.buscarPasajero(idPasajero)==null)) {
+					System.out.print("Teléfono: ");
+					
+					String telefono = input();
+					
+					System.out.print("Correo electrónico: ");
+					
+					String correo = input();
+				
+				Pasajero pasajero = new Pasajero(nombre, idPasajero,telefono,correo);
 				
 				Asiento asiento = viaje.buscarAsiento(numeroAsiento);
 				
@@ -1260,6 +1284,9 @@ public class Interfaz {
 				System.out.println();
 				
 				System.out.println("Nombre del pasajero: " + nombre);
+				System.out.println("Id del pasajero: " + idPasajero);
+				System.out.println("Teléfono: " + telefono);
+				System.out.println("Correo: " + correo);
 				System.out.println("Asiento: " + asiento);
 				System.out.println("Empresa: " + viaje.getEmpresa().getNombre());
 				System.out.println("Id del viaje: " + viaje.getId());
@@ -1273,6 +1300,56 @@ public class Interfaz {
 	
 				System.out.println();
 				System.out.println();
+				}
+				else {
+					Asiento asiento = viaje.buscarAsiento(numeroAsiento);
+					
+					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
+					
+					Tiquete tiquete = new Tiquete(Pasajero.buscarPasajero(idPasajero), viaje, asiento);
+					
+					Pasajero.buscarPasajero(idPasajero).agregarTiquete(tiquete);
+					System.out.println("Tiquete reservado exitosamente");
+					
+					System.out.println();
+		
+					for (int i = 0; i < 34; i++) {
+						System.out.print("-");
+					}
+					
+					System.out.println();
+					
+					System.out.println("    Tiquete No." + tiquete.getNumeroReserva());
+					
+					for (int i = 0; i < 34; i++) {
+						System.out.print("-");
+					}
+		
+					System.out.println();
+					
+					System.out.println("Nombre del pasajero: " + nombre);
+					System.out.println("Id del pasajero: " + idPasajero);
+					System.out.println("Teléfono: " + pasajero.getTelefono());
+					System.out.println("Correo: " + pasajero.getCorreo());
+					System.out.println("Asiento: " + asiento);
+					System.out.println("Empresa: " + viaje.getEmpresa().getNombre());
+					System.out.println("Id del viaje: " + viaje.getId());
+					System.out.println("Fecha y hora: " + viaje.getFecha() + " " + viaje.getHora());
+					System.out.println("Origen: " + viaje.getTerminalOrigen().getUbicacion());
+					System.out.println("Destino: " + viaje.getTerminalDestino().getUbicacion());
+					
+					for (int i = 0; i < 34; i++) {
+						System.out.print("-");
+					}
+		
+					System.out.println();
+					System.out.println();
+				}
+				
+				
+				
+				
+				
 			}
 		}
 	}
@@ -1617,8 +1694,8 @@ public class Interfaz {
 										
 										System.out.println();
 										
-										if (viaje.buscarAsiento(numeroAsiento).isReservado() 
-												|| viaje.buscarAsiento(numeroAsiento) == null) {
+										if (viaje.buscarAsiento(numeroAsiento) == null||
+												viaje.buscarAsiento(numeroAsiento).isReservado()) {
 											while (true) {
 												System.out.println();
 												System.out.println("El asiento no " 
@@ -1836,8 +1913,8 @@ public class Interfaz {
 									
 									System.out.println();
 									
-									if (viaje.buscarAsiento(numeroAsiento).isReservado() 
-											|| viaje.buscarAsiento(numeroAsiento) == null) {
+									if (viaje.buscarAsiento(numeroAsiento) == null||
+											viaje.buscarAsiento(numeroAsiento).isReservado() ) {
 										while (true) {
 											System.out.println();
 											System.out.println("El asiento no está disponible");
@@ -2024,8 +2101,8 @@ public class Interfaz {
 						
 						System.out.println();
 						
-						if (hospedaje.buscarHabitacion(numeroHabitacion).isReservada() 
-								|| hospedaje.buscarHabitacion(numeroHabitacion) == null) {
+						if (hospedaje.buscarHabitacion(numeroHabitacion) == null||
+								hospedaje.buscarHabitacion(numeroHabitacion).isReservada() ) {
 							while (true) {
 								System.out.println();
 								System.out.println("La habitación no está disponible");
@@ -2576,7 +2653,7 @@ public class Interfaz {
 		Bus bus2 = new Bus("0002", 13, new int[]{3, 4});
 		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});
 		Bus bus4 = new Bus("0004", 13, new int[]{5, 11});
-		Pasajero pasajero = new Pasajero("samuel", "123");
+		Pasajero pasajero = new Pasajero("samuel", "123123");
 		
 		cali.getHospedajes().add(hospedaje1);
 		
