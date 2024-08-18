@@ -1,4 +1,5 @@
 package gestorAplicación.personas;
+import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Viaje;
 import java.util.ArrayList;
 import java.io.Serializable;
@@ -38,6 +39,16 @@ public class Conductor extends Persona implements Serializable{
 		}
 		return null;
 	}
+	
+	public static Conductor buscarConductor(String nombre,String id) {
+		for(Conductor conductor: conductores) {
+			if(conductor.getNombre()!=null && conductor.getId()!=null) {
+			if(conductor.getId().equals(id) && conductor.getNombre().equals(nombre)) {
+				return conductor;
+			}}
+		}
+		return null;}
+	
 	
 	public void añadirViaje(Viaje viaje) {
 		Boolean viajeNuevo=true;

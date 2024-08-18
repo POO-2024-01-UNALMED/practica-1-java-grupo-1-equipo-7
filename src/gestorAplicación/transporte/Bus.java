@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import baseDatos.Deserializador;
+import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Viaje;
 
 
@@ -16,6 +17,12 @@ public class Bus extends Vehiculo implements Serializable {
 	private int[] tiposAsientoFila;
 
 	public Bus() {
+		this.setPeritaje(true);
+		buses.add(this);
+	}
+	
+	public Bus(String placa) {
+		this.setPlaca(placa);
 		this.setPeritaje(true);
 		buses.add(this);
 	}
@@ -73,5 +80,15 @@ public class Bus extends Vehiculo implements Serializable {
 	
 	public int[] getTiposAsiento() {
 		return tiposAsientoFila;
+	}
+	
+	public static Bus buscarBus(String placa) {
+		for(Bus bus : buses) {
+			if(bus.getPlaca()!=null) {
+			if(bus.getPlaca().equals(placa)) {
+				return bus;
+			}}
+		}
+		return null;
 	}
 }

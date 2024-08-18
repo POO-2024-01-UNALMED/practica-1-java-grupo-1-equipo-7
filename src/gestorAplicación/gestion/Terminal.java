@@ -14,9 +14,16 @@ public class Terminal implements Serializable {
 	private ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private ArrayList<Aseador> aseadores= new ArrayList<Aseador>();
 	private ArrayList<Revisor> revisores= new ArrayList<Revisor>();
+	private String nombre;
 	private String ubicacion;
 	
 	public Terminal(String ubicacion) {
+		this.ubicacion = ubicacion;
+		terminales.add(this);
+	}
+	
+	public Terminal(String nombre,String ubicacion) {
+		this.nombre=nombre;
 		this.ubicacion = ubicacion;
 		terminales.add(this);
 	}
@@ -26,6 +33,25 @@ public class Terminal implements Serializable {
 			if(terminal.getUbicacion().equals(ubicacion)) {
 				return terminal;
 			}
+		}
+		return null;
+	}
+	
+	public Empresa buscarEmpresa(String nombre) {
+		for(Empresa empresa : this.empresas) {
+			if(empresa.getNombre().equals(nombre)) {
+				return empresa;
+			}
+		}
+		return null;
+	}
+	
+	public static Terminal buscarTerminal(String nombre,String ubicacion) {
+		for(Terminal terminal : terminales) {
+			if(terminal.getNombre()!=null) {
+			if(terminal.getUbicacion().equals(ubicacion) && terminal.getNombre().equals(nombre)) {
+				return terminal;
+			}}
 		}
 		return null;
 	}
@@ -105,5 +131,34 @@ public class Terminal implements Serializable {
 	public void setHospedajes(ArrayList<Hospedaje> hospedajes) {
 		this.hospedajes = hospedajes;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	
+	public void agregarEmpresa(Empresa empresa) {
+		this.empresas.add(empresa);
+	}
+	
+	public static void eliminarTerminal(String nombre,String ubicacion) {
+		
+		Terminal terminal= Terminal.buscarTerminal(nombre, ubicacion);
+		terminales.remove(terminal);
+				
+				
+		
+	}
+	
+	public void eliminarEmpresa(String nombreEmp) {
+		
+		Empresa empresa= this.buscarEmpresa(nombreEmp);
+		this.empresas.remove(empresa);
+				
+				
+		
+	}
 }

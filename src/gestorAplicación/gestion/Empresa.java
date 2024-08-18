@@ -207,5 +207,10 @@ public class Empresa implements Serializable {
 		}
 		
 	}
+	
+	public static void eliminarEmpresa(String nombre) {
+		
+		Empresa empresa= Empresa.buscarEmpresa(nombre);
+		empresas.remove(empresa);}
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import gestorAplicación.personas.Conductor;
 import gestorAplicación.transporte.Asiento;
 
 public class Hospedaje implements Serializable {
@@ -98,12 +99,9 @@ public class Hospedaje implements Serializable {
 	
 	public static Hospedaje buscarHospedaje(String nombre,String ubi) {
 		for (Hospedaje hospedaje:Hospedaje.hospedajes) {
-			if (hospedaje.nombre.equals(nombre)) {
-				return hospedaje;
-			}
-			if (hospedaje.ubicacion!=null) {
-				if (hospedaje.ubicacion.equals(ubi))
-				return hospedaje;
+			if (hospedaje.nombre.equals(nombre) && hospedaje.ubicacion!=null) {
+				if (hospedaje.ubicacion.equals(ubi)) {
+				return hospedaje;}
 			}
 		}return null;
 	}
@@ -145,11 +143,11 @@ public class Hospedaje implements Serializable {
 
 	public void setCalificacion(String calificacion) {
 		this.calificaciones.add(calificacion);
-		int contador=0;
-		int acumulador=0;
+		double contador=0;
+		double acumulador=0;
 		for (String calificación:this.calificaciones) {
 			contador++;
-			int nota=Integer.parseInt(calificación);
+			double nota=Double.parseDouble(calificación);
 			acumulador+=nota;
 		}
 		this.calificacion=acumulador/contador;
@@ -158,6 +156,28 @@ public class Hospedaje implements Serializable {
 
 	public String getUbicacion() {
 		return ubicacion;
+	}
+	
+	public static void eliminarHospedaje(String nombre,String ubicacion) {
+		
+		Hospedaje hospedaje= Hospedaje.buscarHospedaje(nombre, ubicacion);
+		hospedajes.remove(hospedaje);
+				
+				
+			
+		
+		
+	}
+	
+	public void eliminarHabitacion(String numero) {
+		
+		Habitacion habitacion= this.buscarHabitacion(numero);
+		habitaciones.remove(habitacion);
+				
+				
+			
+		
+		
 	}
 
 	public void setUbicacion(String ubicacion) {
