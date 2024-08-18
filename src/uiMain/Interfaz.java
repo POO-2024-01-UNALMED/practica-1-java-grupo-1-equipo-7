@@ -22,6 +22,7 @@ import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
+import gestorAplicación.personas.Conductor;
 import gestorAplicación.personas.Pasajero;
 import gestorAplicación.personas.Persona;
 import gestorAplicación.transporte.Asiento;
@@ -2188,11 +2189,14 @@ public class Interfaz {
 		System.out.println("2. Hospedajes");
 		System.out.println("3. Terminales");
 		System.out.println("4. Viajes");
-		System.out.println("5. Personal");
-		System.out.println("6. Vehiculos");
+		System.out.println("5. Personal");//Cambiar a Conductor
+		System.out.println("6. Vehiculos");//Cambiar a Bus
 		System.out.println("7. Volver");
 		
 		System.out.println();
+		System.out.println("Ingrese el número de la operación: ");
+
+		
 		
 		String respuesta1 = input();
 		
@@ -2213,6 +2217,7 @@ public class Interfaz {
 			System.out.println();
 			
 			String empresas = input();
+			System.out.println();
 			
 			switch (empresas) {
 			case "1":
@@ -2227,6 +2232,42 @@ public class Interfaz {
 				System.out.println();
 				
 				String empresasAgregar = input();
+				System.out.println();
+				
+				if(empresasAgregar.equals("1")) {
+					System.out.println("Introduzca el nombre de la empresa: ");
+					String nombre=input();
+					new Empresa(nombre);
+					System.out.println();
+					System.out.println("Empresa creada exitosamente");
+					System.out.println();
+				}
+				
+				if(empresasAgregar.equals("2")) {
+					System.out.println("Introduzca el número de identificación del conductor: ");
+					String id=input();
+					System.out.println("Introduzca el nombre de la empresa: ");
+					String nombre=input();
+					
+					if (Conductor.buscarConductor(id)==null) {
+						System.out.println("No se ha encontrado a ningún conductor con ese ID");
+						System.out.println();
+						break;
+					}
+					
+					for (Empresa empresa:Empresa.getEmpresas()) {
+						if (empresa.getNombre().equals(nombre)) {
+							empresa.añadirConductor(Conductor.buscarConductor(id));
+						}
+						else {
+							System.out.println("No se ha encontrado la empresa "+nombre);
+							System.out.println();
+							break;
+						}
+					}
+					System.out.println("Conductor "+Conductor.buscarConductor(id).getNombre()+
+							" asignado correctamente a la empresa "+nombre);
+				}
 				break;
 			case "2":
 				System.out.println("¿Qué desea ver?");
@@ -2239,6 +2280,31 @@ public class Interfaz {
 				System.out.println();
 				
 				String empresasVer = input();
+				System.out.println();
+				
+				if (empresasVer.equals("1")) {
+					System.out.println("Lista de empresas actuales");
+					for (int i = 0; i < 28; i++) {
+						System.out.print("-");
+					}
+
+					System.out.println();
+
+					System.out.println("    Nombre de la empresa      ");
+
+					for (int i = 0; i < 28; i++) {
+						System.out.print("-");
+					}
+					
+					System.out.println();
+
+					for(Empresa empresa : Empresa.getEmpresas()) {
+						System.out.println("          "+empresa.getNombre());
+					}
+					
+					System.out.println();
+				
+				}
 				break;
 			case "3":
 				System.out.println("¿Qué desea eliminar?");
@@ -2252,6 +2318,46 @@ public class Interfaz {
 				System.out.println();
 				
 				String empresasEliminar = input();
+				System.out.println();
+				
+				if (empresasEliminar.equals("1")) {
+					System.out.println("Ingrese el nombre de la empresa a eliminar");
+					String nombre=input();
+					Empresa empresa=Empresa.buscarEmpresa(nombre);
+					if (empresa==null) {
+						System.out.println();
+						System.out.println("No se ha encontrado a la empresa"+nombre);
+						System.out.println();
+						break;
+					}
+					empresa=null;
+					System.out.println();
+					System.out.println("Empresa "+nombre+" eliminada exitosamente");
+					System.out.println();
+				}
+				
+				if (empresasEliminar.equals("2")) {
+					System.out.println("Introduzca el número de identificación del conductor: ");
+					String id=input();
+					System.out.println("Introduzca el nombre de la empresa: ");
+					String nombre=input();
+					
+					if (Conductor.buscarConductor(id)==null) {
+						System.out.println("No se ha encontrado a ningún conductor con ese ID");
+						System.out.println();
+						break;
+					}
+					
+					for (Empresa empresa:Empresa.getEmpresas()) {
+						if (empresa.getNombre().equals(nombre)) {
+							empresa.eliminarConductor(Conductor.buscarConductor(id));
+						}
+						else {
+							System.out.println("No se ha encontrado la empresa "+nombre);
+							System.out.println();
+							break;
+						}}
+				}
 				break;
 			case "4":
 				administrador();
@@ -2270,6 +2376,7 @@ public class Interfaz {
 			System.out.println();
 			
 			String hospedajes = input();
+			System.out.println();
 			
 			
 			switch (hospedajes) {
@@ -2286,6 +2393,81 @@ public class Interfaz {
 				System.out.println();
 				
 				String hospedajesAgregar = input();
+				System.out.println();
+				
+				if (hospedajesAgregar.equals("1")) {
+					System.out.println("Ingrese el nombre del hospedaje");
+					String nombre=input();
+					System.out.println();
+					System.out.println("Ingrese la ubicación del hospedaje");
+					String ubicacion=input();
+					System.out.println();
+					
+					if (!(Hospedaje.buscarHospedaje(nombre, ubicacion)==null)) {
+						System.out.println("El hospedaje ya existe");
+						System.out.println();
+						break;
+					}
+					new Hospedaje(nombre,ubicacion);
+					System.out.println("Hospedaje creado exitosamente");
+					System.out.println();
+				}
+				
+				if (hospedajesAgregar.equals("2")) {
+					System.out.println("Ingrese el nombre del hospedaje");
+					String nombre=input();
+					System.out.println();
+					System.out.println("Ingrese la ubicación del hospedaje");
+					String ubicacion=input();
+					System.out.println();
+					
+					
+					Hospedaje hospedaje=Hospedaje.buscarHospedaje(nombre, ubicacion);
+					
+					if (hospedaje==null) {
+						System.out.println("El hospedaje no existe");
+						System.out.println();
+						break;
+					}
+					System.out.println("Ingrese la cantidad de pisos (Sólo números enteros)");
+					String pisos=input();
+					System.out.println();
+					System.out.println("Ingrese las habitaciones por piso (Sólo números enteros)");
+					String habitaciones=input();
+					System.out.println();
+					
+					hospedaje.crearHabitaciones(Integer.parseInt(pisos), Integer.parseInt(habitaciones));
+					System.out.println("Habitaciones agregadas correctamente");
+					System.out.println();
+					
+				}
+				
+				if (hospedajesAgregar.equals("3")) {
+					System.out.println("Ingrese el nombre del hospedaje");
+					String nombre=input();
+					System.out.println();
+					System.out.println("Ingrese la ubicación del hospedaje");
+					String ubicacion=input();
+					System.out.println();
+					
+					Hospedaje hospedaje=Hospedaje.buscarHospedaje(nombre, ubicacion);
+					
+					if (hospedaje==null) {
+						System.out.println("El hospedaje no existe");
+						System.out.println();
+						break;
+					}
+					
+					System.out.println("Agregue su calificación del hospedaje del 1 al 5 (Sólo números enteros)");
+					String calificar=input();
+					System.out.println();
+					
+					hospedaje.setCalificacion(calificar);
+					
+					System.out.println("Calificación agregada correctamente");
+					System.out.println();
+					
+				}
 				break;
 			case "2":
 				System.out.println("¿Qué desea ver?");
@@ -2298,9 +2480,35 @@ public class Interfaz {
 				System.out.println();
 				
 				String hospedajesVer = input();
+				System.out.println();
+				
+				if (hospedajesVer.equals("1")) {
+					System.out.println("Lista de hospedajes actuales");
+					for (int i = 0; i < 56; i++) {
+						System.out.print("-");
+					}
+
+					System.out.println();
+
+					System.out.println("    Nombre         Ubicación         Calificación     ");
+
+					for (int i = 0; i < 56; i++) {
+						System.out.print("-");
+					}
+					
+					System.out.println();
+
+					for(Hospedaje hospedaje : Hospedaje.getHospedajes()) {
+						System.out.println("    "+hospedaje.getNombre()+"             "+
+					hospedaje.getUbicacion()+"            "+ hospedaje.getCalificacion());
+					}
+					
+					System.out.println();
+				
+				}
 				break;
 			case "3":
-				System.out.println("¿Qué desea eliminar?");
+				System.out.println("¿Qué desea eliminar?");//Continuar aquí
 				
 				System.out.println();
 				
@@ -2311,6 +2519,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String hospedajesEliminar = input();
+				System.out.println();
 				break;
 			case "4":
 				administrador();
@@ -2331,6 +2540,7 @@ public class Interfaz {
 			System.out.println();
 			
 			String terminales = input();
+			System.out.println();
 			
 			
 			switch(terminales) {
@@ -2346,6 +2556,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String terminalesAgregar = input();
+				System.out.println();
 				break;
 			case "2":
 				System.out.println("¿Qué desea anclar?");
@@ -2359,6 +2570,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String terminalesAnclar = input();
+				System.out.println();
 				break;
 			case "3":
 				System.out.println("¿Qué desea ver?");
@@ -2371,6 +2583,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String terminalesVer = input();
+				System.out.println();
 				break;
 			case "4":
 				System.out.println("¿Qué desea eliminar?");
@@ -2384,6 +2597,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String terminalesEliminar = input();
+				System.out.println();
 				break;
 			case "5":
 				administrador();
@@ -2404,6 +2618,7 @@ public class Interfaz {
 			System.out.println();
 			
 			String viaje = input();
+			System.out.println();
 			
 			switch (viaje) {
 			case "1":
@@ -2418,6 +2633,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String viajesAgregar = input();
+				System.out.println();
 				break;
 			case "2":
 				System.out.println("¿Qué desea añadir?");
@@ -2432,6 +2648,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String viajesAñadir = input();
+				System.out.println();
 				break;
 			case "3":
 				System.out.println("¿Qué desea modificar?");
@@ -2444,6 +2661,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String viajesModificar = input();
+				System.out.println();
 				break;
 			case "4":
 				System.out.println("¿Qué desea ver?");
@@ -2457,6 +2675,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String viajesVer = input();
+				System.out.println();
 			
 				break;
 			case "5":
@@ -2473,6 +2692,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String viajesEliminar = input();
+				System.out.println();
 				break;
 			case "6":
 				administrador();
@@ -2493,6 +2713,7 @@ public class Interfaz {
 			System.out.println();
 			
 			String personal = input();
+			System.out.println();
 			
 			switch (personal) {
 			case "1":
@@ -2509,6 +2730,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String personalAgregar = input();
+				System.out.println();
 				break;
 			case "2":
 				System.out.println("¿Qué desea modificar?");
@@ -2524,6 +2746,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String personalmodificar = input();
+				System.out.println();
 				break;
 			case "3":
 				System.out.println("¿Qué desea ver?");
@@ -2539,6 +2762,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String personalVer = input();
+				System.out.println();
 				break;
 			case "4":
 				System.out.println("¿Qué desea eliminar?");
@@ -2554,6 +2778,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String personalEliminar = input();
+				System.out.println();
 				break;
 			case "5":
 				administrador();
@@ -2573,6 +2798,7 @@ public class Interfaz {
 			System.out.println();
 			
 			String vehiculos = input();
+			System.out.println();
 			
 			switch (vehiculos) {
 			case "1":
@@ -2587,6 +2813,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String vehiculosAgregar = input();
+				System.out.println();
 				break;
 			case "2":
 				System.out.println("¿Qué desea modificar?");
@@ -2600,6 +2827,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String vehiculosModificar = input();
+				System.out.println();
 				break;
 			case "3":
 				System.out.println("¿Qué desea ver?");
@@ -2613,6 +2841,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String vehiculosVer = input();
+				System.out.println();
 				break;
 			case "4":
 				System.out.println("¿Qué desea eliminar?");
@@ -2626,6 +2855,7 @@ public class Interfaz {
 				System.out.println();
 				
 				String vehiculosEliminar = input();
+				System.out.println();
 				break;
 			case "5":
 				administrador();
@@ -2660,6 +2890,7 @@ public class Interfaz {
 		Viaje viaje3 = new Viaje(santaMarta, bucaramanga, "0003");
 		Viaje viaje4 = new Viaje(pereira, medellin, "0004");
 		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
+		Hospedaje hospedaje2= new Hospedaje("Cielo","medellin");
 		Bus bus1 = new Bus("0001", 15, new int[]{3, 11});
 		Bus bus2 = new Bus("0002", 13, new int[]{3, 4});
 		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});

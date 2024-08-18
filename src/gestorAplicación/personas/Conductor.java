@@ -7,12 +7,19 @@ import gestorAplicación.transporte.tipoVehiculo;
 public class Conductor extends Persona implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	private static ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private boolean disponible;
 	private tipoVehiculo tipovehiculo;
 	
 	public Conductor(String nombre) {
 		super(nombre, "");
+		conductores.add(this);
+	}
+	
+	public Conductor(String nombre,String id) {
+		super(nombre, id);
+		conductores.add(this);
 	}
 
 	public boolean isDisponible() {
@@ -21,6 +28,15 @@ public class Conductor extends Persona implements Serializable{
 	
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
+	}
+	
+	public static Conductor buscarConductor(String id) {
+		for (Conductor conductor: Conductor.conductores) {
+			if(conductor.getId().equals(id)) {
+				return conductor;
+			}
+		}
+		return null;
 	}
 	
 	public void añadirViaje(Viaje viaje) {

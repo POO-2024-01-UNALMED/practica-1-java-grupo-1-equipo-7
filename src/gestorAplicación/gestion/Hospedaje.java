@@ -7,25 +7,34 @@ import java.util.ArrayList;
 import gestorAplicación.transporte.Asiento;
 
 public class Hospedaje implements Serializable {
+	private static ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
-	private int calificacion;
+	private ArrayList<String> calificaciones = new ArrayList<String>();
+	private double calificacion;
 	private String nombre;
 	private String ubicacion;
 	
 	public Hospedaje() {
-		
+		hospedajes.add(this);
 	}
 	
 	public Hospedaje(String nombre, int pisos, int habitacionesPiso) {
 		this.nombre = nombre;
 		crearHabitaciones(pisos, habitacionesPiso);
+		hospedajes.add(this);
 	}
 	
 	public Hospedaje(String nombre,String ubicacion,ArrayList<Habitacion> habitacion) {
 		this.nombre = nombre;
 		this.setUbicacion(ubicacion);
 		this.habitaciones=habitacion;
-
+		hospedajes.add(this);
+	}
+	
+	public Hospedaje(String nombre,String ubicacion) {
+		this.nombre = nombre;
+		this.ubicacion=ubicacion;
+		hospedajes.add(this);
 	}
 	
 	public void crearHabitaciones(int pisos, int habitacionesPiso) {
@@ -87,6 +96,18 @@ public class Hospedaje implements Serializable {
 		}
 	}
 	
+	public static Hospedaje buscarHospedaje(String nombre,String ubi) {
+		for (Hospedaje hospedaje:Hospedaje.hospedajes) {
+			if (hospedaje.nombre.equals(nombre)) {
+				return hospedaje;
+			}
+			if (hospedaje.ubicacion!=null) {
+				if (hospedaje.ubicacion.equals(ubi))
+				return hospedaje;
+			}
+		}return null;
+	}
+	
 	public void liberarHabitacion(String numeroHabitacion) {
 		for (Habitacion habitacion : this.getHabitaciones()) {
 			if (habitacion.getNumeroHabitacion().equals(numeroHabitacion)) {
@@ -118,12 +139,21 @@ public class Hospedaje implements Serializable {
 		this.habitaciones = habitaciones;
 	}
 
-	public int getCalificacion() {
+	public double getCalificacion() {
 		return calificacion;
 	}
 
-	public void setCalificacion(int calificacion) {
-		this.calificacion = calificacion;
+	public void setCalificacion(String calificacion) {
+		this.calificaciones.add(calificacion);
+		int contador=0;
+		int acumulador=0;
+		for (String calificación:this.calificaciones) {
+			contador++;
+			int nota=Integer.parseInt(calificación);
+			acumulador+=nota;
+		}
+		this.calificacion=acumulador/contador;
+		
 	}
 
 	public String getUbicacion() {
@@ -134,5 +164,8 @@ public class Hospedaje implements Serializable {
 		this.ubicacion = ubicacion;
 	}
 	
+	public static ArrayList<Hospedaje> getHospedajes() {
+		return hospedajes;
+	}
 	
 }

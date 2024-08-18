@@ -134,6 +134,14 @@ public class Empresa implements Serializable {
 	public static void setEmpresas(ArrayList<Empresa> empresas) {
 		Empresa.empresas = empresas;
 	}
+	
+	public static Empresa buscarEmpresa(String nombre) {
+		for (Empresa empresa:Empresa.empresas) {
+			if (empresa.nombre.equals(nombre)) {
+				return empresa;
+			}
+		}return null;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -189,6 +197,15 @@ public class Empresa implements Serializable {
 		else {
 			System.out.println("La terminal ya ha sido registrada");
 		}
+	}
+
+	public void eliminarConductor(Conductor conductorbuscado) {
+		for (Conductor conductor:this.conductores) {
+			if(conductor.equals(conductorbuscado)) {
+				conductor=null;
+			}
+		}
+		
 	}
 
 }
