@@ -2866,85 +2866,68 @@ public class Interfaz {
 		}
 	}
 
-	public static void salirDelSistema(ArrayList<Empresa> empresas) {
+	public static void salirDelSistema() {
 		System.out.println("Ten un buen viaje");
 		Serializador.limpiarArchivos();
-		Serializador.serializar(empresas);
+		Serializador.serializar();
 		System.exit(0);
 	}
 
 	public static void main(String[] args) {
-		Terminal medellin = new Terminal("MEDELLIN");
-		Terminal bogota = new Terminal("BOGOTA");
-		Terminal cali = new Terminal("CALI");
-		Terminal bucaramanga = new Terminal("BUCARAMANGA");
-		Terminal pereira = new Terminal("PEREIRA");
-		Terminal santaMarta = new Terminal("SANTA MARTA");
-		
-		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
-		
-		Empresa empresa1 = new Empresa("Coord");
-		Empresa empresa2 = new Empresa("Telm");
-		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
-		Viaje viaje2 = new Viaje(medellin, cali, "0002");
-		Viaje viaje3 = new Viaje(santaMarta, bucaramanga, "0003");
-		Viaje viaje4 = new Viaje(pereira, medellin, "0004");
-		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
-		Hospedaje hospedaje2= new Hospedaje("Cielo","medellin");
-		Bus bus1 = new Bus("0001", 15, new int[]{3, 11});
-		Bus bus2 = new Bus("0002", 13, new int[]{3, 4});
-		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});
-		Bus bus4 = new Bus("0004", 13, new int[]{5, 11});
-		Pasajero pasajero = new Pasajero("samuel", "123123");
-		Tiquete tiquete= new Tiquete(pasajero,viaje1,new Asiento());
-		pasajero.agregarTiquete(tiquete);
-		
-		cali.getHospedajes().add(hospedaje1);
-		
-		empresas.add(empresa1);
-		empresas.add(empresa2);
-		
-		empresa1.getViajes().add(viaje1);
-		empresa1.getViajes().add(viaje3);
-		
-		viaje1.setEmpresa(empresa1);
-		viaje1.setBus(bus1);
-		viaje3.setEmpresa(empresa1);
-		viaje3.setBus(bus3);
-		
-		viaje1.setFecha(LocalDate.parse("2024-08-05"));
-		viaje1.setHora(LocalTime.of(15, 37));
-		viaje3.setFecha(LocalDate.parse("2024-08-25"));
-		viaje3.setHora(LocalTime.of(15, 37));
-		
-		empresa2.getViajes().add(viaje2);
-		empresa2.getViajes().add(viaje4);
-		
-		viaje2.setEmpresa(empresa2);
-		viaje2.setBus(bus2);
-		viaje4.setEmpresa(empresa2);
-		viaje4.setBus(bus4);
-		
-		viaje2.setFecha(LocalDate.parse("2024-08-21"));
-		viaje2.setHora(LocalTime.of(15, 37));
-		viaje4.setFecha(LocalDate.parse("2024-08-26"));
-		viaje4.setHora(LocalTime.of(15, 37));
-		
-		pasajero.agregarTiquete(new Tiquete(pasajero, viaje2, viaje2.buscarAsiento("9A")));
-		
-//		ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+//		Terminal medellin = new Terminal("MEDELLIN");
+//		Terminal bogota = new Terminal("BOGOTA");
+//		Terminal cali = new Terminal("CALI");
+//		Terminal bucaramanga = new Terminal("BUCARAMANGA");
+//		Terminal pereira = new Terminal("PEREIRA");
+//		Terminal santaMarta = new Terminal("SANTA MARTA");
 //		
-//		Empresa empresa1 = new Empresa();
-//		Viaje viaje1 = new Viaje();
-//		Bus bus1 = new Bus();
+//		Empresa empresa1 = new Empresa("Coord");
+//		Empresa empresa2 = new Empresa("Telm");
+//		Viaje viaje1 = new Viaje(medellin, bogota, "0001");
+//		Viaje viaje2 = new Viaje(medellin, cali, "0002");
+//		Viaje viaje3 = new Viaje(santaMarta, bucaramanga, "0003");
+//		Viaje viaje4 = new Viaje(pereira, medellin, "0004");
+//		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
+//		Hospedaje hospedaje2= new Hospedaje("Cielo","medellin");
+//		Bus bus1 = new Bus("0001", 15, new int[]{3, 11});
+//		Bus bus2 = new Bus("0002", 13, new int[]{3, 4});
+//		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});
+//		Bus bus4 = new Bus("0004", 13, new int[]{5, 11});
+//		Pasajero pasajero = new Pasajero("samuel", "123123");
+//		Tiquete tiquete= new Tiquete(pasajero,viaje1,new Asiento());
+//		pasajero.agregarTiquete(tiquete);
 //		
-//		Empresa empresa2 = new Empresa();
-//		Viaje viaje2 = new Viaje();
-//		Bus bus2 = new Bus();
+//		cali.getHospedajes().add(hospedaje1);
 //		
-//		empresas.add(empresa2);
-//		empresas.add(empresa1);
+//		empresa1.getViajes().add(viaje1);
+//		empresa1.getViajes().add(viaje3);
+//		
+//		viaje1.setEmpresa(empresa1);
+//		viaje1.setBus(bus1);
+//		viaje3.setEmpresa(empresa1);
+//		viaje3.setBus(bus3);
+//		
+//		viaje1.setFecha(LocalDate.parse("2024-08-05"));
+//		viaje1.setHora(LocalTime.of(15, 37));
+//		viaje3.setFecha(LocalDate.parse("2024-08-25"));
+//		viaje3.setHora(LocalTime.of(15, 37));
+//		
+//		empresa2.getViajes().add(viaje2);
+//		empresa2.getViajes().add(viaje4);
+//		
+//		viaje2.setEmpresa(empresa2);
+//		viaje2.setBus(bus2);
+//		viaje4.setEmpresa(empresa2);
+//		viaje4.setBus(bus4);
+//		
+//		viaje2.setFecha(LocalDate.parse("2024-08-21"));
+//		viaje2.setHora(LocalTime.of(15, 37));
+//		viaje4.setFecha(LocalDate.parse("2024-08-26"));
+//		viaje4.setHora(LocalTime.of(15, 37));
+//		
+//		pasajero.agregarTiquete(new Tiquete(pasajero, viaje2, viaje2.buscarAsiento("9A")));
 		
+		Deserializador.deserializar();
 		chequearAsientosYHabitaciones();
 			
 		String opcion;
@@ -2990,7 +2973,7 @@ public class Interfaz {
 				administrador();
 				break;
 			case "6":
-				salirDelSistema(empresas);
+				salirDelSistema();
 				break;
 			default:
 				System.out.println("Opción no válida");

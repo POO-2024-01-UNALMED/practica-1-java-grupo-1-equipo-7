@@ -105,5 +105,9 @@ public class Terminal implements Serializable {
 	public void setHospedajes(ArrayList<Hospedaje> hospedajes) {
 		this.hospedajes = hospedajes;
 	}
+
+	public static void setTerminales(ArrayList<Terminal> terminales) {
+		Terminal.terminales = terminales;
+	}
 	
 }

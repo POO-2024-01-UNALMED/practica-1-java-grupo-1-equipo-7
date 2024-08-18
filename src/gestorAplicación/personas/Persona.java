@@ -1,8 +1,10 @@
 package gestorAplicación.personas;
 
+import java.io.Serializable;
+
 import gestorAplicación.gestion.Tiquete;
 
-public class Persona {
+public class Persona implements Serializable {
 	protected String nombre;
 	protected String id;
 	private String correo;

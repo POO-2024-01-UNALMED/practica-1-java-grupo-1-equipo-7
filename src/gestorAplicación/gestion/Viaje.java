@@ -13,8 +13,7 @@ import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
-	static final long serialVersionUID = 2L;
-	
+	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
@@ -28,12 +27,14 @@ public class Viaje implements Serializable {
 	
 	public Viaje() {
 //		Deserializador.deserializar(this);
+		viajes.add(this);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
 		this.id = id;
+		viajes.add(this);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
@@ -45,6 +46,7 @@ public class Viaje implements Serializable {
 		this.hora=hora;
 		this.bus=bus;
 		this.id = id;
+		viajes.add(this);
 	}
 	
 	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, 
@@ -61,6 +63,7 @@ public class Viaje implements Serializable {
 		this.hora=hora;
 		this.bus=bus;
 		this.id = id;
+		viajes.add(this);
 	}
 	
 	public ArrayList<Asiento> listaAsientos() {
@@ -243,6 +246,13 @@ public class Viaje implements Serializable {
 		this.tiquetes = tiquetes;
 	}
 	
+	public static ArrayList<Viaje> getViajes() {
+		return viajes;
+	}
+	
+	public static void setViajes(ArrayList<Viaje> viajes) {
+		Viaje.viajes = viajes;
+	}
 	public void añadirTiquete(Tiquete tiquete) {
 		Boolean tiqueteNuevo=true;
 		for (Tiquete t: tiquetes) {

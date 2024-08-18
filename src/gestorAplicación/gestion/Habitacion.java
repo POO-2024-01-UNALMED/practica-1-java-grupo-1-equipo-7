@@ -116,4 +116,8 @@ public class Habitacion implements Serializable {
 	public static ArrayList<Habitacion> getHabitaciones() {
 		return habitaciones;
 	}
+
+	public static void setHabitaciones(ArrayList<Habitacion> habitaciones) {
+		Habitacion.habitaciones = habitaciones;	
+	}
 }

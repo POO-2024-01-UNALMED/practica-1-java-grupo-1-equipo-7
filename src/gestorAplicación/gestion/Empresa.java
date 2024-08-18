@@ -19,7 +19,6 @@ public class Empresa implements Serializable {
 	private String nombre;
 
 	public Empresa() {
-		Deserializador.deserializar(this);
 		empresas.add(this);
 	}
 

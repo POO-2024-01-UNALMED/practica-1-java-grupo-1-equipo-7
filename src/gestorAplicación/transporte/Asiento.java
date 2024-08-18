@@ -15,6 +15,7 @@ public class Asiento implements Serializable{
 
 	public Asiento() {
 		this("Indefinido");
+		asientos.add(this);
 	}
 	
 	public Asiento(String numero) {
@@ -102,5 +103,9 @@ public class Asiento implements Serializable{
 	
 	public static ArrayList<Asiento> getAsientos() {
 		return asientos;
+	}
+
+	public static void setAsientos(ArrayList<Asiento> asientos) {
+		Asiento.asientos = asientos;
 	}
 }
