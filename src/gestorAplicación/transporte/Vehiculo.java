@@ -1,8 +1,10 @@
 package gestorAplicación.transporte;
 
+import java.io.Serializable;
+
 import gestorAplicación.personas.Conductor;
 
-public class Vehiculo {
+public class Vehiculo implements Serializable {
 	private String placa;
 	private boolean disponible;
 	private boolean peritaje;

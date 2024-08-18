@@ -112,7 +112,4 @@ public class Pasajero extends Persona implements Serializable {
 	public static void setPasajeros(ArrayList<Pasajero> pasajeros) {
 		Pasajero.pasajeros = pasajeros;
 	}
-	
-	
-
 }

@@ -138,6 +138,8 @@ public class Terminal implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	public static void setTerminales(ArrayList<Terminal> terminales) {
+		Terminal.terminales = terminales;
 	}
 	
 	public void agregarEmpresa(Empresa empresa) {
