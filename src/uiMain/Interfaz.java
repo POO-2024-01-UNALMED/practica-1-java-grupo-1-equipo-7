@@ -1246,7 +1246,7 @@ public class Interfaz {
 					idPasajero = input();}
 				
 				
-				System.out.println();
+
 				
 				if((Pasajero.buscarPasajero(idPasajero)==null)) {
 					System.out.print("Teléfono: ");
@@ -1403,16 +1403,16 @@ public class Interfaz {
 			if(!tiquetesVencidos.isEmpty()) {
 				System.out.println("Tiquetes vencidos");
 				
-				for (int i = 0; i < 85; i++) {
+				for (int i = 0; i < 93; i++) {
 					System.out.print("-");
 				}
 
 				System.out.println();
 
 				System.out.println("    NUMERO DE RESERVA     NOMBRE        ASIENTO" 
-				+ "     FECHA DEL VIAJE      ID VIAJE     ");
+				+ "             FECHA DEL VIAJE      ID VIAJE     ");
 
-				for (int i = 0; i < 85; i++) {
+				for (int i = 0; i < 93; i++) {
 					System.out.print("-");
 				}
 				
@@ -1471,16 +1471,16 @@ public class Interfaz {
 							
 							System.out.println("Detalles del tiquete");
 							
-							for (int i = 0; i < 85; i++) {
+							for (int i = 0; i < 93; i++) {
 								System.out.print("-");
 							}
 		
 							System.out.println();
 		
 							System.out.println("    NUMERO DE RESERVA     NOMBRE        ASIENTO" 
-							+ "     FECHA DEL VIAJE      ID VIAJE     ");
+							+ "             FECHA DEL VIAJE      ID VIAJE     ");
 							
-							for (int i = 0; i < 85; i++) {
+							for (int i = 0; i < 93; i++) {
 								System.out.print("-");
 							}
 							
@@ -1539,8 +1539,11 @@ public class Interfaz {
 								
 								if(respuesta3.equals("1")) {
 									if (!tiquete.getViaje().tieneSillas()) {
-										System.out.println("No hay más sillas disponibles");
+										System.out.println("No hay más asientos disponibles");
+										
+										
 										System.out.println();
+										
 									} else {
 										System.out.println("Asientos disponibles:");
 			
@@ -1692,7 +1695,7 @@ public class Interfaz {
 										
 										String numeroAsiento = input();
 										
-										System.out.println();
+										
 										
 										if (viaje.buscarAsiento(numeroAsiento) == null||
 												viaje.buscarAsiento(numeroAsiento).isReservado()) {
@@ -1718,7 +1721,7 @@ public class Interfaz {
 										
 										tiquete.cambiarAsiento(viaje.buscarAsiento(numeroAsiento));
 									}
-								} else {	
+								} else if(respuesta3.equals("2")) {	
 									System.out.print("Ingrese el origen: ");
 									
 									String origen = input();
@@ -1735,8 +1738,7 @@ public class Interfaz {
 														"para la ruta " + origen.toUpperCase() 
 														+ " --> " + destino.toUpperCase() + ":");
 									
-									for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
-											destino.toUpperCase())) {
+								
 									
 										for (int i = 0; i < 92; i++) {
 											System.out.print("-");
@@ -1753,11 +1755,13 @@ public class Interfaz {
 										}
 	
 										System.out.println();
+										for (Viaje viaje : Empresa.buscarViajes(origen.toUpperCase(), 
+												destino.toUpperCase())) {
 	
-										System.out.println(viaje);
+										System.out.println(viaje);}
 	
 										System.out.println();
-									}
+									
 	
 									System.out.print("Ingrese el id del viaje: ");
 									
@@ -1766,6 +1770,11 @@ public class Interfaz {
 									System.out.println();
 	
 									Viaje viaje = Empresa.buscarViaje(id);
+									
+									if (viaje.listaAsientos().isEmpty()) {
+										System.out.println("No hay más asientos disponibles");
+											break;
+										}
 	
 									System.out.println("Asientos disponibles:");
 									
@@ -1995,6 +2004,8 @@ public class Interfaz {
 			+ "ningún viaje");
 			System.out.println();
 		} else {
+			
+			System.out.println("Viajes reservados por "+pasajero.getNombre()+" con número de identificación "+pasajero.getId());
 			for (int i = 0; i < 92; i++) {
 				System.out.print("-");
 			}
@@ -2654,6 +2665,8 @@ public class Interfaz {
 		Bus bus3 = new Bus("0003", 12, new int[]{5, 6});
 		Bus bus4 = new Bus("0004", 13, new int[]{5, 11});
 		Pasajero pasajero = new Pasajero("samuel", "123123");
+		Tiquete tiquete= new Tiquete(pasajero,viaje1,new Asiento());
+		pasajero.agregarTiquete(tiquete);
 		
 		cali.getHospedajes().add(hospedaje1);
 		
