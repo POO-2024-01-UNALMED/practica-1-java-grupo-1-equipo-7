@@ -17,10 +17,6 @@ public class Empresa implements Serializable {
 	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	private String nombre;
 
-	public Empresa() {
-		empresas.add(this);
-	}
-
 	public Empresa(String nombre) {
 		this.nombre = nombre;
 		empresas.add(this);

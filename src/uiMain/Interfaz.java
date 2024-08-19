@@ -109,7 +109,7 @@ public class Interfaz {
 			System.out.println();
 
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
-			+ "         HORA DE SALIDA     ID       PLACA BUS");
+			+ "         HORA DE SALIDA     ID      PLACA BUS");
 			
 
 			for (int i = 0; i < 92; i++) {
@@ -174,7 +174,7 @@ public class Interfaz {
 					System.out.println();
 
 					System.out.println("    FECHA          ORIGEN          DESTINO" 
-					+ "         HORA DE SALIDA     ID       PLACA BUS");
+					+ "         HORA DE SALIDA     ID      PLACA BUS");
 
 					for (int i = 0; i < 92; i++) {
 						System.out.print("-");
@@ -215,7 +215,7 @@ public class Interfaz {
 					System.out.println();
 
 					System.out.println("    FECHA          ORIGEN          DESTINO" 
-					+ "         HORA DE SALIDA     ID       PLACA BUS");
+					+ "         HORA DE SALIDA     ID      PLACA BUS");
 
 					for (int i = 0; i < 92; i++) {
 						System.out.print("-");
@@ -256,7 +256,7 @@ public class Interfaz {
 					System.out.println();
 	
 					System.out.println("    FECHA          ORIGEN          DESTINO" 
-					+ "         HORA DE SALIDA     ID       PLACA BUS");
+					+ "         HORA DE SALIDA     ID      PLACA BUS");
 	
 					for (int i = 0; i < 92; i++) {
 						System.out.print("-");
@@ -304,7 +304,7 @@ public class Interfaz {
 					System.out.println();
 	
 					System.out.println("    FECHA          ORIGEN          DESTINO" 
-					+ "         HORA DE SALIDA     ID       PLACA BUS");
+					+ "         HORA DE SALIDA     ID      PLACA BUS");
 	
 					for (int i = 0; i < 92; i++) {
 						System.out.print("-");
@@ -345,7 +345,7 @@ public class Interfaz {
 					System.out.println();
 	
 					System.out.println("    FECHA          ORIGEN          DESTINO" 
-					+ "         HORA DE SALIDA     ID       PLACA BUS");
+							+ "         HORA DE SALIDA     ID      PLACA BUS");
 	
 					for (int i = 0; i < 92; i++) {
 						System.out.print("-");
@@ -386,7 +386,7 @@ public class Interfaz {
 					System.out.println();
 	
 					System.out.println("    FECHA          ORIGEN          DESTINO" 
-					+ "         HORA DE SALIDA     ID       PLACA BUS");
+							+ "         HORA DE SALIDA     ID      PLACA BUS");
 	
 					for (int i = 0; i < 92; i++) {
 						System.out.print("-");
@@ -605,8 +605,8 @@ public class Interfaz {
 										
 										numeroAsiento = input();
 										
-										if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
-												&& viaje.buscarAsiento(numeroAsiento) != null) {
+										if (viaje.buscarAsiento(numeroAsiento) != null 
+												&& !viaje.buscarAsiento(numeroAsiento).isReservado()) {
 											System.out.println();
 											break;
 										}
@@ -614,6 +614,8 @@ public class Interfaz {
 								}
 								
 								final String numeroAsiento2 = numeroAsiento;
+								
+								System.out.println();
 								
 								System.out.println("¿Por cuánto tiempo desea reservarlo?" 
 								+ " (minutos/horas/dias)");
@@ -626,8 +628,13 @@ public class Interfaz {
 								
 								String cantidad = arrayTiempo[0];
 								
-								LocalDateTime fechaReserva;
-			
+								LocalDateTime fechaReserva = null;
+								
+								LocalDateTime fechaViaje 
+										= LocalDateTime.of(viaje.getFecha(), viaje.getHora());
+								
+								boolean ok2 = true;
+								
 								if (tiempo.toLowerCase().contains("minutos") 
 										|| tiempo.toLowerCase().contains("minuto")) {
 									fechaReserva = LocalDateTime.now().
@@ -636,69 +643,83 @@ public class Interfaz {
 												|| tiempo.toLowerCase().contains("hora")) {
 									fechaReserva = LocalDateTime.now().
 											plusHours(Integer.valueOf(cantidad));
-								} else {
+								} else if (tiempo.toLowerCase().contains("dias")
+												|| tiempo.toLowerCase().contains("dia"))  {
 									fechaReserva = LocalDateTime.now().
 											plusDays(Integer.valueOf(cantidad));
-								}
-			
-								LocalDateTime fechaViaje = 
-										LocalDateTime.
-										of(viaje.getFecha(), viaje.getHora());
-			
-								while (fechaViaje.isBefore(fechaReserva)) {
-									System.out.println("La reserva debe ser " 
-									+ "antes del viaje (ó Ingrese 'E' para volver al menú principal)" );
-			
+								} else {
+									System.out.println("Tiempo no válido");
 									System.out.println();
-									
-									System.out.println("¿Por cuánto tiempo desea " 
-									+ "reservarlo? (minutos/horas/dias)");
-			
-									tiempo = input();
-								
-									
-									if (tiempo.toUpperCase().equals("E")){
-										break;
-									}
-									
-									arrayTiempo = tiempo.split("[\s]");
-									
-									cantidad = arrayTiempo[0];
-			
-									System.out.println();
-			
-									if (tiempo.toLowerCase().contains("minutos") 
-											|| tiempo.toLowerCase().contains("minuto")) {
-										fechaReserva = LocalDateTime.now().
-												plusMinutes(Integer.valueOf(cantidad));
-									} else if (tiempo.toLowerCase().contains("horas") 
-													|| tiempo.toLowerCase().
-															contains("hora")) {
-										fechaReserva = LocalDateTime.now().
-												plusHours(Integer.valueOf(cantidad));
-									} else {
-										fechaReserva = LocalDateTime.now().
-												plusDays(Integer.valueOf(cantidad));
-									}
+									ok2 = false;
 								}
 								
-								viaje.reservarAsiento(numeroAsiento2, fechaReserva);
-								
-								Duration duration = 
-										Duration.between(LocalDateTime.now(), fechaReserva);
-								
-								ScheduledExecutorService service = 
-										Executors.newScheduledThreadPool(1);
-								
-								Runnable task = () -> {
-									viaje.liberarAsiento(numeroAsiento2);
-								};
-								
-								service.schedule(task, duration.toMinutes(), 
-												TimeUnit.MINUTES);
-								
-								System.out.println("Asiento reservado exitosamente");
-								System.out.println();
+								if (ok2) {
+									boolean ok3 = true;
+									
+									while (fechaViaje.isBefore(fechaReserva)) {
+										System.out.println("La reserva debe ser " 
+										+ "antes del viaje (ó Ingrese 'E' para volver al menú principal)" );
+						
+										System.out.println();
+										
+										System.out.println("¿Por cuánto tiempo desea " 
+										+ "reservarlo? (minutos/horas/dias)");
+				
+										tiempo = input();
+									
+										if (tiempo.toUpperCase().equals("E")){
+											ok3 = false;
+											System.out.println();
+											break;
+										}
+										
+										arrayTiempo = tiempo.split("[\s]");
+										
+										cantidad = arrayTiempo[0];
+					
+										System.out.println();
+					
+										if (tiempo.toLowerCase().contains("minutos") 
+												|| tiempo.toLowerCase().contains("minuto")) {
+											fechaReserva = LocalDateTime.now().
+													plusMinutes(Integer.valueOf(cantidad));
+										} else if (tiempo.toLowerCase().contains("horas") 
+														|| tiempo.toLowerCase().
+																contains("hora")) {
+											fechaReserva = LocalDateTime.now().
+													plusHours(Integer.valueOf(cantidad));
+										} else if (tiempo.toLowerCase().contains("dias")
+												|| tiempo.toLowerCase().contains("dia"))  {
+											fechaReserva = LocalDateTime.now().
+													plusDays(Integer.valueOf(cantidad));
+										} else {
+											System.out.println("Tiempo no válido");
+											System.out.println();
+											ok3 = false;
+											break;
+										}
+									}
+									
+									if (ok3) {
+										viaje.reservarAsiento(numeroAsiento2, fechaReserva);
+										
+										Duration duration = 
+												Duration.between(LocalDateTime.now(), fechaReserva);
+										
+										ScheduledExecutorService service = 
+												Executors.newScheduledThreadPool(1);
+										
+										Runnable task = () -> {
+											viaje.liberarAsiento(numeroAsiento2);
+										};
+										
+										service.schedule(task, duration.toMinutes(), 
+														TimeUnit.MINUTES);
+										
+										System.out.println("Asiento reservado exitosamente");
+										System.out.println();
+									}
+								}
 							}
 						}
 					}
@@ -906,8 +927,8 @@ public class Interfaz {
 									
 									numeroAsiento = input();
 									
-									if (!viaje.buscarAsiento(numeroAsiento).isReservado() 
-											&& viaje.buscarAsiento(numeroAsiento) != null) {
+									if (viaje.buscarAsiento(numeroAsiento) != null 
+											&& !viaje.buscarAsiento(numeroAsiento).isReservado()) {
 										System.out.println();
 										break;
 									}
@@ -927,8 +948,13 @@ public class Interfaz {
 							
 							String cantidad = arrayTiempo[0];
 							
-							LocalDateTime fechaReserva;
-			
+							LocalDateTime fechaReserva = null;
+							
+							LocalDateTime fechaViaje 
+									= LocalDateTime.of(viaje.getFecha(), viaje.getHora());
+							
+							boolean ok2 = true;
+							
 							if (tiempo.toLowerCase().contains("minutos") 
 									|| tiempo.toLowerCase().contains("minuto")) {
 								fechaReserva = LocalDateTime.now().
@@ -937,69 +963,83 @@ public class Interfaz {
 											|| tiempo.toLowerCase().contains("hora")) {
 								fechaReserva = LocalDateTime.now().
 										plusHours(Integer.valueOf(cantidad));
-							} else {
+							} else if (tiempo.toLowerCase().contains("dias")
+											|| tiempo.toLowerCase().contains("dia"))  {
 								fechaReserva = LocalDateTime.now().
 										plusDays(Integer.valueOf(cantidad));
-							}
-			
-							LocalDateTime fechaViaje = 
-									LocalDateTime.
-									of(viaje.getFecha(), viaje.getHora());
-			
-							while (fechaViaje.isBefore(fechaReserva)) {
-								System.out.println("La reserva debe ser " 
-								+ "antes del viaje (ó Ingrese 'E' para volver al menú principal)" );
-				
-										System.out.println();
-										
-										System.out.println("¿Por cuánto tiempo desea " 
-										+ "reservarlo? (minutos/horas/dias)");
-				
-										tiempo = input();
-									
-										
-										if (tiempo.toUpperCase().equals("E")){
-											break;
-										}
-								
-								arrayTiempo = tiempo.split("[\s]");
-								
-								cantidad = arrayTiempo[0];
-			
+							} else {
+								System.out.println("Tiempo no válido");
 								System.out.println();
+								ok2 = false;
+							}
+							
+							if (ok2) {
+								boolean ok3 = true;
+								
+								while (fechaViaje.isBefore(fechaReserva)) {
+									System.out.println("La reserva debe ser " 
+									+ "antes del viaje (ó Ingrese 'E' para volver al menú principal)" );
+					
+									System.out.println();
+									
+									System.out.println("¿Por cuánto tiempo desea " 
+									+ "reservarlo? (minutos/horas/dias)");
 			
-								if (tiempo.toLowerCase().contains("minutos") 
-										|| tiempo.toLowerCase().contains("minuto")) {
-									fechaReserva = LocalDateTime.now().
-											plusMinutes(Integer.valueOf(cantidad));
-								} else if (tiempo.toLowerCase().contains("horas") 
-												|| tiempo.toLowerCase().
-														contains("hora")) {
-									fechaReserva = LocalDateTime.now().
-											plusHours(Integer.valueOf(cantidad));
-								} else {
-									fechaReserva = LocalDateTime.now().
-											plusDays(Integer.valueOf(cantidad));
+									tiempo = input();
+								
+									if (tiempo.toUpperCase().equals("E")){
+										System.out.println();
+										ok3 = false;
+										break;
+									}
+									
+									arrayTiempo = tiempo.split("[\s]");
+									
+									cantidad = arrayTiempo[0];
+				
+									System.out.println();
+				
+									if (tiempo.toLowerCase().contains("minutos") 
+											|| tiempo.toLowerCase().contains("minuto")) {
+										fechaReserva = LocalDateTime.now().
+												plusMinutes(Integer.valueOf(cantidad));
+									} else if (tiempo.toLowerCase().contains("horas") 
+													|| tiempo.toLowerCase().
+															contains("hora")) {
+										fechaReserva = LocalDateTime.now().
+												plusHours(Integer.valueOf(cantidad));
+									} else if (tiempo.toLowerCase().contains("dias")
+											|| tiempo.toLowerCase().contains("dia"))  {
+										fechaReserva = LocalDateTime.now().
+												plusDays(Integer.valueOf(cantidad));
+									} else {
+										System.out.println("Tiempo no válido");
+										System.out.println();
+										ok3 = false;
+										break;
+									}
+								}
+								
+								if (ok3) {
+									viaje.reservarAsiento(numeroAsiento2, fechaReserva);
+									
+									Duration duration = 
+											Duration.between(LocalDateTime.now(), fechaReserva);
+									
+									ScheduledExecutorService service = 
+											Executors.newScheduledThreadPool(1);
+									
+									Runnable task = () -> {
+										viaje.liberarAsiento(numeroAsiento2);
+									};
+									
+									service.schedule(task, duration.toMinutes(), 
+													TimeUnit.MINUTES);
+									
+									System.out.println("Asiento reservado exitosamente");
+									System.out.println();
 								}
 							}
-							
-							viaje.reservarAsiento(numeroAsiento2, fechaReserva);
-							
-							Duration duration = 
-									Duration.between(LocalDateTime.now(), fechaReserva);
-							
-							ScheduledExecutorService service = 
-									Executors.newScheduledThreadPool(1);
-							
-							Runnable task = () -> {
-								viaje.liberarAsiento(numeroAsiento2);
-							};
-							
-							service.schedule(task, duration.toMinutes(), 
-											TimeUnit.MINUTES);
-							
-							System.out.println("Asiento reservado exitosamente");
-							System.out.println();
 						}
 					}
 				}
@@ -1039,7 +1079,7 @@ public class Interfaz {
 				System.out.println();
 	
 				System.out.println("    FECHA          ORIGEN          DESTINO" 
-				+ "         HORA DE SALIDA     ID       PLACA BUS");
+						+ "         HORA DE SALIDA     ID      PLACA BUS");
 	
 				for (int i = 0; i < 92; i++) {
 					System.out.print("-");
@@ -1348,11 +1388,6 @@ public class Interfaz {
 					System.out.println();
 					System.out.println();
 				}
-				
-				
-				
-				
-				
 			}
 		}
 	}
@@ -1458,9 +1493,9 @@ public class Interfaz {
 							}
 		
 							System.out.println();
-		
+							
 							System.out.println("    FECHA          ORIGEN          DESTINO" 
-							+ "         HORA DE SALIDA     ID       PLACA BUS");
+									+ "         HORA DE SALIDA     ID      PLACA BUS");
 		
 							for (int i = 0; i < 92; i++) {
 								System.out.print("-");
@@ -1749,9 +1784,8 @@ public class Interfaz {
 	
 										System.out.println();
 	
-										System.out.println("    FECHA          " 
-										+ "ORIGEN          DESTINO" 
-										+ "         HORA DE SALIDA     ID       PLACA BUS");
+										System.out.println("    FECHA          ORIGEN          DESTINO" 
+												+ "         HORA DE SALIDA     ID      PLACA BUS");
 	
 										for (int i = 0; i < 92; i++) {
 											System.out.print("-");
@@ -2011,48 +2045,24 @@ public class Interfaz {
 		} else {
 			
 			System.out.println("Viajes reservados por "+pasajero.getNombre()+" con número de identificación "+pasajero.getId());
-			for (int i = 0; i < 110; i++) {
+			for (int i = 0; i < 107; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 
 			System.out.println("    FECHA          ORIGEN          DESTINO" 
-			+ "         HORA DE SALIDA     ID       PLACA BUS       ASIENTO     ");
+			+ "         HORA DE SALIDA     ID      PLACA BUS     ASIENTO");
 
-			for (int i = 0; i < 110; i++) {
+			for (int i = 0; i < 107; i++) {
 				System.out.print("-");
 			}
 
 			System.out.println();
 			
 			for (Tiquete tiquete : pasajero.buscarTiquetes("validos")) {
-				int origen = 11 - (tiquete.getViaje().getTerminalOrigen().getUbicacion().length());
-				String strOrigen = String.valueOf(origen);
-				
-				int destino = 11 - (tiquete.getViaje().getTerminalDestino().getUbicacion().length());
-				String strDestino = String.valueOf(destino);
-				
-				String spaceOrigen;
-				String spaceDestino; 
-				
-				if(origen == 0) {
-					spaceOrigen = "";
-				} else {
-					spaceOrigen = String.format("%" + strOrigen + "s", ""); 
-				}
-				
-				if(destino == 0) {
-					spaceDestino = "";
-				} else {
-					spaceDestino = String.format("%" + strDestino + "s", "");
-				}
-				
-				System.out.println("    " + tiquete.getViaje().getStrFecha() + 
-						"     " + tiquete.getViaje().getTerminalOrigen().getUbicacion() + 
-						spaceOrigen + "     " + tiquete.getViaje().getTerminalDestino().getUbicacion() + 
-						spaceDestino + "     " + tiquete.getViaje().getHora() + "              " 
-						+ tiquete.getViaje().getId() + "      " + tiquete.getViaje().getBus().getPlaca()+"        "+tiquete.getAsiento());
+				System.out.print(tiquete.getViaje());
+				System.out.println(tiquete.getAsiento());
 			}
 			
 			System.out.println();
@@ -2086,7 +2096,7 @@ public class Interfaz {
 		
 					System.out.println();
 		
-					System.out.println("    NOMBRE     CALIFICACION     HABITACIONES DISPONIBLES");
+					System.out.println("    NOMBRE     CALIFICACION      HABITACIONES DISPONIBLES");
 		
 					for (int i = 0; i < 60; i++) {
 						System.out.print("-");
@@ -2141,6 +2151,7 @@ public class Interfaz {
 						
 						String numeroHabitacion = input();
 						
+						System.out.println();
 						
 						if (hospedaje.buscarHabitacion(numeroHabitacion) == null||
 								hospedaje.buscarHabitacion(numeroHabitacion).isReservada() ) {
@@ -2152,8 +2163,8 @@ public class Interfaz {
 								
 								numeroHabitacion = input();
 								
-								if (!hospedaje.buscarHabitacion(numeroHabitacion).isReservada() 
-										&& hospedaje.buscarHabitacion(numeroHabitacion) != null) {
+								if (hospedaje.buscarHabitacion(numeroHabitacion) != null 
+										&& !hospedaje.buscarHabitacion(numeroHabitacion).isReservada()) {
 									System.out.println();
 									break;
 								}
@@ -2178,6 +2189,8 @@ public class Interfaz {
 						
 						LocalDateTime fechaReserva = null;
 						
+						boolean ok = true;
+						
 						if (tiempo.toLowerCase().contains("hora") 
 								|| tiempo.toLowerCase().contains("horas")) {
 							fechaReserva = fechaViaje.
@@ -2186,27 +2199,33 @@ public class Interfaz {
 										|| tiempo.toLowerCase().contains("dias")) {
 							fechaReserva = fechaViaje.
 									plusDays(Integer.valueOf(cantidad));
-						} 
+						} else {
+							System.out.println("Tiempo no válido");
+							System.out.println();
+							ok = false;
+						}
 						
-						hospedaje.reservarHabitacion(numeroHabitacion, fechaReserva, 
-								pasajero.buscarTiquete(viaje));
-						
-						Duration duration = 
-								Duration.between(LocalDateTime.now(), fechaReserva);
-						
-						ScheduledExecutorService service = 
-								Executors.newScheduledThreadPool(1);
-						
-						Runnable task = () -> {
-							hospedaje.liberarHabitacion(numeroHabitacion2);
-						};
-						
-						service.schedule(task, duration.toMinutes(), 
-										TimeUnit.MINUTES);
-						
-						System.out.println("La habitación "+numeroHabitacion+
-								" en el hospedaje "+hospedaje.getNombre()+" ha sido reservada correctamente");
-						System.out.println();
+						if (ok) {
+							hospedaje.reservarHabitacion(numeroHabitacion, fechaReserva, 
+									pasajero.buscarTiquete(viaje));
+							
+							Duration duration = 
+									Duration.between(LocalDateTime.now(), fechaReserva);
+							
+							ScheduledExecutorService service = 
+									Executors.newScheduledThreadPool(1);
+							
+							Runnable task = () -> {
+								hospedaje.liberarHabitacion(numeroHabitacion2);
+							};
+							
+							service.schedule(task, duration.toMinutes(), 
+											TimeUnit.MINUTES);
+							
+							System.out.println("La habitación "+numeroHabitacion+
+									" en el hospedaje "+hospedaje.getNombre()+" ha sido reservada correctamente");
+							System.out.println();
+						}
 					}
 				}
 			}
@@ -2228,8 +2247,6 @@ public class Interfaz {
 		System.out.println();
 		System.out.println("Ingrese el número de la operación: ");
 
-		
-		
 		String respuesta1 = input();
 		
 		System.out.println();
@@ -4461,6 +4478,8 @@ public class Interfaz {
 	public static void main(String[] args) {
 Terminal medellin = new Terminal("MEDELLIN");
 	Terminal bogota = new Terminal("BOGOTA");
+		Terminal medellin = new Terminal("MEDELLIN");
+		Terminal bogota = new Terminal("BOGOTA");
 		Terminal cali = new Terminal("CALI");
 		Terminal bucaramanga = new Terminal("BUCARAMANGA");
 		Terminal pereira = new Terminal("PEREIRA");
