@@ -2388,7 +2388,7 @@ public class Interfaz {
 					if (accion.toLowerCase().equals("si")) {
 						administrador();
 					}
-				
+					break;
 				}
 				administrador();
 			case "3":
@@ -2436,6 +2436,7 @@ public class Interfaz {
 					if (accion.toLowerCase().equals("si")) {
 						administrador();
 					}
+					break;
 				}
 				
 				if (empresasEliminar.equals("2")) {
@@ -2498,7 +2499,7 @@ public class Interfaz {
 			case "4":
 				administrador();
 			}
-			administrador();
+			break;
 		case "2":
 			System.out.println("Ingrese una opción");
 			
@@ -3995,7 +3996,7 @@ public class Interfaz {
 			case "6":
 				administrador();
 			}
-			administrador();
+			break;
 	
 		case "5":
 			System.out.println("Ingrese una opción");
@@ -4076,6 +4077,7 @@ public class Interfaz {
 					if (accion.toLowerCase().equals("si")) {
 						administrador();
 					}
+					break;
 				}
 				
 				if (personalAgregar.equals("2")) {
@@ -4402,7 +4404,7 @@ public class Interfaz {
 			case "5":
 				administrador();
 			}
-			administrador();
+			break;
 		case "6":
 			System.out.println("Ingrese una opción");
 			
@@ -4453,7 +4455,7 @@ public class Interfaz {
 				if (accion.toLowerCase().equals("si")) {
 					administrador();
 				}
-				administrador();
+				break;
 				
 			case "2":
 				System.out.println("Ingrese la placa del bus");
@@ -4505,7 +4507,7 @@ public class Interfaz {
 					administrador();
 				}
 				
-				administrador();
+				break;
 			case "3":
 				System.out.println("Lista de buses existentes");
 				
@@ -4544,7 +4546,7 @@ public class Interfaz {
 						administrador();
 					}
 			
-					administrador();
+					break;
 			case "4":
 				System.out.println("Ingrese la placa del bus a eliminar");
 				String placa2=input();
@@ -4579,7 +4581,7 @@ public class Interfaz {
 			case "5":
 				administrador();
 			}
-			administrador();
+			break;
 		case "7":
 			break;
 		}
