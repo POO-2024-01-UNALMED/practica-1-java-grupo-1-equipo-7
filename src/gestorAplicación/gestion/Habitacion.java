@@ -9,7 +9,6 @@ import gestorAplicación.personas.Persona;
 public class Habitacion implements Serializable {
 	private static final long serialVersionUID = 6655776532233087484L;
 	private static ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
-	private ArrayList<Persona> persona = new ArrayList<Persona>();
 	private Hospedaje hospedaje;
 	private String numeroHabitacion;
 	private boolean reservada;
@@ -63,14 +62,6 @@ public class Habitacion implements Serializable {
 		
 		return "    " + numeroHabitacion + "                      " + strBoolean + "            " 
 				+ disponibleEn();
-	}
-
-	public ArrayList<Persona> getPersona() {
-		return persona;
-	}
-
-	public void setPersona(ArrayList<Persona> persona) {
-		this.persona = persona;
 	}
 
 	public Hospedaje getHospedaje() {

@@ -7,7 +7,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import baseDatos.Deserializador;
-import gestorAplicación.personas.Aseador;
 import gestorAplicación.personas.Conductor;
 
 public class Empresa implements Serializable {
