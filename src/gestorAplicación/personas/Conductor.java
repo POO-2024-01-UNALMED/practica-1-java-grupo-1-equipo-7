@@ -1,9 +1,10 @@
 package gestorAplicación.personas;
+import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Viaje;
 import java.util.ArrayList;
 import java.io.Serializable;
-import gestorAplicación.transporte.tipoVehiculo;
+
 
 public class Conductor extends Persona implements Serializable{
 
@@ -11,7 +12,7 @@ public class Conductor extends Persona implements Serializable{
 	private static ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private boolean disponible;
-	private tipoVehiculo tipovehiculo;
+
 	
 	public Conductor(String nombre) {
 		super(nombre, "");
@@ -68,17 +69,23 @@ public class Conductor extends Persona implements Serializable{
 	
 	public ArrayList<Viaje> getViajes(){
 		return viajes;
+
 	}
 	
-	public tipoVehiculo getTipoVehiculo() {
-		return tipovehiculo;
+	public static ArrayList<Conductor> getConductores(){
+		return conductores;
 	}
 	
-	public void setTipoVehiculo(tipoVehiculo tipo) {
-		tipovehiculo=tipo;
-	}
-	
-	public void setTipoVehiculo(String tipo) {
-		tipovehiculo=tipoVehiculo.valueOf(null, tipo);
+	public static void eliminarConductor(String id) {
+		
+		Conductor conductor= Conductor.buscarConductor(id);
+		conductores.remove(conductor);
+				
+				
+			
+		
+		
 	}
 }
+	
+

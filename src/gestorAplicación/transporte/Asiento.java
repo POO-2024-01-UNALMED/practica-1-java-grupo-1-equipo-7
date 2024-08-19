@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import gestorAplicación.gestion.Terminal;
+
 public class Asiento implements Serializable{
 	static final long serialVersionUID = 3L;
 	private static ArrayList<Asiento> asientos = new ArrayList<Asiento>();
@@ -28,6 +30,16 @@ public class Asiento implements Serializable{
 		this.tipoAsiento=tipo;
 		this.color=tipo.getColor();
 		asientos.add(this);
+	}
+	
+	public static Asiento buscarAsiento(String numero,String tipo) {
+		for(Asiento asiento:asientos) {
+			if(asiento.getNumero()!=null && asiento.getTipoAsiento()!=null) {
+			if(asiento.getNumero().equals(numero) && asiento.getTipoAsiento().equals(TipoAsiento.valueOf(tipo))) {
+				return asiento;
+			}}
+		}
+		return null;
 	}
 	
 	public String getNumero() {

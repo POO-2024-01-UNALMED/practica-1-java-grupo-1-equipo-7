@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import baseDatos.Deserializador;
+import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Viaje;
 
@@ -15,6 +16,7 @@ public class Bus extends Vehiculo implements Serializable {
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private int[] tiposAsientoFila;
+	private int asiento;
 
 	public Bus() {
 		this.setPeritaje(true);
@@ -31,6 +33,7 @@ public class Bus extends Vehiculo implements Serializable {
 			int[] tiposAsientoFila) {
 		this.setPlaca(placa);
 		this.setPeritaje(true);
+		this.setAsiento(asientos);
 		this.tiposAsientoFila = tiposAsientoFila;
 		this.crearAsientos(asientos);
 		buses.add(this);
@@ -90,5 +93,28 @@ public class Bus extends Vehiculo implements Serializable {
 			}}
 		}
 		return null;
+	}
+	
+	public static ArrayList<Bus> getBuses(){
+		return buses;
+	}
+
+	public int getAsiento() {
+		return asiento;
+	}
+
+	public void setAsiento(int asiento) {
+		this.asiento = asiento;
+	}
+	
+	public static void eliminarBus(String placa) {
+		
+		Bus bus= Bus.buscarBus(placa);
+		buses.remove(bus);
+				
+				
+			
+		
+		
 	}
 }

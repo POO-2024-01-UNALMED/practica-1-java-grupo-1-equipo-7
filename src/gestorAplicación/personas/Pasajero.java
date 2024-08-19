@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
 
@@ -34,6 +35,15 @@ public class Pasajero extends Persona implements Serializable {
 			}
 		}
 		return null;
+	}
+	
+	public static Pasajero buscarPasajero(String nombre,String id) {
+		for (Pasajero pasajero:pasajeros) {
+			if (pasajero.nombre.equals(nombre) && pasajero.id!=null) {
+				if (pasajero.id.equals(id)) {
+				return pasajero;}
+			}
+		}return null;
 	}
 	
 	public ArrayList<Tiquete> buscarTiquetes(String tipoTiquetes) {
@@ -111,5 +121,28 @@ public class Pasajero extends Persona implements Serializable {
 
 	public static void setPasajeros(ArrayList<Pasajero> pasajeros) {
 		Pasajero.pasajeros = pasajeros;
+	}
+	
+	public static void eliminarPasajero(String nombre,String id) {
+		
+		Pasajero pasajero= Pasajero.buscarPasajero(nombre, id);
+		pasajeros.remove(pasajero);
+				
+
+	}
+	
+	public static void eliminarPasajero(String id) {
+		
+		Pasajero pasajero= Pasajero.buscarPasajero(id);
+		pasajeros.remove(pasajero);
+				
+				
+	}
+	
+	@Override
+	public String toString() {
+	
+		return "     " + this.getNombre() + "        " + this.getId()+ "        " + this.getTelefono() +
+				"           " + this.getCorreo() + "     ";
 	}
 }

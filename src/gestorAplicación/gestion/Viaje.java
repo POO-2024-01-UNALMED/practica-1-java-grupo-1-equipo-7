@@ -132,6 +132,16 @@ public class Viaje implements Serializable {
 		return null;
 	}
 	
+	public static Viaje buscarViaje(String id) {
+		for (Viaje viaje : viajes) {
+			if (viaje.getId().equals(id)) {
+				return viaje;
+			}
+		}
+		
+		return null;
+	}
+	
 	public ArrayList<Hospedaje> hospedajesDisponibles() {
 		ArrayList<Hospedaje> hospedajesDisponibles = new ArrayList<Hospedaje>();
 		
@@ -323,5 +333,15 @@ public class Viaje implements Serializable {
 		else {
 			System.out.println("El revisor ya ha sido registrado");
 		}
+	}
+	public static void eliminarViaje(String id) {
+		
+		Viaje viaje= Viaje.buscarViaje(id);
+		viajes.remove(viaje);
+				
+				
+			
+		
+		
 	}
 }
