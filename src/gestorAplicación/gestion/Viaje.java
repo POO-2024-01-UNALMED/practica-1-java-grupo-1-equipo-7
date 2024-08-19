@@ -20,6 +20,7 @@ public class Viaje implements Serializable {
 	private Empresa empresa;
 	private LocalDate fecha;
 	private LocalTime hora;
+	private static int ids;
 	private String id;
 	private Bus bus;
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
@@ -28,33 +29,37 @@ public class Viaje implements Serializable {
 	public Viaje() {
 //		Deserializador.deserializar(this);
 		viajes.add(this);
+		ids++;
+		id=String.valueOf(ids);
 	}
 	
-	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, String id) {
+	public Viaje(Terminal terminalOrigen, Terminal terminalDestino) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
-		this.id = id;
 		viajes.add(this);
+		ids++;
+		id=String.valueOf(ids);
 	}
 	
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
-			LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
+			LocalDate fecha,LocalTime hora,Conductor conductor,Bus bus) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
 		this.empresa=empresa;
 		this.fecha=fecha;
 		this.hora=hora;
 		this.bus=bus;
-		this.id = id;
 		conductor.getViajes().add(this);
 		bus.añadirViaje(this);
 		viajes.add(this);
+		ids++;
+		id=String.valueOf(ids);
 	}
 	
 	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, 
 			ArrayList<Tiquete> tiquetes, 
 			Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
-			LocalDate fecha,LocalTime hora, String id,Conductor conductor,Bus bus) {
+			LocalDate fecha,LocalTime hora,Conductor conductor,Bus bus) {
 		this.pasajeros=pasajeros;
 		this.tiquetes=tiquetes;
 
@@ -64,10 +69,11 @@ public class Viaje implements Serializable {
 		this.fecha=fecha;
 		this.hora=hora;
 		this.bus=bus;
-		this.id = id;
 		conductor.getViajes().add(this);
 		bus.añadirViaje(this);
 		viajes.add(this);
+		ids++;
+		id=String.valueOf(ids);
 	}
 	
 	public ArrayList<Asiento> listaAsientos() {
@@ -184,7 +190,7 @@ public class Viaje implements Serializable {
 				"     " + getTerminalOrigen().getUbicacion() + 
 				spaceOrigen + "     " + getTerminalDestino().getUbicacion() + 
 				spaceDestino + "     " + getHora() + "              " 
-				+ getId() + "     " + getBus().getPlaca();
+				+ getId() + "     " + getBus().getPlaca()+"         ";
 	}
 
 	public Bus getBus() {
@@ -224,9 +230,6 @@ public class Viaje implements Serializable {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public LocalTime getHora() {
 		return hora;

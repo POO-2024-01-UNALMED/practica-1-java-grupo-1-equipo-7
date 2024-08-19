@@ -19,20 +19,15 @@ public class Bus extends Vehiculo implements Serializable {
 	private int asiento;
 
 	public Bus() {
-
+		this.setPlaca(Vehiculo.generarPlaca());
 		buses.add(this);
 	}
 	
-	public Bus(String placa) {
-		this.setPlaca(placa);
-
-		buses.add(this);
-	}
 	
-	public Bus(String placa, int asientos, 
+	public Bus(int asientos, 
 			int[] tiposAsientoFila) {
-		this.setPlaca(placa);
-
+		
+		this.setPlaca(Vehiculo.generarPlaca());
 		this.setAsiento(asientos);
 		this.tiposAsientoFila = tiposAsientoFila;
 		this.crearAsientos(asientos);
@@ -87,10 +82,9 @@ public class Bus extends Vehiculo implements Serializable {
 	
 	public static Bus buscarBus(String placa) {
 		for(Bus bus : buses) {
-			if(bus.getPlaca()!=null) {
 			if(bus.getPlaca().equals(placa)) {
 				return bus;
-			}}
+			}
 		}
 		return null;
 	}
