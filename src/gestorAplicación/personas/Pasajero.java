@@ -10,7 +10,10 @@ import gestorAplicación.gestion.Viaje;
 
 public class Pasajero extends Persona implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8124260530486820488L;
 	private static ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	

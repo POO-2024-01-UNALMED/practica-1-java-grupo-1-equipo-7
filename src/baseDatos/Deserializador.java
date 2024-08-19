@@ -75,7 +75,6 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					Empresa.setEmpresas((ArrayList<Empresa>) ois.readObject());
 					ois.close();
-					fis.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -85,7 +84,6 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					Viaje.setViajes((ArrayList<Viaje>) ois.readObject());
 					ois.close();
-					fis.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -95,7 +93,6 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					Asiento.setAsientos((ArrayList<Asiento>) ois.readObject());
 					ois.close();
-					fis.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -105,7 +102,6 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					Habitacion.setHabitaciones((ArrayList<Habitacion>) ois.readObject());
 					ois.close();
-					fis.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -115,7 +111,6 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					Terminal.setTerminales((ArrayList<Terminal>) ois.readObject());
 					ois.close();
-					fis.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -125,7 +120,6 @@ public class Deserializador {
 					ois = new ObjectInputStream(fis);
 					Pasajero.setPasajeros((ArrayList<Pasajero>) ois.readObject());
 					ois.close();
-					fis.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}

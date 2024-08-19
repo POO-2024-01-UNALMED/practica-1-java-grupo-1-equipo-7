@@ -8,6 +8,7 @@ import gestorAplicación.personas.Conductor;
 import gestorAplicación.transporte.Asiento;
 
 public class Hospedaje implements Serializable {
+	private static final long serialVersionUID = 3316398631943862366L;
 	private static ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private ArrayList<String> calificaciones = new ArrayList<String>();

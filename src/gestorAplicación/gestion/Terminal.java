@@ -7,7 +7,10 @@ import java.util.ArrayList;
 
 public class Terminal implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1318401077959501569L;
 	private static ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 	private ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
