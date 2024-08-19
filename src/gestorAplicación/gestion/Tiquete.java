@@ -12,6 +12,10 @@ import gestorAplicación.transporte.Asiento;
 
 
 public class Tiquete implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5057370312141507904L;
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
 	private Pasajero pasajero;
@@ -48,7 +52,7 @@ public class Tiquete implements Serializable {
 	
 	public void cambiarAsiento(Asiento nuevoAsiento) {
 		this.liberarAsiento();
-		this.getViaje().reservarAsiento(nuevoAsiento.getNumero());
+		this.getViaje().reservarAsiento(nuevoAsiento.getNumero(), null);
 		this.setAsiento(nuevoAsiento);
 	}
 	
@@ -56,7 +60,7 @@ public class Tiquete implements Serializable {
 		this.liberarAsiento();
 		this.setViaje(viaje);
 		this.setAsiento(viaje.buscarAsiento(numeroAsiento));
-		viaje.reservarAsiento(numeroAsiento);
+		viaje.reservarAsiento(numeroAsiento, null);
 	}
 	
 	public void liberarAsiento() {

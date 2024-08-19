@@ -2,6 +2,7 @@ package gestorAplicación.gestion;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -13,6 +14,10 @@ import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2760602559521284522L;
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private Terminal terminalOrigen;
@@ -94,11 +99,16 @@ public class Viaje implements Serializable {
 		return false;
 	}
 	
-	public void reservarAsiento(String numeroAsiento) {
+	public void reservarAsiento(String numeroAsiento, LocalDateTime fechaReserva) {
 		for(Asiento asiento : this.listaAsientos()) {
 			if (!asiento.isReservado()) {
 				if(asiento.getNumero().equals(numeroAsiento)) {
-					asiento.setReservado(true);
+					if (fechaReserva != null) {
+						asiento.reservar(fechaReserva);
+					} else {
+						asiento.reservar(null);
+					}
+					break;
 				}
 			}
 		}
@@ -113,7 +123,7 @@ public class Viaje implements Serializable {
 	}
 	
 	public Asiento buscarAsiento(String numeroAsiento) {
-		for (Asiento asiento : this.getBus().getAsientos()) {
+		for (Asiento asiento : this.listaAsientos()) {
 			if (asiento.getNumero().equals(numeroAsiento)) {
 				return asiento;
 			}

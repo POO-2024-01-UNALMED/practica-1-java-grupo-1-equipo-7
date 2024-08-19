@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import gestorAplicación.gestion.Terminal;
 
 public class Asiento implements Serializable{
-	static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 6674047871371131306L;
 	private static ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private String numero;
 	private boolean reservado;
@@ -28,7 +28,6 @@ public class Asiento implements Serializable{
 	public Asiento(String numero, TipoAsiento tipo) {
 		this.numero = numero;
 		this.tipoAsiento=tipo;
-		this.color=tipo.getColor();
 		asientos.add(this);
 	}
 	
@@ -40,6 +39,15 @@ public class Asiento implements Serializable{
 			}}
 		}
 		return null;
+	}
+
+	public void reservar(LocalDateTime fechaReserva) {
+		if (fechaReserva != null) {
+			this.setReservado(true);
+			this.setFechaReserva(fechaReserva);
+		} else {
+			this.setReservado(true);
+		}
 	}
 	
 	public String getNumero() {

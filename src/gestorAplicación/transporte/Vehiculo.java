@@ -7,7 +7,9 @@ import java.util.Random;
 import gestorAplicación.personas.Conductor;
 
 public class Vehiculo implements Serializable {
+
 	private static ArrayList<String> placas=new ArrayList<String>();
+	private static final long serialVersionUID = 1613039627515609694L;
 	private String placa;
 	private Conductor conductor;
 	

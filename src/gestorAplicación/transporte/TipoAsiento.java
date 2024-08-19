@@ -1,6 +1,8 @@
 package gestorAplicación.transporte;
 
-public enum TipoAsiento {
+import java.io.Serializable;
+
+public enum TipoAsiento implements Serializable{
 	ESTANDAR("azul"),
 	PREMIUM("amarillo"),
 	PREFERENCIAL("rojo");

@@ -5,6 +5,10 @@ import java.io.Serializable;
 import gestorAplicación.gestion.Tiquete;
 
 public class Persona implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6358131159471883226L;
 	protected String nombre;
 	protected String id;
 	private String correo;

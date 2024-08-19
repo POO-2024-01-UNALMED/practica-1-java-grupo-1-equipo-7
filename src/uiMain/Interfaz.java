@@ -42,47 +42,47 @@ public class Interfaz {
 	}
 	
 	public static void chequearAsientosYHabitaciones() {
-		for(Asiento asiento : Asiento.getAsientos()) {
-			if(asiento.getFechaReserva() != null) {
-				if(asiento.getFechaReserva().isEqual(LocalDateTime.now()) 
-						|| asiento.getFechaReserva().
-						isBefore(LocalDateTime.now())) {
-					asiento.liberar();
-				} else {
-					asiento.setReservado(true);
-					
-					Duration duration = 
-							Duration.between(LocalDateTime.now(), 
-							asiento.getFechaReserva());
-					
-					ScheduledExecutorService service = 
-							Executors.newScheduledThreadPool(1);
-					
-					Runnable task = () -> {
+		for (Viaje viaje : Viaje.getViajes()) {
+			for (Asiento asiento : viaje.listaAsientos()) {
+				if(asiento.getFechaReserva() != null) {
+					System.out.println(viaje.getBus().getPlaca() 
+							+ asiento + asiento.getFechaReserva());
+					if(asiento.getFechaReserva().isEqual(LocalDateTime.now()) 
+							|| asiento.getFechaReserva().
+							isBefore(LocalDateTime.now())) {
 						asiento.liberar();
-					};
-					
-					service.schedule(task, duration.toMinutes(), 
-							TimeUnit.MINUTES);
-				}
+					} else {
+						Duration duration = 
+								Duration.between(LocalDateTime.now(), 
+								asiento.getFechaReserva());
+						
+						ScheduledExecutorService service = 
+								Executors.newScheduledThreadPool(1);
+						
+						Runnable task = () -> {
+							asiento.liberar();
+						};
+						
+						service.schedule(task, duration.toMinutes(), 
+								TimeUnit.MINUTES);
+					}
+				} 
 			}
 		}
 		
-		for(Habitacion habitacion : Habitacion.getHabitaciones()) {
+		/*for(Habitacion habitacion : Habitacion.getHabitaciones()) {
 			if(habitacion.getFechaReserva() != null) {
 				if(habitacion.getFechaReserva().isEqual(LocalDateTime.now()) 
 						|| habitacion.getFechaReserva().
 						isBefore(LocalDateTime.now())) {
 					habitacion.liberar();
 				} else {
-					habitacion.setReservada(true);
-					
 					Duration duration = 
 							Duration.between(LocalDateTime.now(), 
 							habitacion.getFechaReserva());
 					
 					ScheduledExecutorService service = 
-							Executors.newScheduledThreadPool(1);
+							Executors.newScheduledThreadPool(2);
 					
 					Runnable task = () -> {
 						habitacion.liberar();
@@ -92,7 +92,7 @@ public class Interfaz {
 							TimeUnit.MINUTES);
 				}
 			}
-		}
+		}*/
 	}
 
 	public static void verViajes() {
@@ -614,8 +614,6 @@ public class Interfaz {
 								
 								final String numeroAsiento2 = numeroAsiento;
 								
-								viaje.reservarAsiento(numeroAsiento2);
-								
 								System.out.println("¿Por cuánto tiempo desea reservarlo?" 
 								+ " (minutos/horas/dias)");
 			
@@ -682,6 +680,8 @@ public class Interfaz {
 												plusDays(Integer.valueOf(cantidad));
 									}
 								}
+								
+								viaje.reservarAsiento(numeroAsiento2, fechaReserva);
 								
 								Duration duration = 
 										Duration.between(LocalDateTime.now(), fechaReserva);
@@ -914,8 +914,6 @@ public class Interfaz {
 							}
 							
 							final String numeroAsiento2 = numeroAsiento;
-							
-							viaje.reservarAsiento(numeroAsiento2);
 			
 							System.out.println("¿Por cuánto tiempo desea reservarlo?" 
 							+ " (minutos/horas/dias)");
@@ -983,6 +981,8 @@ public class Interfaz {
 											plusDays(Integer.valueOf(cantidad));
 								}
 							}
+							
+							viaje.reservarAsiento(numeroAsiento2, fechaReserva);
 							
 							Duration duration = 
 									Duration.between(LocalDateTime.now(), fechaReserva);
@@ -1229,7 +1229,7 @@ public class Interfaz {
 					
 				}
 
-				viaje.reservarAsiento(numeroAsiento);
+				viaje.reservarAsiento(numeroAsiento, null);
 		
 				System.out.println("Ingrese sus datos:");
 				
@@ -1245,10 +1245,8 @@ public class Interfaz {
 				
 				while (idPasajero.length() != 6) {
 					System.out.print("Número de identificación (6 dígitos): ");
-					idPasajero = input();}
-				
-				
-
+					idPasajero = input();
+				}
 				
 				if((Pasajero.buscarPasajero(idPasajero)==null)) {
 					System.out.print("Teléfono: ");
