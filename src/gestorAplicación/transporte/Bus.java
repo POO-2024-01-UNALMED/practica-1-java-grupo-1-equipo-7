@@ -8,7 +8,6 @@ import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Terminal;
 import gestorAplicación.gestion.Viaje;
 
-
 public class Bus extends Vehiculo implements Serializable {
 
 	private static final long serialVersionUID = 2378919680109241789L;
@@ -22,11 +21,9 @@ public class Bus extends Vehiculo implements Serializable {
 		this.setPlaca(Vehiculo.generarPlaca());
 		buses.add(this);
 	}
-	
-	
-	public Bus(int asientos, 
-			int[] tiposAsientoFila) {
-		
+
+	public Bus(int asientos, int[] tiposAsientoFila) {
+
 		this.setPlaca(Vehiculo.generarPlaca());
 		this.setAsiento(asientos);
 		this.tiposAsientoFila = tiposAsientoFila;
@@ -39,9 +36,8 @@ public class Bus extends Vehiculo implements Serializable {
 
 		for (int numero = 1; numero < asientos + 1; numero++) {
 			for (int letra = 0; letra < 4; letra++) {
-				String numeroAsiento = String.valueOf(numero) + 
-				letras.charAt(letra);
-				
+				String numeroAsiento = String.valueOf(numero) + letras.charAt(letra);
+
 				if (numero <= tiposAsientoFila[0]) {
 					TipoAsiento tipo = TipoAsiento.PREFERENCIAL;
 					this.asientos.add(new Asiento(numeroAsiento, tipo));
@@ -59,37 +55,37 @@ public class Bus extends Vehiculo implements Serializable {
 	public ArrayList<Asiento> getAsientos() {
 		return asientos;
 	}
-	
+
 	public void setAsientos(ArrayList<Asiento> asientos) {
 		this.asientos = asientos;
 	}
-	
+
 	public ArrayList<Viaje> getViajes() {
 		return viajes;
 	}
-	
+
 	public void añadirViaje(Viaje viaje) {
 		viajes.add(viaje);
 	}
-	
+
 	public void setViajes(ArrayList<Viaje> viaje) {
-		viajes=viaje;
+		viajes = viaje;
 	}
-	
+
 	public int[] getTiposAsiento() {
 		return tiposAsientoFila;
 	}
-	
+
 	public static Bus buscarBus(String placa) {
-		for(Bus bus : buses) {
-			if(bus.getPlaca().equals(placa)) {
+		for (Bus bus : buses) {
+			if (bus.getPlaca().equals(placa)) {
 				return bus;
 			}
 		}
 		return null;
 	}
-	
-	public static ArrayList<Bus> getBuses(){
+
+	public static ArrayList<Bus> getBuses() {
 		return buses;
 	}
 
@@ -100,15 +96,11 @@ public class Bus extends Vehiculo implements Serializable {
 	public void setAsiento(int asiento) {
 		this.asiento = asiento;
 	}
-	
+
 	public static void eliminarBus(String placa) {
-		
-		Bus bus= Bus.buscarBus(placa);
+
+		Bus bus = Bus.buscarBus(placa);
 		buses.remove(bus);
-				
-				
-			
-		
-		
+
 	}
 }

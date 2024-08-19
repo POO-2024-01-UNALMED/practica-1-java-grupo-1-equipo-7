@@ -14,54 +14,53 @@ public class Habitacion implements Serializable {
 	private boolean reservada;
 	private LocalDateTime fechaReserva;
 	private String ubicacion;
-	
+
 	public Habitacion() {
-		
+
 	}
-	
+
 	public Habitacion(String numeroHabitacion) {
 		this.numeroHabitacion = numeroHabitacion;
 	}
-	
-	public Habitacion(Hospedaje hospedaje,String numero,String ubicacion) {
-		this.hospedaje=hospedaje;
-		numeroHabitacion=numero;
-		this.ubicacion=ubicacion;
+
+	public Habitacion(Hospedaje hospedaje, String numero, String ubicacion) {
+		this.hospedaje = hospedaje;
+		numeroHabitacion = numero;
+		this.ubicacion = ubicacion;
 	}
-	
+
 	public void reservar(LocalDateTime fechaReserva) {
 		this.setReservada(true);
 		this.setFechaReserva(fechaReserva);
 	}
-	
+
 	public void liberar() {
 		this.setReservada(false);
 		this.setFechaReserva(null);
 	}
-	
+
 	public String disponibleEn() {
 		if (fechaReserva != null) {
 			Duration duration = Duration.between(LocalDateTime.now(), fechaReserva);
-			return String.valueOf(duration.toDaysPart()) + " días "
+			return String.valueOf(duration.toDaysPart()) + " días " 
 					+ String.valueOf(duration.toHoursPart()) + " horas "
 					+ String.valueOf(duration.toMinutesPart()) + " minutos";
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public String toString() {
 		String strBoolean;
-		
-		if(reservada) {
-			strBoolean="Sí";
+
+		if (reservada) {
+			strBoolean = "Sí";
 		} else {
-			strBoolean="No";
+			strBoolean = "No";
 		}
-		
-		return "    " + numeroHabitacion + "                      " + strBoolean + "            " 
-				+ disponibleEn();
+
+		return "    " + numeroHabitacion + "                      " + strBoolean + "            " + disponibleEn();
 	}
 
 	public Hospedaje getHospedaje() {
@@ -109,6 +108,6 @@ public class Habitacion implements Serializable {
 	}
 
 	public static void setHabitaciones(ArrayList<Habitacion> habitaciones) {
-		Habitacion.habitaciones = habitaciones;	
+		Habitacion.habitaciones = habitaciones;
 	}
 }

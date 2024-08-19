@@ -66,7 +66,7 @@ public class Empresa implements Serializable {
 						if (origen.equals(viaje.getTerminalOrigen().getUbicacion())
 								&& destino.equals(viaje.getTerminalDestino().getUbicacion())
 								&& LocalDateTime.now().
-									isBefore(LocalDateTime.of(viaje.getFecha(), viaje.getHora()))) {
+								isBefore(LocalDateTime.of(viaje.getFecha(), viaje.getHora()))) {
 							viajes.add(viaje);
 						}
 					}
@@ -132,13 +132,14 @@ public class Empresa implements Serializable {
 	public static void setEmpresas(ArrayList<Empresa> empresas) {
 		Empresa.empresas = empresas;
 	}
-	
+
 	public static Empresa buscarEmpresa(String nombre) {
-		for (Empresa empresa:Empresa.empresas) {
+		for (Empresa empresa : Empresa.empresas) {
 			if (empresa.nombre.equals(nombre)) {
 				return empresa;
 			}
-		}return null;
+		}
+		return null;
 	}
 
 	public String getNombre() {
@@ -198,17 +199,18 @@ public class Empresa implements Serializable {
 	}
 
 	public void eliminarConductor(Conductor conductorbuscado) {
-		for (Conductor conductor:this.conductores) {
-			if(conductor.equals(conductorbuscado)) {
-				conductor=null;
+		for (Conductor conductor : this.conductores) {
+			if (conductor.equals(conductorbuscado)) {
+				conductor = null;
 			}
 		}
-		
+
 	}
-	
+
 	public static void eliminarEmpresa(String nombre) {
-		
-		Empresa empresa= Empresa.buscarEmpresa(nombre);
-		empresas.remove(empresa);}
+
+		Empresa empresa = Empresa.buscarEmpresa(nombre);
+		empresas.remove(empresa);
+	}
 
 }

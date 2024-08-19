@@ -43,7 +43,6 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Empresa.getEmpresas());
-					oos.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -52,7 +51,6 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Viaje.getViajes());
-					oos.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -61,7 +59,6 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Asiento.getAsientos());
-					oos.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -70,7 +67,6 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Habitacion.getHabitaciones());
-					oos.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -79,7 +75,6 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Terminal.getTerminales());
-					oos.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -88,7 +83,6 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Pasajero.getPasajeros());
-					oos.close();
 				} catch(Exception e) {
 					e.printStackTrace();
 				}

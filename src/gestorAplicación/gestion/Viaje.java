@@ -30,79 +30,77 @@ public class Viaje implements Serializable {
 	private Bus bus;
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 
-	
 	public Viaje() {
 //		Deserializador.deserializar(this);
 		viajes.add(this);
 		ids++;
-		id=String.valueOf(ids);
+		id = String.valueOf(ids);
 	}
-	
+
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
 		viajes.add(this);
 		ids++;
-		id=String.valueOf(ids);
+		id = String.valueOf(ids);
 	}
-	
+
 	public Viaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
-			LocalDate fecha,LocalTime hora,Conductor conductor,Bus bus) {
+			LocalDate fecha, LocalTime hora, Conductor conductor, Bus bus) {
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
-		this.empresa=empresa;
-		this.fecha=fecha;
-		this.hora=hora;
-		this.bus=bus;
+		this.empresa = empresa;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.bus = bus;
 		conductor.getViajes().add(this);
 		bus.añadirViaje(this);
 		viajes.add(this);
 		ids++;
-		id=String.valueOf(ids);
+		id = String.valueOf(ids);
 	}
-	
-	public Viaje(ArrayList<Pasajero> pasajeros,ArrayList<Hospedaje> hospedajes, 
-			ArrayList<Tiquete> tiquetes, 
-			Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
-			LocalDate fecha,LocalTime hora,Conductor conductor,Bus bus) {
-		this.pasajeros=pasajeros;
-		this.tiquetes=tiquetes;
+
+	public Viaje(ArrayList<Pasajero> pasajeros, ArrayList<Hospedaje> hospedajes, 
+			ArrayList<Tiquete> tiquetes, Terminal terminalOrigen, Terminal terminalDestino, 
+			Empresa empresa, LocalDate fecha, LocalTime hora, Conductor conductor, Bus bus) {
+		this.pasajeros = pasajeros;
+		this.tiquetes = tiquetes;
 
 		this.terminalOrigen = terminalOrigen;
 		this.terminalDestino = terminalDestino;
-		this.empresa=empresa;
-		this.fecha=fecha;
-		this.hora=hora;
-		this.bus=bus;
+		this.empresa = empresa;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.bus = bus;
 		conductor.getViajes().add(this);
 		bus.añadirViaje(this);
 		viajes.add(this);
 		ids++;
-		id=String.valueOf(ids);
+		id = String.valueOf(ids);
 	}
-	
+
 	public ArrayList<Asiento> listaAsientos() {
 		return this.getBus().getAsientos();
 	}
-	
+
 	public int[] tiposAsiento() {
 		return this.getBus().getTiposAsiento();
 	}
-	
+
 	public boolean tieneSillas() {
 		for (Asiento asiento : listaAsientos()) {
 			if (!asiento.isReservado()) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public void reservarAsiento(String numeroAsiento, LocalDateTime fechaReserva) {
-		for(Asiento asiento : this.listaAsientos()) {
+		for (Asiento asiento : this.listaAsientos()) {
 			if (!asiento.isReservado()) {
-				if(asiento.getNumero().equals(numeroAsiento)) {
+				if (asiento.getNumero().equals(numeroAsiento)) {
 					if (fechaReserva != null) {
 						asiento.reservar(fechaReserva);
 					} else {
@@ -113,94 +111,94 @@ public class Viaje implements Serializable {
 			}
 		}
 	}
-	
+
 	public void liberarAsiento(String numeroAsiento) {
-		for(Asiento asiento : this.listaAsientos()) {
-			if(asiento.getNumero().equals(numeroAsiento)) {
+		for (Asiento asiento : this.listaAsientos()) {
+			if (asiento.getNumero().equals(numeroAsiento)) {
 				asiento.liberar();
 			}
 		}
 	}
-	
+
 	public Asiento buscarAsiento(String numeroAsiento) {
 		for (Asiento asiento : this.listaAsientos()) {
 			if (asiento.getNumero().equals(numeroAsiento)) {
 				return asiento;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public Hospedaje buscarHospedaje(String nombre) {
 		for (Hospedaje hospedaje : this.hospedajesDisponibles()) {
 			if (hospedaje.getNombre().equals(nombre)) {
 				return hospedaje;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public static Viaje buscarViaje(ArrayList<Viaje> viajes, String id) {
 		for (Viaje viaje : viajes) {
 			if (viaje.getId().equals(id)) {
 				return viaje;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public static Viaje buscarViaje(String id) {
 		for (Viaje viaje : viajes) {
 			if (viaje.getId().equals(id)) {
 				return viaje;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public ArrayList<Hospedaje> hospedajesDisponibles() {
 		ArrayList<Hospedaje> hospedajesDisponibles = new ArrayList<Hospedaje>();
-		
+
 		for (Hospedaje hospedaje : this.getTerminalDestino().getHospedajes()) {
 			if (hospedaje.tieneHabitaciones()) {
 				hospedajesDisponibles.add(hospedaje);
 			}
 		}
-		
+
 		return hospedajesDisponibles;
 	}
+
 	@Override
 	public String toString() {
 		int origen = 11 - (getTerminalOrigen().getUbicacion().length());
 		String strOrigen = String.valueOf(origen);
-		
+
 		int destino = 11 - (getTerminalDestino().getUbicacion().length());
 		String strDestino = String.valueOf(destino);
-		
+
 		String spaceOrigen;
-		String spaceDestino; 
-		
-		if(origen == 0) {
+		String spaceDestino;
+
+		if (origen == 0) {
 			spaceOrigen = "";
 		} else {
-			spaceOrigen = String.format("%" + strOrigen + "s", ""); 
+			spaceOrigen = String.format("%" + strOrigen + "s", "");
 		}
-		
-		if(destino == 0) {
+
+		if (destino == 0) {
 			spaceDestino = "";
 		} else {
 			spaceDestino = String.format("%" + strDestino + "s", "");
 		}
-		
-		return "    " + getStrFecha() + 
-				"     " + getTerminalOrigen().getUbicacion() + 
-				spaceOrigen + "     " + getTerminalDestino().getUbicacion() + 
-				spaceDestino + "     " + getHora() + "              " 
-				+ getId() + "     " + getBus().getPlaca()+"         ";
+
+		return "    " + getStrFecha() + "     " + getTerminalOrigen().getUbicacion() 
+				+ spaceOrigen + "     " + getTerminalDestino().getUbicacion() 
+				+ spaceDestino + "     " + getHora() + "              " + getId()
+				+ "     " + getBus().getPlaca() + "         ";
 	}
 
 	public Bus getBus() {
@@ -211,16 +209,15 @@ public class Viaje implements Serializable {
 		this.bus = bus;
 	}
 
-	public LocalDate getFecha() {		
+	public LocalDate getFecha() {
 		return fecha;
 	}
-	
+
 	public String getStrFecha() {
-		DateTimeFormatter formateoFecha = 
-		DateTimeFormatter.ofPattern("dd-MM-yyyy"); 
-		
+		DateTimeFormatter formateoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 		String strFecha = fecha.format(formateoFecha);
-				
+
 		return strFecha;
 	}
 
@@ -239,7 +236,6 @@ public class Viaje implements Serializable {
 	public String getId() {
 		return id;
 	}
-
 
 	public LocalTime getHora() {
 		return hora;
@@ -272,75 +268,60 @@ public class Viaje implements Serializable {
 	public void setTiquetes(ArrayList<Tiquete> tiquetes) {
 		this.tiquetes = tiquetes;
 	}
-	
+
 	public static ArrayList<Viaje> getViajes() {
 		return viajes;
 	}
-	
+
 	public static void setViajes(ArrayList<Viaje> viajes) {
 		Viaje.viajes = viajes;
 	}
+
 	public void añadirTiquete(Tiquete tiquete) {
-		Boolean tiqueteNuevo=true;
-		for (Tiquete t: tiquetes) {
+		Boolean tiqueteNuevo = true;
+		for (Tiquete t : tiquetes) {
 			if (tiquete.equals(t)) {
-				tiqueteNuevo=false;
+				tiqueteNuevo = false;
 			}
 		}
 		if (tiqueteNuevo) {
 			tiquetes.add(tiquete);
 		}
-		
+
 		else {
 			System.out.println("El tiquete ya ha sido registrado");
 		}
 	}
 
-	
-	
-	/*public void añadirHospedaje(Hospedaje hospedaje) {
-		Boolean hospedajeNuevo=true;
-		for (Hospedaje h: this.hospedajesDisponibles()) {
-			if (hospedaje.equals(h)) {
-				hospedajeNuevo=false;
-			}
-		}
-		if (hospedajeNuevo) {
-			hospedajes.add(hospedaje);
-		}
-		
-		else {
-			System.out.println("El hospedaje ya ha sido registrado");
-		}
-	}*/
-	
+	/*
+	 * public void añadirHospedaje(Hospedaje hospedaje) { Boolean
+	 * hospedajeNuevo=true; for (Hospedaje h: this.hospedajesDisponibles()) { if
+	 * (hospedaje.equals(h)) { hospedajeNuevo=false; } } if (hospedajeNuevo) {
+	 * hospedajes.add(hospedaje); }
+	 * 
+	 * else { System.out.println("El hospedaje ya ha sido registrado"); } }
+	 */
+
 	public void añadirPasajero(Pasajero pasajero) {
-		Boolean pasajeroNuevo=true;
-		for (Pasajero p: pasajeros) {
+		Boolean pasajeroNuevo = true;
+		for (Pasajero p : pasajeros) {
 			if (pasajero.equals(p)) {
-				pasajeroNuevo=false;
+				pasajeroNuevo = false;
 			}
 		}
 		if (pasajeroNuevo) {
 			pasajeros.add(pasajero);
 		}
-		
+
 		else {
 			System.out.println("El pasajero ya ha sido registrado");
 		}
 	}
-	
-	
-		
-	
+
 	public static void eliminarViaje(String id) {
-		
-		Viaje viaje= Viaje.buscarViaje(id);
+
+		Viaje viaje = Viaje.buscarViaje(id);
 		viajes.remove(viaje);
-				
-				
-			
-		
-		
+
 	}
 }
