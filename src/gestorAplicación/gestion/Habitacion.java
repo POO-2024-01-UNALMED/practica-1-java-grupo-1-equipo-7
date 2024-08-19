@@ -15,17 +15,13 @@ public class Habitacion implements Serializable {
 	private LocalDateTime fechaReserva;
 	private String ubicacion;
 
-	public Habitacion() {
-
-	}
-
 	public Habitacion(String numeroHabitacion) {
 		this.numeroHabitacion = numeroHabitacion;
 	}
 
-	public Habitacion(Hospedaje hospedaje, String numero, String ubicacion) {
+	public Habitacion(Hospedaje hospedaje, String numeroHabitacion, String ubicacion) {
 		this.hospedaje = hospedaje;
-		numeroHabitacion = numero;
+		this.numeroHabitacion = numeroHabitacion;
 		this.ubicacion = ubicacion;
 	}
 

@@ -118,7 +118,7 @@ public class Hospedaje implements Serializable {
 
 	@Override
 	public String toString() {
-		return "    " + nombre + "     " + calificacion + " estrellas" + "      " 
+		return "    " + nombre + "     " + calificacion + " estrellas" + "     " 
 				+ this.habitacionesDisponibles();
 	}
 

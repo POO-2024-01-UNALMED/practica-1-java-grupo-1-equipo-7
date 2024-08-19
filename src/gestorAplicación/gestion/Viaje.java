@@ -179,9 +179,13 @@ public class Viaje implements Serializable {
 
 		int destino = 11 - (getTerminalDestino().getUbicacion().length());
 		String strDestino = String.valueOf(destino);
+		
+		int id = 3 - getId().length();
+		String strId = String.valueOf(id);
 
 		String spaceOrigen;
 		String spaceDestino;
+		String spaceId;
 
 		if (origen == 0) {
 			spaceOrigen = "";
@@ -194,11 +198,17 @@ public class Viaje implements Serializable {
 		} else {
 			spaceDestino = String.format("%" + strDestino + "s", "");
 		}
+		
+		if (id == 0) {
+			spaceId = "";
+		} else {
+			spaceId = String.format("%" + strId + "s", "");
+		}
 
 		return "    " + getStrFecha() + "     " + getTerminalOrigen().getUbicacion() 
 				+ spaceOrigen + "     " + getTerminalDestino().getUbicacion() 
 				+ spaceDestino + "     " + getHora() + "              " + getId()
-				+ "     " + getBus().getPlaca() + "         ";
+				+ spaceId + "     " + getBus().getPlaca() + "       ";
 	}
 
 	public Bus getBus() {
