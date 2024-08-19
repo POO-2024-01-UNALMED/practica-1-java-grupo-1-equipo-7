@@ -13,7 +13,6 @@ public class Asiento implements Serializable {
 	private boolean reservado;
 	private LocalDateTime fechaReserva;
 	private TipoAsiento tipoAsiento;
-	private String color;
 
 	public Asiento() {
 		this("Indefinido");
@@ -88,10 +87,6 @@ public class Asiento implements Serializable {
 	public void liberar() {
 		this.setReservado(false);
 		this.setFechaReserva(null);
-	}
-
-	public String getColor() {
-		return color;
 	}
 
 	public static ArrayList<Asiento> getAsientos() {
