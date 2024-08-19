@@ -4478,8 +4478,7 @@ public class Interfaz {
 	public static void main(String[] args) {
 Terminal medellin = new Terminal("MEDELLIN");
 	Terminal bogota = new Terminal("BOGOTA");
-		Terminal medellin = new Terminal("MEDELLIN");
-		Terminal bogota = new Terminal("BOGOTA");
+
 		Terminal cali = new Terminal("CALI");
 		Terminal bucaramanga = new Terminal("BUCARAMANGA");
 		Terminal pereira = new Terminal("PEREIRA");

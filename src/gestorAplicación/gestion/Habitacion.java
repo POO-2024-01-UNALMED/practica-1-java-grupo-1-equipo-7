@@ -19,8 +19,6 @@ public class Habitacion implements Serializable {
 		this.numeroHabitacion = numeroHabitacion;
 	}
 
-	public Habitacion(Hospedaje hospedaje, String numero, String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
 	public Habitacion(Hospedaje hospedaje, String numeroHabitacion, String ubicacion) {
 		this.hospedaje = hospedaje;
 		this.numeroHabitacion = numeroHabitacion;
