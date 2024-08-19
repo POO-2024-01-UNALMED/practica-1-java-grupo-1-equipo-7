@@ -2182,8 +2182,7 @@ public class Interfaz {
 	}
 	
 	public static void administrador() {
-		System.out.println("Bienvenido Administrador, ¿Qué desea modificar?");
-		
+		System.out.println("¿Qué desea modificar?");
 		System.out.println();
 		
 		System.out.println("1. Empresas");
@@ -2238,10 +2237,31 @@ public class Interfaz {
 				if(empresasAgregar.equals("1")) {
 					System.out.println("Introduzca el nombre de la empresa: ");
 					String nombre=input();
-					new Empresa(nombre);
+					Empresa empresa=Empresa.buscarEmpresa(nombre);
+					if (empresa==null) {
+						System.out.println("La empresa ya existe");
+						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						break;
+					}
 					System.out.println();
 					System.out.println("Empresa creada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
 				}
 				
 				if(empresasAgregar.equals("2")) {
@@ -2253,6 +2273,15 @@ public class Interfaz {
 					if (Conductor.buscarConductor(id)==null) {
 						System.out.println("No se ha encontrado a ningún conductor con ese ID");
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
@@ -2263,11 +2292,27 @@ public class Interfaz {
 						else {
 							System.out.println("No se ha encontrado la empresa "+nombre);
 							System.out.println();
+							
+							System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+							String accion=input();
+							System.out.println();
+							
+							if (accion.toLowerCase().equals("si")) {
+								administrador();
+							}
 							break;
 						}
 					}
 					System.out.println("Conductor "+Conductor.buscarConductor(id).getNombre()+
 							" asignado correctamente a la empresa "+nombre);
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
 				}
 				break;
 			case "2":
@@ -2304,6 +2349,14 @@ public class Interfaz {
 					}
 					
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
 				
 				}
 				break;
@@ -2329,12 +2382,29 @@ public class Interfaz {
 						System.out.println();
 						System.out.println("No se ha encontrado a la empresa"+nombre);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Empresa.eliminarEmpresa(nombre);
 					System.out.println();
 					System.out.println("Empresa "+nombre+" eliminada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
 				}
 				
 				if (empresasEliminar.equals("2")) {
@@ -2346,18 +2416,52 @@ public class Interfaz {
 					if (Conductor.buscarConductor(id)==null) {
 						System.out.println("No se ha encontrado a ningún conductor con ese ID");
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
 					for (Empresa empresa:Empresa.getEmpresas()) {
 						if (empresa.getNombre().equals(nombre)) {
 							empresa.eliminarConductor(Conductor.buscarConductor(id));
+							System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+							String accion=input();
+							System.out.println();
+							
+							if (accion.toLowerCase().equals("si")) {
+								administrador();
+							}
+							break;
 						}
 						else {
 							System.out.println("No se ha encontrado la empresa "+nombre);
 							System.out.println();
+							
+							System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+							String accion=input();
+							System.out.println();
+							
+							if (accion.toLowerCase().equals("si")) {
+								administrador();
+							}
+							
 							break;
 						}}
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
 				}
 				break;
 			case "4":
@@ -2407,11 +2511,29 @@ public class Interfaz {
 					if (!(Hospedaje.buscarHospedaje(nombre, ubicacion)==null)) {
 						System.out.println("El hospedaje ya existe");
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					new Hospedaje(nombre,ubicacion);
 					System.out.println("Hospedaje creado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 				}
 				
 				if (hospedajesAgregar.equals("2")) {
@@ -2428,6 +2550,15 @@ public class Interfaz {
 					if (hospedaje==null) {
 						System.out.println("El hospedaje no existe");
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					System.out.println("Ingrese la cantidad de pisos (Sólo números enteros)");
@@ -2440,6 +2571,15 @@ public class Interfaz {
 					hospedaje.crearHabitaciones(Integer.parseInt(pisos), Integer.parseInt(habitaciones));
 					System.out.println("Habitaciones agregadas correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 					
 				}
 				
@@ -2456,6 +2596,14 @@ public class Interfaz {
 					if (hospedaje==null) {
 						System.out.println("El hospedaje no existe");
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
 						break;
 					}
 					
@@ -2467,6 +2615,15 @@ public class Interfaz {
 					
 					System.out.println("Calificación agregada correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 					
 				}
 				break;
@@ -2507,6 +2664,15 @@ public class Interfaz {
 					
 					System.out.println();}
 					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
+					
 				
 				}
 				break;
@@ -2535,11 +2701,29 @@ public class Interfaz {
 					if (hospedaje==null) {
 						System.out.println("No se ha encontrado el hospedaje "+nombre);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Hospedaje.eliminarHospedaje(nombre, ubicacion);
 					System.out.println("Hospedaje "+nombre+" eliminado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 					
 				}
 				
@@ -2555,6 +2739,15 @@ public class Interfaz {
 					if (hospedaje==null) {
 						System.out.println("No se ha encontrado el hospedaje "+nombre);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
@@ -2565,12 +2758,30 @@ public class Interfaz {
 					if (hospedaje.buscarHabitacion(habitacion)==null) {
 						System.out.println("No se ha encontrado la habitación "+habitacion);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
 					hospedaje.eliminarHabitacion(habitacion);
 					System.out.println("Habitación "+habitacion+" eliminada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 				}
 
 				break;
@@ -2621,9 +2832,35 @@ public class Interfaz {
 					
 					System.out.println();
 					
+					Terminal terminal=Terminal.buscarTerminal(nombre,ubicacion);
+					if (terminal!=null) {
+						System.out.println("La terminal ya existe");
+						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
+						break;
+					}
+					
 					new Terminal(nombre,ubicacion);
 					System.out.println("Terminal creada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (terminalesAgregar.equals("2")) {
@@ -2648,12 +2885,31 @@ public class Interfaz {
 					if (terminal==null || empresa==null) {
 						System.out.println("No se ha encontrado la terminal "+nombreTer+ " ó la empresa "+nombreEmp);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
 					terminal.agregarEmpresa(empresa);
 					System.out.println("Empresa "+nombreEmp+" ha sido vinculada a la terminal "+nombreTer);
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 					
 				}
 				break;
@@ -2695,6 +2951,16 @@ public class Interfaz {
 					}
 					
 					System.out.println();}
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					 break;
 				}
 				break;
 			case "3":
@@ -2722,11 +2988,30 @@ public class Interfaz {
 					if (terminal==null) {
 						System.out.println("No se ha encontrado la terminal "+nombre+" en "+ubicacion);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Terminal.eliminarTerminal(nombre, ubicacion);
 					System.out.println("Terminal "+nombre+" en "+ubicacion+" ha sido eliminada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				if (terminalesEliminar.equals("2")) {
 					System.out.println("Ingrese el nombre de la terminal");
@@ -2740,6 +3025,15 @@ public class Interfaz {
 					if (terminal==null) {
 						System.out.println("No se ha encontrado la terminal "+nombreTer+" en "+ubicacion);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
@@ -2750,12 +3044,31 @@ public class Interfaz {
 					if (Empresa.buscarEmpresa(nombreEmp)==null) {
 						System.out.println("No se ha encontrado la empresa "+nombreEmp);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					
 					terminal.eliminarEmpresa(nombreEmp);
 					System.out.println("Empresa "+nombreEmp+" eliminada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				break;
@@ -2908,12 +3221,38 @@ public class Interfaz {
 					DateTimeFormatter formatoEntrada = DateTimeFormatter.ofPattern("HH:mm:ss");
 					LocalTime horamod = LocalTime.parse(hora, formatoEntrada);
 					
-					        
+					Viaje viajeauxiliar  =Viaje.buscarViaje(id) ;  
+					if (viajeauxiliar!=null) {
+						System.out.println("El viaje ya existe");
+						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
+						break;
+					}
+					
+					
 					
 					new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,id,conductor,bus);
 					
 					System.out.println("Viaje creado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (viajesAgregar.equals("2")) {
@@ -3061,8 +3400,11 @@ public class Interfaz {
 					LocalTime horamod = LocalTime.parse(hora, formatoEntrada);
 					
 					        
-					
-					Viaje viajenuevo=new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,id,conductor,bus);
+					Viaje viajenuevo=Viaje.buscarViaje(id);
+					if (viajenuevo==null) {
+
+					viajenuevo=new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,id,conductor,bus);
+					}
 					
 					System.out.println("Para crear el asiento: ");
 					System.out.println("Ingrese el número del Asiento");
@@ -3099,9 +3441,35 @@ public class Interfaz {
 						hospedaje=new Hospedaje(nombreHospedaje,ubicacionHospedaje);
 					}
 					
+					Tiquete tiquete=Tiquete.buscarTiquete(pasajero,viajenuevo,asiento,hospedaje);
+					if (tiquete!=null) {
+						System.out.println("El tiquete ya existe");
+						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
+						break;
+					}
+					
 					new Tiquete(pasajero,viajenuevo,asiento,hospedaje);
 					System.out.println("Tiquete creado correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				break;
 			case "2":
@@ -3130,6 +3498,15 @@ public class Interfaz {
 					Hospedaje hospedaje=Hospedaje.buscarHospedaje(nombreHospedaje, ubicacionHospedaje);
 					if (hospedaje!=null) {
 						System.out.println("El hospedaje ya existe");
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}else {
 					new Hospedaje(nombreHospedaje,ubicacionHospedaje);
@@ -3137,6 +3514,16 @@ public class Interfaz {
 					
 					System.out.println("Hospedaje creado correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (viajesAñadir.equals("2")) {
@@ -3163,13 +3550,33 @@ public class Interfaz {
 					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
 					if (pasajero!=null) {
 						System.out.println("El pasajero ya existe");
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}else {
+						
 					new Pasajero(nombrePasajero,idPasajero,telefonoPasajero,correoPasajero);
 					}
 					
 					System.out.println("Pasajero creado correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				break;
 			case "3":
@@ -3189,6 +3596,20 @@ public class Interfaz {
 					System.out.println("Ingrese el id del viaje que desea modificar");
 					String id=input();
 					Viaje viajeactual=Viaje.buscarViaje(id);
+					
+					if (viajeactual==null) {
+						System.out.println("No se encontró a ningún viaje con id "+id);
+						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						break;
+					}
 					
 					System.out.println();
 					
@@ -3323,7 +3744,15 @@ public class Interfaz {
 					System.out.println("Datos modificados correctamente");
 					System.out.println();
 
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
 					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 
 				}
 				break;
@@ -3370,7 +3799,18 @@ public class Interfaz {
 						}
 						
 						System.out.println();
+						
 					}
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (viajesVer.equals("2")) {
@@ -3403,6 +3843,16 @@ public class Interfaz {
 						
 						System.out.println();
 					}
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 			
 				break;
@@ -3430,11 +3880,30 @@ public class Interfaz {
 					if (viajeactual==null) {
 						System.out.println("No se ha encontrado el viaje con id "+id);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Viaje.eliminarViaje(id);
 					System.out.println("Viaje con id "+id+" ha sido eliminada exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (viajesEliminar.equals("2")) {
@@ -3450,11 +3919,29 @@ public class Interfaz {
 					if (hospedaje==null) {
 						System.out.println("No se ha encontrado el hospedaje con nombre "+nombre+ " y ubicación "+ubicacion);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Hospedaje.eliminarHospedaje(nombre,ubicacion);
 					System.out.println("Hospedaje con nombre "+nombre+" y ubicación "+ubicacion+" ha sido eliminado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					 break;
 				}
 				if (viajesEliminar.equals("3")) {
 					System.out.println("Ingrese el nombre del pasajero a eliminar");
@@ -3469,11 +3956,29 @@ public class Interfaz {
 					if (pasajero==null) {
 						System.out.println("No se ha encontrado el pasajero con nombre "+nombre+ " e id "+id);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Pasajero.eliminarPasajero(nombre,id);
 					System.out.println("Pasajero con nombre "+nombre+" e id "+id+" ha sido eliminado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 				}
 
 				
@@ -3539,6 +4044,15 @@ public class Interfaz {
 					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
 					if (pasajero!=null) {
 						System.out.println("El pasajero ya existe");
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}else {
 					new Pasajero(nombrePasajero,idPasajero,telefonoPasajero,correoPasajero);
@@ -3546,6 +4060,14 @@ public class Interfaz {
 					
 					System.out.println("Pasajero creado correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
 				}
 				
 				if (personalAgregar.equals("2")) {
@@ -3563,6 +4085,15 @@ public class Interfaz {
 					Conductor conductor=Conductor.buscarConductor(nombre,id);
 					if (conductor!=null) {
 						System.out.println("El conductor ya existe");
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}else {
 					new Conductor(nombre,id);
@@ -3570,6 +4101,16 @@ public class Interfaz {
 					
 					System.out.println("Conductor creado correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				break;
 			case "2":
@@ -3594,6 +4135,15 @@ public class Interfaz {
 					Pasajero pasajero=Pasajero.buscarPasajero(id);
 					if (pasajero==null) {
 						System.out.println("No se encontrado a ningún pasajero con el id "+id);
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					System.out.println("Ingrese el nombre del pasajero");
@@ -3612,6 +4162,16 @@ public class Interfaz {
 					
 					System.out.println("Información modificada correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (personalmodificar.equals("2")) {
@@ -3622,6 +4182,15 @@ public class Interfaz {
 					Conductor conductor=Conductor.buscarConductor(id);
 					if (conductor==null) {
 						System.out.println("No se encontrado a ningún conductor con el id "+id);
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					System.out.println("Ingrese el nombre del conductor");
@@ -3634,6 +4203,16 @@ public class Interfaz {
 					
 					System.out.println("Información modificada correctamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				break;
 			case "3":
@@ -3676,6 +4255,15 @@ public class Interfaz {
 						
 						
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						break;
 					
 				}
 				if (personalVer.equals("2")) {
@@ -3703,6 +4291,16 @@ public class Interfaz {
 						
 						
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
+						break;
 					
 				}
 				
@@ -3731,11 +4329,30 @@ public class Interfaz {
 					if (pasajero==null) {
 						System.out.println("No se ha encontrado el pasajero con id "+id);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Pasajero.eliminarPasajero(id);
 					System.out.println("Pasajero con id "+id+" ha sido eliminado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					
+					break;
 				}
 				
 				if (personalEliminar.equals("2")) {
@@ -3748,11 +4365,29 @@ public class Interfaz {
 					if (conductor==null) {
 						System.out.println("No se ha encontrado al conductor con id "+id);
 						System.out.println();
+						
+						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						String accion=input();
+						System.out.println();
+						
+						if (accion.toLowerCase().equals("si")) {
+							administrador();
+						}
+						
 						break;
 					}
 					Conductor.eliminarConductor(id);
 					System.out.println("Conductor con id "+id+" ha sido eliminado exitosamente");
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion=input();
+					System.out.println();
+					
+					if (accion.toLowerCase().equals("si")) {
+						administrador();
+					}
+					break;
 				}
 				break;
 			case "5":
@@ -3804,6 +4439,14 @@ public class Interfaz {
 				
 				System.out.println("Bus creado correctamente");
 				System.out.println();
+				
+				System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+				String accion=input();
+				System.out.println();
+				
+				if (accion.toLowerCase().equals("si")) {
+					administrador();
+				}
 				break;
 				
 			case "2":
@@ -3815,6 +4458,14 @@ public class Interfaz {
 				Bus bus=Bus.buscarBus(placa1);
 				if (bus==null) {
 					System.out.println("No se ha encontrado al bus con placa "+placa1);
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion1=input();
+					System.out.println();
+					
+					if (accion1.toLowerCase().equals("si")) {
+						administrador();
+					}
 					break;
 				}
 				else {
@@ -3839,6 +4490,15 @@ public class Interfaz {
 				
 				bus.crearAsientos(standartmod1+premiummod1+preferencialmod1);
 				}
+				
+				System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+				String accion1=input();
+				System.out.println();
+				
+				if (accion1.toLowerCase().equals("si")) {
+					administrador();
+				}
+				
 				break;
 			case "3":
 				System.out.println("Lista de buses existentes");
@@ -3870,7 +4530,13 @@ public class Interfaz {
 					
 					
 					System.out.println();
-				
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion2=input();
+					System.out.println();
+					
+					if (accion2.toLowerCase().equals("si")) {
+						administrador();
+					}
 			
 			break;
 			case "4":
@@ -3882,11 +4548,28 @@ public class Interfaz {
 				if (bus2==null) {
 					System.out.println("No se ha encontrado el bus con placa "+placa2);
 					System.out.println();
+					
+					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					String accion3=input();
+					System.out.println();
+					
+					if (accion3.toLowerCase().equals("si")) {
+						administrador();
+					}
 					break;
 				}
 				Bus.eliminarBus(placa2);
 				System.out.println("Bus con placa "+placa2+" ha sido eliminado exitosamente");
 				System.out.println();
+				
+				System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+				String accion4=input();
+				System.out.println();
+				
+				if (accion4.toLowerCase().equals("si")) {
+					administrador();
+				}
+				break;
 			case "5":
 				administrador();
 			}
@@ -4000,6 +4683,7 @@ public class Interfaz {
 				hospedaje();
 				break;
 			case "5":
+				System.out.println("Bienvenido Administrador");
 				administrador();
 				break;
 			case "6":

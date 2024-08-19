@@ -64,6 +64,19 @@ public class Tiquete implements Serializable {
 				getAsiento().getNumero());
 	}
 	
+	public static Tiquete buscarTiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, 
+			Hospedaje hospedaje) {
+		for (Tiquete tiquete:tiquetes) {
+			if (tiquete.pasajero!=null && tiquete.viaje!=null &&
+					tiquete.asiento!=null && tiquete.hospedaje!=null) {
+			if (tiquete.pasajero.equals(pasajero) && tiquete.viaje.equals(viaje) &&
+					tiquete.asiento.equals(asiento) && tiquete.hospedaje.equals(hospedaje)) {
+				return tiquete;
+				}
+			}
+		}return null;
+	}
+	
 	@Override
 	public String toString() {
 		int nombre = 9 - pasajero.getNombre().length();
