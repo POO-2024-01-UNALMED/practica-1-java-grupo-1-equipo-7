@@ -27,6 +27,7 @@ public class Hospedaje implements Serializable {
 	}
 
 	public Hospedaje(String nombre, String ubicacion, ArrayList<Habitacion> habitacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.nombre = nombre;
 		this.setUbicacion(ubicacion);
 		this.habitaciones = habitacion;
@@ -34,6 +35,7 @@ public class Hospedaje implements Serializable {
 	}
 
 	public Hospedaje(String nombre, String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		hospedajes.add(this);
@@ -97,6 +99,7 @@ public class Hospedaje implements Serializable {
 	}
 
 	public static Hospedaje buscarHospedaje(String nombre, String ubi) {
+		ubi=ubi.toUpperCase();
 		for (Hospedaje hospedaje : Hospedaje.hospedajes) {
 			if (hospedaje.nombre.equals(nombre) && hospedaje.ubicacion != null) {
 				if (hospedaje.ubicacion.equals(ubi)) {
@@ -160,6 +163,7 @@ public class Hospedaje implements Serializable {
 	}
 
 	public static void eliminarHospedaje(String nombre, String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 
 		Hospedaje hospedaje = Hospedaje.buscarHospedaje(nombre, ubicacion);
 		hospedajes.remove(hospedaje);
@@ -174,6 +178,7 @@ public class Hospedaje implements Serializable {
 	}
 
 	public void setUbicacion(String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.ubicacion = ubicacion;
 	}
 

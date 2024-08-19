@@ -13,17 +13,20 @@ public class Terminal implements Serializable {
 	private String ubicacion;
 
 	public Terminal(String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.ubicacion = ubicacion;
 		terminales.add(this);
 	}
 
 	public Terminal(String nombre, String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		terminales.add(this);
 	}
 
 	public static Terminal buscarTerminal(String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		for (Terminal terminal : terminales) {
 			if (terminal.getUbicacion().equals(ubicacion)) {
 				return terminal;
@@ -42,6 +45,7 @@ public class Terminal implements Serializable {
 	}
 
 	public static Terminal buscarTerminal(String nombre, String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		for (Terminal terminal : terminales) {
 			if (terminal.getNombre() != null) {
 				if (terminal.getUbicacion().equals(ubicacion) 
@@ -58,6 +62,7 @@ public class Terminal implements Serializable {
 	}
 
 	public void setUbicacion(String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.ubicacion = ubicacion;
 	}
 
@@ -99,6 +104,7 @@ public class Terminal implements Serializable {
 	}
 
 	public static void eliminarTerminal(String nombre, String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 
 		Terminal terminal = Terminal.buscarTerminal(nombre, ubicacion);
 		terminales.remove(terminal);

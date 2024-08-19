@@ -24,6 +24,7 @@ public class Habitacion implements Serializable {
 	}
 
 	public Habitacion(Hospedaje hospedaje, String numero, String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.hospedaje = hospedaje;
 		numeroHabitacion = numero;
 		this.ubicacion = ubicacion;
@@ -92,6 +93,7 @@ public class Habitacion implements Serializable {
 	}
 
 	public void setUbicacion(String ubicacion) {
+		ubicacion=ubicacion.toUpperCase();
 		this.ubicacion = ubicacion;
 	}
 

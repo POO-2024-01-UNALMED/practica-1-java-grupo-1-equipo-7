@@ -2270,7 +2270,7 @@ public class Interfaz {
 					System.out.println("Introduzca el nombre de la empresa: ");
 					String nombre=input();
 					Empresa empresa=Empresa.buscarEmpresa(nombre);
-					if (empresa==null) {
+					if (empresa!=null) {
 						System.out.println("La empresa ya existe");
 						System.out.println();
 						
@@ -2283,6 +2283,7 @@ public class Interfaz {
 						}
 						break;
 					}
+					new Empresa(nombre);
 					System.out.println();
 					System.out.println("Empresa creada exitosamente");
 					System.out.println();
@@ -2299,8 +2300,10 @@ public class Interfaz {
 				if(empresasAgregar.equals("2")) {
 					System.out.println("Introduzca el número de identificación del conductor: ");
 					String id=input();
+					System.out.println();
 					System.out.println("Introduzca el nombre de la empresa: ");
 					String nombre=input();
+					System.out.println();
 					
 					if (Conductor.buscarConductor(id)==null) {
 						System.out.println("No se ha encontrado a ningún conductor con ese ID");
@@ -2317,8 +2320,9 @@ public class Interfaz {
 						break;
 					}
 					
-					for (Empresa empresa:Empresa.getEmpresas()) {
-						if (empresa.getNombre().equals(nombre)) {
+					Empresa empresa=Empresa.buscarEmpresa(nombre);
+					
+						if (empresa!=null) {
 							empresa.añadirConductor(Conductor.buscarConductor(id));
 						}
 						else {
@@ -2334,9 +2338,10 @@ public class Interfaz {
 							}
 							break;
 						}
-					}
+					
 					System.out.println("Conductor "+Conductor.buscarConductor(id).getNombre()+
 							" asignado correctamente a la empresa "+nombre);
+					System.out.println();
 					
 					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
 					String accion=input();
@@ -2443,8 +2448,10 @@ public class Interfaz {
 				if (empresasEliminar.equals("2")) {
 					System.out.println("Introduzca el número de identificación del conductor: ");
 					String id=input();
+					System.out.println();
 					System.out.println("Introduzca el nombre de la empresa: ");
 					String nombre=input();
+					System.out.println();
 					
 					if (Conductor.buscarConductor(id)==null) {
 						System.out.println("No se ha encontrado a ningún conductor con ese ID");
@@ -2461,9 +2468,11 @@ public class Interfaz {
 						break;
 					}
 					
-					for (Empresa empresa:Empresa.getEmpresas()) {
-						if (empresa.getNombre().equals(nombre)) {
+					Empresa empresa=Empresa.buscarEmpresa(nombre);						
+					if (empresa!=null) {
 							empresa.eliminarConductor(Conductor.buscarConductor(id));
+							System.out.println("Conductor con id "+id+" eliminado correctamente de la empresa "+empresa.getNombre());
+							System.out.println();
 							System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
 							String accion=input();
 							System.out.println();
@@ -2486,17 +2495,8 @@ public class Interfaz {
 							}
 							
 							break;
-						}}
-					
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-					String accion=input();
-					System.out.println();
-					
-					if (accion.toLowerCase().equals("si")) {
-						administrador();
+						}
 					}
-				}
-				break;
 			case "4":
 				administrador();
 			}
@@ -3115,11 +3115,10 @@ public class Interfaz {
 			System.out.println();
 			
 			System.out.println("1. Agregar");
-			System.out.println("2. Añadir");
-			System.out.println("3. Modificar");
-			System.out.println("4. Ver");
-			System.out.println("5. Eliminar");
-			System.out.println("6. Volver");
+			System.out.println("2. Modificar");
+			System.out.println("3. Ver");
+			System.out.println("4. Eliminar");
+			System.out.println("5. Volver");
 			
 			System.out.println();
 			
@@ -3174,7 +3173,7 @@ public class Interfaz {
 					
 					System.out.println();
 					
-					System.out.println("Ingrese la hora en formato HH-mm-ss");
+					System.out.println("Ingrese la hora en formato HH:mm:ss");
 					String hora=input();
 					
 					System.out.println();
@@ -3234,7 +3233,7 @@ public class Interfaz {
 					Bus bus=Bus.buscarBus(placa);
 					if (bus==null) {
 						bus=new Bus(preferencialmod+premiummod+standartmod, new int[]{preferencialmod, premiummod+preferencialmod});
-						bus.setPlaca(Vehiculo.generarPlaca());
+						
 					}
 					
 					Conductor conductor=Conductor.buscarConductor(nombreConductor,idConductor);
@@ -3253,7 +3252,8 @@ public class Interfaz {
 					LocalTime horamod = LocalTime.parse(hora, formatoEntrada);
 					
 					
-					new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,conductor,bus);
+					
+					empresa.getViajes().add(new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,conductor,bus));
 					
 					System.out.println("Viaje creado exitosamente");
 					System.out.println();
@@ -3326,7 +3326,7 @@ public class Interfaz {
 					
 					System.out.println();
 					
-					System.out.println("Ingrese la hora en formato HH-mm-ss");
+					System.out.println("Ingrese la hora en formato HH:mm:ss");
 					String hora=input();
 					
 					System.out.println();
@@ -3413,8 +3413,11 @@ public class Interfaz {
 					
 					        
 					
-					Viaje viajenuevo=new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,conductor,bus);
-					
+					Viaje viajenuevo=Viaje.buscarViaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,conductor,bus);
+					if (viajenuevo==null) {
+						viajenuevo=new Viaje(terminalOrigen,terminalDestino,empresa,fechamod,horamod,conductor,bus);
+					}
+					empresa.getViajes().add(viajenuevo);					
 					
 					System.out.println("Para crear el asiento: ");
 					System.out.println("Ingrese el número del Asiento");
@@ -3423,8 +3426,9 @@ public class Interfaz {
 					
 					System.out.println();
 					
-					System.out.println("Ingrese el tipo del Asiento");
+					System.out.println("Ingrese el tipo del Asiento (ESTANDAR,PREFERENCIAL,PREMIUM");
 					String tipoAsiento=input();
+					tipoAsiento=tipoAsiento.toUpperCase();
 					
 					
 					System.out.println();
@@ -3467,7 +3471,7 @@ public class Interfaz {
 						break;
 					}
 					
-					new Tiquete(pasajero,viajenuevo,asiento,hospedaje);
+					pasajero.agregarTiquete(new Tiquete(pasajero,viajenuevo,asiento,hospedaje));
 					System.out.println("Tiquete creado correctamente");
 					System.out.println();
 					
@@ -3482,114 +3486,8 @@ public class Interfaz {
 					break;
 				}
 				administrador();
+				
 			case "2":
-				System.out.println("¿Qué desea añadir?");
-				
-				System.out.println();
-				
-				System.out.println("1. Hospedajes");
-				System.out.println("2. Pasajeros");
-				System.out.println("3. Volver");
-				
-				System.out.println();
-				
-				String viajesAñadir = input();
-				System.out.println();
-				
-				if (viajesAñadir.equals("1")) {
-					System.out.println("Ingrese el nombre del hospedaje");
-					String nombreHospedaje=input();
-					System.out.println();
-					
-					System.out.println("Ingrese la ubicación del hospedaje");
-					String ubicacionHospedaje=input();
-					System.out.println();
-					
-					Hospedaje hospedaje=Hospedaje.buscarHospedaje(nombreHospedaje, ubicacionHospedaje);
-					if (hospedaje!=null) {
-						System.out.println("El hospedaje ya existe");
-						
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-						String accion=input();
-						System.out.println();
-						
-						if (accion.toLowerCase().equals("si")) {
-							administrador();
-						}
-						
-						break;
-					}else {
-					new Hospedaje(nombreHospedaje,ubicacionHospedaje);
-					}
-					
-					System.out.println("Hospedaje creado correctamente");
-					System.out.println();
-					
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-					String accion=input();
-					System.out.println();
-					
-					if (accion.toLowerCase().equals("si")) {
-						administrador();
-					}
-					
-					break;
-				}
-				
-				if (viajesAñadir.equals("2")) {
-					System.out.println("Ingrese el nombre del pasajero");
-					String nombrePasajero=input();
-					
-					System.out.println();
-					
-					System.out.println("Ingrese el id del pasajero");
-					String idPasajero=input();
-					
-					System.out.println();
-					
-					System.out.println("Ingrese el teléfono del pasajero");
-					String telefonoPasajero=input();
-					
-					System.out.println();
-					
-					System.out.println("Ingrese el correo del pasajero");
-					String correoPasajero=input();
-					
-					System.out.println();
-					
-					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
-					if (pasajero!=null) {
-						System.out.println("El pasajero ya existe");
-						
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-						String accion=input();
-						System.out.println();
-						
-						if (accion.toLowerCase().equals("si")) {
-							administrador();
-						}
-						
-						break;
-					}else {
-						
-					new Pasajero(nombrePasajero,idPasajero,telefonoPasajero,correoPasajero);
-					}
-					
-					System.out.println("Pasajero creado correctamente");
-					System.out.println();
-					
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-					String accion=input();
-					System.out.println();
-					
-					if (accion.toLowerCase().equals("si")) {
-						administrador();
-					}
-					
-					break;
-				}
-				administrador();
-			case "3":
 				System.out.println("¿Qué desea modificar?");
 				
 				System.out.println();
@@ -3693,7 +3591,7 @@ public class Interfaz {
 						break;
 						
 					case "5":
-						System.out.println("Ingrese la hora en formato HH-mm-ss");
+						System.out.println("Ingrese la hora en formato HH:mm:ss");
 						String hora=input();
 						
 						System.out.println();
@@ -3766,7 +3664,7 @@ public class Interfaz {
 
 				}
 				administrador();
-			case "4":
+			case "3":
 				System.out.println("¿Qué desea ver?");
 				
 				System.out.println();
@@ -3866,57 +3764,22 @@ public class Interfaz {
 				}
 			
 				administrador();
-			case "5":
-				System.out.println("¿Qué desea eliminar?");
+			case "4":
+				System.out.println("¿Qué desea eliminar del sistema?");
 				
 				System.out.println();
 				
-				System.out.println("1. Viajes");
-				System.out.println("2. Hospedajes");
-				System.out.println("3. Pasajeros");
-				System.out.println("4. Volver");
+				System.out.println("1. Hospedajes");
+				System.out.println("2. Pasajeros");
+				System.out.println("3. Volver");
 				
 				System.out.println();
 				
 				String viajesEliminar = input();
 				System.out.println();
 				
+			
 				if (viajesEliminar.equals("1")) {
-					System.out.println("Ingrese el id del viaje a eliminar");
-					String id=input();
-					System.out.println();
-					
-					Viaje viajeactual=Viaje.buscarViaje(id);
-					if (viajeactual==null) {
-						System.out.println("No se ha encontrado el viaje con id "+id);
-						System.out.println();
-						
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-						String accion=input();
-						System.out.println();
-						
-						if (accion.toLowerCase().equals("si")) {
-							administrador();
-						}
-						
-						break;
-					}
-					Viaje.eliminarViaje(id);
-					System.out.println("Viaje con id "+id+" ha sido eliminada exitosamente");
-					System.out.println();
-					
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-					String accion=input();
-					System.out.println();
-					
-					if (accion.toLowerCase().equals("si")) {
-						administrador();
-					}
-					
-					break;
-				}
-				
-				if (viajesEliminar.equals("2")) {
 					System.out.println("Ingrese el nombre del hospedaje a eliminar");
 					String nombre=input();
 					System.out.println();
@@ -3953,7 +3816,7 @@ public class Interfaz {
 					}
 					 break;
 				}
-				if (viajesEliminar.equals("3")) {
+				if (viajesEliminar.equals("2")) {
 					System.out.println("Ingrese el nombre del pasajero a eliminar");
 					String nombre=input();
 					System.out.println();
@@ -3994,7 +3857,7 @@ public class Interfaz {
 				
 				
 				break;
-			case "6":
+			case "5":
 				administrador();
 			}
 			break;
@@ -4583,7 +4446,7 @@ public class Interfaz {
 				administrador();
 			}
 			break;
-		case "7":
+		case "7":;
 			break;
 		}
 	}
@@ -4596,71 +4459,72 @@ public class Interfaz {
 	}
 
 	public static void main(String[] args) {
-//		Terminal medellin = new Terminal("MEDELLIN");
-//		Terminal bogota = new Terminal("BOGOTA");
-//		Terminal cali = new Terminal("CALI");
-//		Terminal bucaramanga = new Terminal("BUCARAMANGA");
-//		Terminal pereira = new Terminal("PEREIRA");
-//		Terminal santaMarta = new Terminal("SANTA MARTA");
-//		
-//		Empresa empresa2 = new Empresa("Telm");
-//		Bus bus2 = new Bus(13, new int[]{3, 4});
-//		
-//		Viaje viaje2 = new Viaje(medellin, cali);
-//		
-//
-//		viaje2.setEmpresa(empresa2);
-//		viaje2.setBus(bus2);
-//		
-//		viaje2.setFecha(LocalDate.parse("2024-08-21"));
-//		viaje2.setHora(LocalTime.of(15, 37));
-//		
-//		empresa2.getViajes().add(viaje2);
+Terminal medellin = new Terminal("MEDELLIN");
+	Terminal bogota = new Terminal("BOGOTA");
+		Terminal cali = new Terminal("CALI");
+		Terminal bucaramanga = new Terminal("BUCARAMANGA");
+		Terminal pereira = new Terminal("PEREIRA");
+		Terminal santaMarta = new Terminal("SANTA MARTA");
 		
-//		Empresa empresa1 = new Empresa("Coord");
-//		
-//		Viaje viaje1 = new Viaje(medellin, bogota);
-//		
-//		Viaje viaje3 = new Viaje(santaMarta, bucaramanga);
-//		Viaje viaje4 = new Viaje(pereira, medellin);
-//		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
-//		Hospedaje hospedaje2= new Hospedaje("Cielo","medellin");
-//		Bus bus1 = new Bus( 15, new int[]{3, 11});
-//		
-//		Bus bus3 = new Bus( 12, new int[]{5, 6});
-//		Bus bus4 = new Bus( 13, new int[]{5, 11});
-//		Pasajero pasajero = new Pasajero("samuel", "123123");
-//		Tiquete tiquete= new Tiquete(pasajero,viaje1,new Asiento());
-//		pasajero.agregarTiquete(tiquete);
-//		
-//		cali.getHospedajes().add(hospedaje1);
-//		
-//		empresa1.getViajes().add(viaje1);
-//		empresa1.getViajes().add(viaje3);
-//		
-//		viaje1.setEmpresa(empresa1);
-//		viaje1.setBus(bus1);
-//		viaje3.setEmpresa(empresa1);
-//		viaje3.setBus(bus3);
-//		
-//		viaje1.setFecha(LocalDate.parse("2024-08-05"));
-//		viaje1.setHora(LocalTime.of(15, 37));
-//		viaje3.setFecha(LocalDate.parse("2024-08-25"));
-//		viaje3.setHora(LocalTime.of(15, 37));
-//		
-//		
-//		empresa2.getViajes().add(viaje4);
-//		
-//		viaje4.setEmpresa(empresa2);
-//		viaje4.setBus(bus4);
-//		
+		Empresa empresa2 = new Empresa("Telm");
+		Bus bus2 = new Bus(13, new int[]{3, 4});
 		
-//		viaje4.setFecha(LocalDate.parse("2024-08-26"));
-//		viaje4.setHora(LocalTime.of(15, 37));
-//		
-//		pasajero.agregarTiquete(new Tiquete(pasajero, viaje2, viaje2.buscarAsiento("9A")));
-//		
-		Deserializador.deserializar();
+		Viaje viaje2 = new Viaje(medellin, cali);
+		
+
+		viaje2.setEmpresa(empresa2);
+		viaje2.setBus(bus2);
+		
+		viaje2.setFecha(LocalDate.parse("2024-08-21"));
+		viaje2.setHora(LocalTime.of(15, 37));
+		
+		empresa2.getViajes().add(viaje2);
+		
+		Empresa empresa1 = new Empresa("Coord");
+		
+		Viaje viaje1 = new Viaje(medellin, bogota);
+		
+		Viaje viaje3 = new Viaje(santaMarta, bucaramanga);
+		Viaje viaje4 = new Viaje(pereira, medellin);
+		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
+		hospedaje1.setUbicacion("Cali");
+		Hospedaje hospedaje2= new Hospedaje("Cielo","medellin");
+		Bus bus1 = new Bus( 15, new int[]{3, 11});
+		
+		Bus bus3 = new Bus( 12, new int[]{5, 6});
+		Bus bus4 = new Bus( 13, new int[]{5, 11});
+		Pasajero pasajero = new Pasajero("samuel", "123123");
+		Tiquete tiquete= new Tiquete(pasajero,viaje1,new Asiento());
+		pasajero.agregarTiquete(tiquete);
+		
+		cali.getHospedajes().add(hospedaje1);
+		
+		empresa1.getViajes().add(viaje1);
+		empresa1.getViajes().add(viaje3);
+		
+		viaje1.setEmpresa(empresa1);
+		viaje1.setBus(bus1);
+		viaje3.setEmpresa(empresa1);
+		viaje3.setBus(bus3);
+		
+		viaje1.setFecha(LocalDate.parse("2024-08-05"));
+		viaje1.setHora(LocalTime.of(15, 37));
+		viaje3.setFecha(LocalDate.parse("2024-08-25"));
+		viaje3.setHora(LocalTime.of(15, 37));
+		
+		
+		empresa2.getViajes().add(viaje4);
+		
+		viaje4.setEmpresa(empresa2);
+		viaje4.setBus(bus4);
+		
+		
+		viaje4.setFecha(LocalDate.parse("2024-08-26"));
+		viaje4.setHora(LocalTime.of(15, 37));
+		
+		pasajero.agregarTiquete(new Tiquete(pasajero, viaje2, viaje2.buscarAsiento("9A")));
+		
+//		Deserializador.deserializar();
 		chequearAsientosYHabitaciones();
 			
 		String opcion;

@@ -58,7 +58,7 @@ public class Viaje implements Serializable {
 		viajes.add(this);
 		ids++;
 		id = String.valueOf(ids);
-	}
+		}
 
 	public Viaje(ArrayList<Pasajero> pasajeros, ArrayList<Hospedaje> hospedajes, 
 			ArrayList<Tiquete> tiquetes, Terminal terminalOrigen, Terminal terminalDestino, 
@@ -150,6 +150,19 @@ public class Viaje implements Serializable {
 		return null;
 	}
 
+	public static Viaje buscarViaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
+			LocalDate fecha, LocalTime hora, Conductor conductor, Bus bus) {
+		for (Viaje viaje : viajes) {
+			if (viaje.getTerminalOrigen().equals(terminalOrigen) && viaje.getTerminalDestino().equals(terminalDestino) &&
+			viaje.empresa.equals(empresa) && viaje.fecha.equals(fecha) && viaje.hora.equals(hora) &&
+			viaje.getBus().equals(bus) && viaje.getBus().getConductor().equals(conductor)) {
+				return viaje;
+			}
+		}
+
+		return null;
+	}
+	
 	public static Viaje buscarViaje(String id) {
 		for (Viaje viaje : viajes) {
 			if (viaje.getId().equals(id)) {
@@ -163,8 +176,8 @@ public class Viaje implements Serializable {
 	public ArrayList<Hospedaje> hospedajesDisponibles() {
 		ArrayList<Hospedaje> hospedajesDisponibles = new ArrayList<Hospedaje>();
 
-		for (Hospedaje hospedaje : this.getTerminalDestino().getHospedajes()) {
-			if (hospedaje.tieneHabitaciones()) {
+		for (Hospedaje hospedaje : Hospedaje.getHospedajes()) {
+			if (this.getTerminalDestino().getUbicacion().equals(hospedaje.getUbicacion())) {
 				hospedajesDisponibles.add(hospedaje);
 			}
 		}
