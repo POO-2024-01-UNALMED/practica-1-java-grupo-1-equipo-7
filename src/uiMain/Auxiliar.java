@@ -85,7 +85,7 @@ public class Auxiliar {
 		viaje5.setFecha(LocalDate.parse("2024-10-22"));
 		viaje6.setFecha(LocalDate.parse("2024-12-26"));
 		viaje7.setFecha(LocalDate.parse("2026-07-25"));
-		viaje8.setFecha(LocalDate.parse("2024-09-29"));
+		viaje8.setFecha(LocalDate.parse("2024-07-29"));
 		
 		viaje1.setHora(LocalTime.of(15, 00));
 		viaje2.setHora(LocalTime.of(16, 00));
