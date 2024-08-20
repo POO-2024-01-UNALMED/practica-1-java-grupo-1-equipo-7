@@ -123,6 +123,16 @@ public class Auxiliar {
 		pasajero3.agregarTiquete(new Tiquete(pasajero3, viaje7, viaje7.buscarAsiento("11D")));
 		pasajero4.agregarTiquete(new Tiquete(pasajero4, viaje8, viaje8.buscarAsiento("10C")));
 		
+		viaje1.reservarAsiento(viaje1.buscarAsiento("12A").getNumero(), null);
+		viaje2.reservarAsiento(viaje2.buscarAsiento("11D").getNumero(), null);
+		viaje3.reservarAsiento(viaje3.buscarAsiento("5A").getNumero(), null);
+		viaje4.reservarAsiento(viaje4.buscarAsiento("10B").getNumero(), null);
+		viaje5.reservarAsiento(viaje5.buscarAsiento("6B").getNumero(), null);
+		viaje6.reservarAsiento(viaje6.buscarAsiento("9A").getNumero(), null);
+		viaje7.reservarAsiento(viaje7.buscarAsiento("11D").getNumero(), null);
+		viaje8.reservarAsiento(viaje8.buscarAsiento("10C").getNumero(), null);
+		
+		
 		
 	}
 }

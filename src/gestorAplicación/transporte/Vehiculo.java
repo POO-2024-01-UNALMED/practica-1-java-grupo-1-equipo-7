@@ -13,11 +13,11 @@ public abstract class Vehiculo implements Serializable {
 	private String placa;
 	private Conductor conductor;
 
-	public Vehiculo() {
+	protected Vehiculo() {
 
 	}
 
-	public Vehiculo(String placa) {
+	protected Vehiculo(String placa) {
 		this.placa = placa;
 
 	}

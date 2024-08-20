@@ -54,6 +54,7 @@ public class Pasajero extends Persona implements Serializable {
 			ArrayList<Tiquete> tiquetesValidos = new ArrayList<Tiquete>();
 
 			for (Tiquete tiquete : this.getTiquetes()) {
+				tiquete.setViaje(Empresa.buscarViaje(tiquete.getViaje().getId()));
 				if (tiquete.getViaje().getFecha().isAfter(LocalDate.now())) {
 					tiquetesValidos.add(tiquete);
 				}
@@ -64,6 +65,7 @@ public class Pasajero extends Persona implements Serializable {
 			ArrayList<Tiquete> tiquetesVencidos = new ArrayList<Tiquete>();
 
 			for (Tiquete tiquete : this.getTiquetes()) {
+				tiquete.setViaje(Empresa.buscarViaje(tiquete.getViaje().getId()));
 				if (tiquete.getViaje().getFecha().isBefore(LocalDate.now())) {
 					tiquetesVencidos.add(tiquete);
 				}

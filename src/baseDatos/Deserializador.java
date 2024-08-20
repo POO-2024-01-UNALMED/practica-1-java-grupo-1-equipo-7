@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import gestorAplicación.gestion.Empresa;
 import gestorAplicación.gestion.Habitacion;
 import gestorAplicación.gestion.Terminal;
+import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
 import gestorAplicación.personas.Pasajero;
 import gestorAplicación.transporte.Asiento;
@@ -46,6 +47,17 @@ public class Deserializador {
 					fis = new FileInputStream(file);
 					ois = new ObjectInputStream(fis);
 					Terminal.setTerminales((ArrayList<Terminal>) ois.readObject());
+					ois.close();
+					fis.close();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			} else if (file.getAbsolutePath().contains("tiquetes")) {
+				try {
+					fis = new FileInputStream(file);
+					ois = new ObjectInputStream(fis);
+					Tiquete tiquete = (Tiquete) ois.readObject();
+					Tiquete.setNumerosReserva(Integer.valueOf(tiquete.getNumeroReserva()));
 					ois.close();
 					fis.close();
 				} catch(Exception e) {

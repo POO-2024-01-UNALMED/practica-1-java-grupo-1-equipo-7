@@ -15,11 +15,14 @@ public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
 	private Pasajero pasajero;
-	private Terminal terminal;
 	private Viaje viaje;
 	private Asiento asiento;
 	private String numeroReserva;
 	private Hospedaje hospedaje;
+	
+	public Tiquete () {
+		this.numeroReserva = String.valueOf(numerosReserva);
+	}
 
 	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, Hospedaje hospedaje) {
 		this.pasajero = pasajero;
@@ -102,6 +105,14 @@ public class Tiquete implements Serializable {
 		return "    " + numeroReserva + "               " + pasajero.getNombre() 
 				+ spaceNombre + "     " + asiento + spaceAsiento + "    " 
 				+ viaje.getStrFecha() + " " + viaje.getHora() + "     " + viaje.getId();
+	}
+	
+	public static int getNumerosReserva() {
+		return Tiquete.numerosReserva;
+	}
+	
+	public static void setNumerosReserva(int numerosReserva) {
+		Tiquete.numerosReserva = numerosReserva;
 	}
 
 	public Viaje getViaje() {

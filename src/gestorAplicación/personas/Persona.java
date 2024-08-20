@@ -1,10 +1,11 @@
 package gestorAplicación.personas;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import gestorAplicación.gestion.Tiquete;
 
-public class Persona implements Serializable {
+public class Persona implements Serializable, SuperPersona {
 	private static final long serialVersionUID = 6358131159471883226L;
 	protected String nombre;
 	protected String id;
@@ -25,6 +26,22 @@ public class Persona implements Serializable {
 		id = idPasajero;
 		this.setTelefono(telefono);
 		this.setCorreo(correo);
+	}
+	
+	public void agregarTiquete(Tiquete tiquete) {
+		
+	}
+	
+	public void cancelarTiquete(Tiquete tiquete) {
+		
+	}
+	
+	public Tiquete buscarTiquete(String numeroReserva) {
+		return null;
+	}
+	
+	public ArrayList<Tiquete> buscarTiquetes(String tipoTiquetes) {
+		return null;
 	}
 
 	public String getNombre() {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import gestorAplicación.gestion.Empresa;
 import gestorAplicación.gestion.Terminal;
+import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Habitacion;
 import gestorAplicación.gestion.Viaje;
 import gestorAplicación.personas.Pasajero;
@@ -62,6 +63,16 @@ public class Serializador {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(Terminal.getTerminales());
+					oos.close();
+					fos.close();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			} else if (file.getAbsolutePath().contains("tiquetes")) {
+				try {
+					fos = new FileOutputStream(file);
+					oos = new ObjectOutputStream(fos);
+					oos.writeObject(new Tiquete());
 					oos.close();
 					fos.close();
 				} catch(Exception e) {

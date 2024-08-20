@@ -1285,11 +1285,11 @@ public class Interfaz {
 						 System.out.println();
 					}
 				
-				Pasajero pasajero = new Pasajero(nombre, idPasajero,telefono,correo);
+				Persona pasajero = new Pasajero(nombre, idPasajero,telefono,correo);
 				
 				Asiento asiento = viaje.buscarAsiento(numeroAsiento);
 				
-				Tiquete tiquete = new Tiquete(pasajero, viaje, asiento);
+				Tiquete tiquete = new Tiquete((Pasajero) pasajero, viaje, asiento);
 				
 				pasajero.agregarTiquete(tiquete);
 				
@@ -1331,13 +1331,14 @@ public class Interfaz {
 				System.out.println();
 				}
 				else {
+					Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
+					
 					Asiento asiento = viaje.buscarAsiento(numeroAsiento);
 					
-					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
+					Tiquete tiquete = new Tiquete(pasajero, viaje, asiento);
 					
-					Tiquete tiquete = new Tiquete(Pasajero.buscarPasajero(idPasajero), viaje, asiento);
+					pasajero.agregarTiquete(tiquete);
 					
-					Pasajero.buscarPasajero(idPasajero).agregarTiquete(tiquete);
 					System.out.println("Tiquete reservado exitosamente");
 					
 					System.out.println();
@@ -1392,9 +1393,9 @@ public class Interfaz {
 		
 		System.out.println();
 
-		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
+		Persona pasajero = Pasajero.buscarPasajero(idPasajero);
 
-		if (pasajero == null || pasajero.getTiquetes().isEmpty()) {
+		if (pasajero == null || ((Pasajero) pasajero).getTiquetes().isEmpty()) {
 			System.out.println("No hay tiquetes asociados " 
 			+ "con el número de identificación");
 			
@@ -1725,8 +1726,6 @@ public class Interfaz {
 										System.out.print("Ingrese el número del asiento: ");
 										
 										String numeroAsiento = input();
-										
-										
 										
 										if (viaje.buscarAsiento(numeroAsiento) == null||
 												viaje.buscarAsiento(numeroAsiento).isReservado()) {
