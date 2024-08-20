@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import gestorAplicación.gestion.Empresa;
 import gestorAplicación.gestion.Hospedaje;
 import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
@@ -76,6 +77,7 @@ public class Pasajero extends Persona implements Serializable {
 
 	public Tiquete buscarTiquete(Viaje viaje) {
 		for (Tiquete tiquete : tiquetes) {
+			tiquete.setViaje(Empresa.buscarViaje(viaje.getId()));
 			if (tiquete.getViaje().equals(viaje)) {
 				return tiquete;
 			}

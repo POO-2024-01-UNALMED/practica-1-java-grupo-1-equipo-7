@@ -157,10 +157,8 @@ public class Viaje implements Serializable {
 	public ArrayList<Hospedaje> hospedajesDisponibles() {
 		ArrayList<Hospedaje> hospedajesDisponibles = new ArrayList<Hospedaje>();
 
-		for (Hospedaje hospedaje : Hospedaje.getHospedajes()) {
-			if (this.getTerminalDestino().getUbicacion().equals(hospedaje.getUbicacion())) {
-				hospedajesDisponibles.add(hospedaje);
-			}
+		for (Hospedaje hospedaje : this.terminalDestino.getHospedajes()) {
+			hospedajesDisponibles.add(hospedaje);
 		}
 
 		return hospedajesDisponibles;

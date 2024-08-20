@@ -113,7 +113,18 @@ public class Hospedaje implements Serializable {
 
 	@Override
 	public String toString() {
-		return "    " + nombre + "     " + calificacion + " estrellas" + "     " 
+	int nombre = 5 - this.nombre.length();
+	String strNombre = String.valueOf(nombre);
+	
+	String spaceNombre;
+
+	if (nombre == 0) {
+		spaceNombre = "";
+	} else {
+		spaceNombre = String.format("%" + strNombre + "s", "");
+	}
+
+		return "    " + this.nombre + spaceNombre + "      " + this.calificacion + " estrellas" + "     " 
 				+ this.habitacionesDisponibles();
 	}
 

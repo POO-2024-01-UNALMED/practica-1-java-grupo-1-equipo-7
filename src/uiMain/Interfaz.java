@@ -4426,7 +4426,8 @@ public class Interfaz {
 	}
 
 	public static void main(String[] args) {
-//		Deserializador.deserializar();
+//		Auxiliar.instanciarObjetos();
+		Deserializador.deserializar();
 		chequearAsientosYHabitaciones();
 			
 		String opcion;
