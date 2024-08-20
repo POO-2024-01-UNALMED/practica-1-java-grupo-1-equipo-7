@@ -13,20 +13,26 @@ public class Terminal implements Serializable {
 	private String ubicacion;
 
 	public Terminal(String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
+		ubicacion = ubicacion.toUpperCase();
 		this.ubicacion = ubicacion;
 		terminales.add(this);
 	}
 
 	public Terminal(String nombre, String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
+		ubicacion = ubicacion.toUpperCase();
 		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		terminales.add(this);
 	}
 
+	public void agregarHospedaje(Hospedaje hospedaje) {
+		this.getHospedajes().add(hospedaje);
+		hospedaje.setTerminal(this);
+		hospedaje.setUbicacion(this.getNombre());
+	}
+
 	public static Terminal buscarTerminal(String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
+		ubicacion = ubicacion.toUpperCase();
 		for (Terminal terminal : terminales) {
 			if (terminal.getUbicacion().equals(ubicacion)) {
 				return terminal;
@@ -45,15 +51,27 @@ public class Terminal implements Serializable {
 	}
 
 	public static Terminal buscarTerminal(String nombre, String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
+		ubicacion = ubicacion.toUpperCase();
 		for (Terminal terminal : terminales) {
 			if (terminal.getNombre() != null) {
-				if (terminal.getUbicacion().equals(ubicacion) 
-						&& terminal.getNombre().equals(nombre)) {
+				if (terminal.getUbicacion().equals(ubicacion) && terminal.getNombre().equals(nombre)) {
 					return terminal;
 				}
 			}
 		}
+		return null;
+	}
+
+	public static Hospedaje buscarHospedaje(String nombre, String ubi) {
+		ubi = ubi.toUpperCase();
+		for (Terminal terminal : Terminal.getTerminales()) {
+			for (Hospedaje hospedaje : terminal.getHospedajes()) {
+				if (hospedaje.getNombre().equals(nombre) && hospedaje.getUbicacion().equals(ubi)) {
+					return hospedaje;
+				}
+			}
+		}
+
 		return null;
 	}
 
@@ -62,7 +80,7 @@ public class Terminal implements Serializable {
 	}
 
 	public void setUbicacion(String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
+		ubicacion = ubicacion.toUpperCase();
 		this.ubicacion = ubicacion;
 	}
 
@@ -104,7 +122,7 @@ public class Terminal implements Serializable {
 	}
 
 	public static void eliminarTerminal(String nombre, String ubicacion) {
-		ubicacion=ubicacion.toUpperCase();
+		ubicacion = ubicacion.toUpperCase();
 
 		Terminal terminal = Terminal.buscarTerminal(nombre, ubicacion);
 		terminales.remove(terminal);

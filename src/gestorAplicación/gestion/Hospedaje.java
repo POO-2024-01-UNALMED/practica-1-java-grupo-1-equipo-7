@@ -12,6 +12,7 @@ public class Hospedaje implements Serializable {
 	private static ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
 	private ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private ArrayList<String> calificaciones = new ArrayList<String>();
+	private Terminal terminal;
 	private double calificacion;
 	private String nombre;
 	private String ubicacion;
@@ -187,5 +188,13 @@ public class Hospedaje implements Serializable {
 
 	public static ArrayList<Hospedaje> getHospedajes() {
 		return hospedajes;
+	}
+
+	public Terminal getTerminal() {
+		return terminal;
+	}
+
+	public void setTerminal(Terminal terminal) {
+		this.terminal = terminal;
 	}
 }

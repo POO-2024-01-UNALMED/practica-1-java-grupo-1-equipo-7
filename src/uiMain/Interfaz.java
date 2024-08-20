@@ -2247,11 +2247,12 @@ public class Interfaz {
 					String nombre = input();
 					System.out.println();
 
-					if (Empresa.buscarConductor(id) == null) {
+					if (Conductor.buscarConductor(id) == null) {
 						System.out.println("No se ha encontrado a ningún conductor con ese ID");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2270,7 +2271,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado la empresa " + nombre);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2284,7 +2286,8 @@ public class Interfaz {
 							+ " asignado correctamente a la empresa " + nombre);
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2328,7 +2331,8 @@ public class Interfaz {
 
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2361,7 +2365,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado a la empresa" + nombre);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2376,7 +2381,8 @@ public class Interfaz {
 					System.out.println("Empresa " + nombre + " eliminada exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2403,7 +2409,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado a ningún conductor con ese ID");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2417,10 +2424,12 @@ public class Interfaz {
 					Empresa empresa = Empresa.buscarEmpresa(nombre);
 					if (empresa != null) {
 						empresa.eliminarConductor(Conductor.buscarConductor(id));
-						System.out.println("Conductor con id " + id + " eliminado correctamente de la empresa "
-								+ empresa.getNombre());
+						System.out.println("Conductor con id " + id 
+											+ " eliminado correctamente de la empresa " 
+											+ empresa.getNombre());
 						System.out.println();
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2432,7 +2441,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado la empresa " + nombre);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2486,11 +2496,12 @@ public class Interfaz {
 					String ubicacion = input();
 					System.out.println();
 
-					if (!(Hospedaje.buscarHospedaje(nombre, ubicacion) == null)) {
+					if (!(Terminal.buscarHospedaje(nombre, ubicacion) == null)) {
 						System.out.println("El hospedaje ya existe");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2504,7 +2515,8 @@ public class Interfaz {
 					System.out.println("Hospedaje creado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2528,7 +2540,8 @@ public class Interfaz {
 						System.out.println("El hospedaje no existe");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2545,11 +2558,13 @@ public class Interfaz {
 					String habitaciones = input();
 					System.out.println();
 
-					hospedaje.crearHabitaciones(Integer.parseInt(pisos), Integer.parseInt(habitaciones));
+					hospedaje.crearHabitaciones(Integer.parseInt(pisos), 
+												Integer.parseInt(habitaciones));
 					System.out.println("Habitaciones agregadas correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2574,7 +2589,8 @@ public class Interfaz {
 						System.out.println("El hospedaje no existe");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2584,7 +2600,8 @@ public class Interfaz {
 						break;
 					}
 
-					System.out.println("Agregue su calificación del hospedaje del 1 al 5 (Sólo números enteros)");
+					System.out.println("Agregue su calificación del hospedaje " 
+										+ "del 1 al 5 (Sólo números enteros)");
 					String calificar = input();
 					System.out.println();
 
@@ -2593,7 +2610,8 @@ public class Interfaz {
 					System.out.println("Calificación agregada correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2636,13 +2654,15 @@ public class Interfaz {
 					for (Hospedaje hospedaje : Hospedaje.getHospedajes()) {
 						if (hospedaje != null) {
 							System.out.println("    " + hospedaje.getNombre() + "             "
-									+ hospedaje.getUbicacion() + "            " + hospedaje.getCalificacion());
+												+ hospedaje.getUbicacion() 
+												+ "            " + hospedaje.getCalificacion());
 						}
 
 						System.out.println();
 					}
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2679,7 +2699,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado el hospedaje " + nombre);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2693,7 +2714,8 @@ public class Interfaz {
 					System.out.println("Hospedaje " + nombre + " eliminado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2717,7 +2739,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado el hospedaje " + nombre);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2736,7 +2759,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado la habitación " + habitacion);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2751,7 +2775,8 @@ public class Interfaz {
 					System.out.println("Habitación " + habitacion + " eliminada exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2813,7 +2838,8 @@ public class Interfaz {
 						System.out.println("La terminal ya existe");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2828,7 +2854,8 @@ public class Interfaz {
 					System.out.println("Terminal creada exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2860,10 +2887,12 @@ public class Interfaz {
 
 					if (terminal == null || empresa == null) {
 						System.out
-								.println("No se ha encontrado la terminal " + nombreTer + " ó la empresa " + nombreEmp);
+								.println("No se ha encontrado la terminal " + nombreTer 
+										+ " ó la empresa " + nombreEmp);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2875,10 +2904,12 @@ public class Interfaz {
 					}
 
 					terminal.agregarEmpresa(empresa);
-					System.out.println("Empresa " + nombreEmp + " ha sido vinculada a la terminal " + nombreTer);
+					System.out.println("Empresa " + nombreEmp 
+										+ " ha sido vinculada a la terminal " + nombreTer);
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2923,14 +2954,16 @@ public class Interfaz {
 
 					for (Terminal terminal : Terminal.getTerminales()) {
 						if (terminal != null) {
-							System.out.println("    " + terminal.getNombre() + "             " + terminal.getUbicacion()
-									+ "            ");
+							System.out.println("    " + terminal.getNombre() 
+												+ "             " + terminal.getUbicacion()
+												+ "            ");
 						}
 
 						System.out.println();
 					}
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -2964,10 +2997,12 @@ public class Interfaz {
 					System.out.println();
 					Terminal terminal = Terminal.buscarTerminal(nombre, ubicacion);
 					if (terminal == null) {
-						System.out.println("No se ha encontrado la terminal " + nombre + " en " + ubicacion);
+						System.out.println("No se ha encontrado la terminal " 
+											+ nombre + " en " + ubicacion);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -2978,10 +3013,12 @@ public class Interfaz {
 						break;
 					}
 					Terminal.eliminarTerminal(nombre, ubicacion);
-					System.out.println("Terminal " + nombre + " en " + ubicacion + " ha sido eliminada exitosamente");
+					System.out.println("Terminal " + nombre + " en " + ubicacion 
+										+ " ha sido eliminada exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3001,10 +3038,12 @@ public class Interfaz {
 
 					Terminal terminal = Terminal.buscarTerminal(nombreTer, ubicacion);
 					if (terminal == null) {
-						System.out.println("No se ha encontrado la terminal " + nombreTer + " en " + ubicacion);
+						System.out.println("No se ha encontrado la terminal " 
+											+ nombreTer + " en " + ubicacion);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3023,7 +3062,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado la empresa " + nombreEmp);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3038,7 +3078,8 @@ public class Interfaz {
 					System.out.println("Empresa " + nombreEmp + " eliminada exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3160,12 +3201,14 @@ public class Interfaz {
 
 					System.out.println();
 
-					Terminal terminalOrigen = Terminal.buscarTerminal(nombreOrigen, ubicacionOrigen);
+					Terminal terminalOrigen = Terminal.buscarTerminal(nombreOrigen, 
+																		ubicacionOrigen);
 
 					if (terminalOrigen == null) {
 						terminalOrigen = new Terminal(nombreOrigen, ubicacionOrigen);
 					}
-					Terminal terminalDestino = Terminal.buscarTerminal(nombreDestino, ubicacionDestino);
+					Terminal terminalDestino = Terminal.buscarTerminal(nombreDestino, 
+																		ubicacionDestino);
 					if (terminalDestino == null) {
 						terminalDestino = new Terminal(nombreDestino, ubicacionDestino);
 					}
@@ -3195,12 +3238,14 @@ public class Interfaz {
 					LocalTime horamod = LocalTime.parse(hora, formatoEntrada);
 
 					empresa.getViajes().add(
-							new Viaje(terminalOrigen, terminalDestino, empresa, fechamod, horamod, conductor, bus));
+							new Viaje(terminalOrigen, terminalDestino, empresa, fechamod, 
+										horamod, conductor, bus));
 
 					System.out.println("Viaje creado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3247,8 +3292,9 @@ public class Interfaz {
 						System.out.println();
 					}
 
-					Pattern regexCor = Pattern.compile(
-							"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)" 
+														+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)" 
+														+ "*(\\.[A-Za-z]{2,})$");
 
 					System.out.println("Correo electrónico: ");
 
@@ -3340,12 +3386,14 @@ public class Interfaz {
 
 					System.out.println();
 
-					Terminal terminalOrigen = Terminal.buscarTerminal(nombreOrigen, ubicacionOrigen);
+					Terminal terminalOrigen = Terminal.buscarTerminal(nombreOrigen, 
+																		ubicacionOrigen);
 
 					if (terminalOrigen == null) {
 						terminalOrigen = new Terminal(nombreOrigen, ubicacionOrigen);
 					}
-					Terminal terminalDestino = Terminal.buscarTerminal(nombreDestino, ubicacionDestino);
+					Terminal terminalDestino = Terminal.buscarTerminal(nombreDestino, 
+																		ubicacionDestino);
 					if (terminalDestino == null) {
 						terminalDestino = new Terminal(nombreDestino, ubicacionDestino);
 					}
@@ -3379,11 +3427,12 @@ public class Interfaz {
 					DateTimeFormatter formatoEntrada = DateTimeFormatter.ofPattern("HH:mm:ss");
 					LocalTime horamod = LocalTime.parse(hora, formatoEntrada);
 
-					Viaje viajenuevo = Viaje.buscarViaje(terminalOrigen, terminalDestino, empresa, fechamod, horamod,
+					Viaje viajenuevo = Viaje.buscarViaje(terminalOrigen, terminalDestino, 
+															empresa, fechamod, horamod,
 							conductor, bus);
 					if (viajenuevo == null) {
-						viajenuevo = new Viaje(terminalOrigen, terminalDestino, empresa, fechamod, horamod, conductor,
-								bus);
+						viajenuevo = new Viaje(terminalOrigen, terminalDestino, 
+												empresa, fechamod, horamod, conductor, bus);
 					}
 					empresa.getViajes().add(viajenuevo);
 
@@ -3393,9 +3442,16 @@ public class Interfaz {
 
 					System.out.println();
 
-					System.out.println("Ingrese el tipo del Asiento (ESTANDAR,PREFERENCIAL,PREMIUM)");
+					System.out.println("Ingrese el tipo del Asiento " 
+										+ "(ESTANDAR,PREFERENCIAL,PREMIUM)");
 					String tipoAsiento = input();
+					
 					tipoAsiento = tipoAsiento.toUpperCase();
+					
+					while (!tipoAsiento.equals("ESTANDAR") || !tipoAsiento.equals("ESTANDAR") 
+							|| !tipoAsiento.equals("ESTANDAR")) {
+						
+					}
 
 					System.out.println();
 
@@ -3414,17 +3470,20 @@ public class Interfaz {
 
 					System.out.println();
 
-					Hospedaje hospedaje = Hospedaje.buscarHospedaje(nombreHospedaje, ubicacionHospedaje);
+					Hospedaje hospedaje = Hospedaje.buscarHospedaje(nombreHospedaje, 
+																	ubicacionHospedaje);
 					if (hospedaje == null) {
 						hospedaje = new Hospedaje(nombreHospedaje, ubicacionHospedaje);
 					}
 
-					Tiquete tiquete = Tiquete.buscarTiquete(pasajero, viajenuevo, asiento, hospedaje);
+					Tiquete tiquete = Tiquete.buscarTiquete(pasajero, viajenuevo, asiento, 
+															hospedaje);
 					if (tiquete != null) {
 						System.out.println("El tiquete ya existe");
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3439,7 +3498,8 @@ public class Interfaz {
 					System.out.println("Tiquete creado correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3473,7 +3533,8 @@ public class Interfaz {
 						System.out.println("No se encontró a ningún viaje con id " + id);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3571,7 +3632,8 @@ public class Interfaz {
 
 						System.out.println();
 
-						System.out.println("Ingrese la cantidad de filas de asientos preferenciales");
+						System.out.println("Ingrese la cantidad de filas " 
+											+ "de asientos preferenciales");
 						String preferencial = input();
 						int preferencialmod = Integer.parseInt(preferencial);
 
@@ -3590,7 +3652,8 @@ public class Interfaz {
 						System.out.println();
 
 						viajeactual.getBus().setPlaca(placa);
-						viajeactual.getBus().crearAsientos(standartmod + premiummod + preferencialmod);
+						viajeactual.getBus().crearAsientos(standartmod + premiummod 
+															+ preferencialmod);
 						break;
 
 					case "7":
@@ -3618,7 +3681,8 @@ public class Interfaz {
 					System.out.println("Datos modificados correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3673,7 +3737,8 @@ public class Interfaz {
 
 					}
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3687,8 +3752,8 @@ public class Interfaz {
 				if (viajesVer.equals("2")) {
 					System.out.println("Tiquetes disponibles por persona");
 					for (Pasajero pasajero : Pasajero.getPasajeros()) {
-						System.out.println(
-								"Tiquetes del pasajero " + pasajero.getNombre() + " con id " + pasajero.getId());
+						System.out.println("Tiquetes del pasajero " + pasajero.getNombre() 
+											+ " con id " + pasajero.getId());
 
 						for (int i = 0; i < 92; i++) {
 							System.out.print("-");
@@ -3713,7 +3778,8 @@ public class Interfaz {
 						System.out.println();
 					}
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3750,11 +3816,12 @@ public class Interfaz {
 
 					Hospedaje hospedaje = Hospedaje.buscarHospedaje(nombre, ubicacion);
 					if (hospedaje == null) {
-						System.out.println(
-								"No se ha encontrado el hospedaje con nombre " + nombre + " y ubicación " + ubicacion);
+						System.out.println("No se ha encontrado el hospedaje con nombre " 
+											+ nombre + " y ubicación " + ubicacion);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3765,11 +3832,12 @@ public class Interfaz {
 						break;
 					}
 					Hospedaje.eliminarHospedaje(nombre, ubicacion);
-					System.out.println("Hospedaje con nombre " + nombre + " y ubicación " + ubicacion
-							+ " ha sido eliminado exitosamente");
+					System.out.println("Hospedaje con nombre " + nombre + " y ubicación " 
+										+ ubicacion + " ha sido eliminado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3794,10 +3862,12 @@ public class Interfaz {
 
 					Pasajero pasajero = Pasajero.buscarPasajero(nombre, id);
 					if (pasajero == null) {
-						System.out.println("No se ha encontrado el pasajero con nombre " + nombre + " e id " + id);
+						System.out.println("No se ha encontrado el pasajero con nombre " 
+											+ nombre + " e id " + id);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3808,11 +3878,12 @@ public class Interfaz {
 						break;
 					}
 					Pasajero.eliminarPasajero(nombre, id);
-					System.out.println(
-							"Pasajero con nombre " + nombre + " e id " + id + " ha sido eliminado exitosamente");
+					System.out.println("Pasajero con nombre " + nombre + " e id " + id 
+										+ " ha sido eliminado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3893,8 +3964,9 @@ public class Interfaz {
 						System.out.println();
 					}
 
-					Pattern regexCor = Pattern.compile(
-							"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
+														+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)"
+														+ "*(\\.[A-Za-z]{2,})$");
 
 					System.out.println("Correo electrónico: ");
 
@@ -3916,7 +3988,8 @@ public class Interfaz {
 					if (pasajero != null) {
 						System.out.println("El pasajero ya existe");
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3932,7 +4005,8 @@ public class Interfaz {
 					System.out.println("Pasajero creado correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -3962,7 +4036,8 @@ public class Interfaz {
 					if (conductor != null) {
 						System.out.println("El conductor ya existe");
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción " 
+											+ "más cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -3978,7 +4053,8 @@ public class Interfaz {
 					System.out.println("Conductor creado correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4017,7 +4093,8 @@ public class Interfaz {
 					if (pasajero == null) {
 						System.out.println("No se encontrado a ningún pasajero con el id " + id);
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -4048,8 +4125,9 @@ public class Interfaz {
 						System.out.println();
 					}
 
-					Pattern regexCor = Pattern.compile(
-							"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
+														+ "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)"
+														+ "*(\\.[A-Za-z]{2,})$");
 
 					System.out.println("Correo electrónico: ");
 
@@ -4074,7 +4152,8 @@ public class Interfaz {
 					System.out.println("Información modificada correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4100,7 +4179,8 @@ public class Interfaz {
 						System.out.println("No se encontrado a ningún conductor con el id " + id);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -4119,7 +4199,8 @@ public class Interfaz {
 					System.out.println("Información modificada correctamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4167,7 +4248,8 @@ public class Interfaz {
 
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4195,13 +4277,14 @@ public class Interfaz {
 
 					for (Conductor conductor : Conductor.getConductores()) {
 
-						System.out.println(
-								"     " + conductor.getNombre() + "            " + conductor.getId() + "          ");
+						System.out.println("     " + conductor.getNombre() + "            " 
+											+ conductor.getId() + "          ");
 					}
 
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4244,7 +4327,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado el pasajero con id " + id);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -4255,10 +4339,12 @@ public class Interfaz {
 						break;
 					}
 					Pasajero.eliminarPasajero(id);
-					System.out.println("Pasajero con id " + id + " ha sido eliminado exitosamente");
+					System.out.println("Pasajero con id " + id 
+										+ " ha sido eliminado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4285,7 +4371,8 @@ public class Interfaz {
 						System.out.println("No se ha encontrado al conductor con id " + id);
 						System.out.println();
 
-						System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+						System.out.println("Desea realizar alguna acción más " 
+											+ "cómo administrador (si/no)");
 						String accion = input();
 						System.out.println();
 
@@ -4296,10 +4383,12 @@ public class Interfaz {
 						break;
 					}
 					Conductor.eliminarConductor(id);
-					System.out.println("Conductor con id " + id + " ha sido eliminado exitosamente");
+					System.out.println("Conductor con id " + id 
+										+ " ha sido eliminado exitosamente");
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion = input();
 					System.out.println();
 
@@ -4373,7 +4462,8 @@ public class Interfaz {
 				}
 				System.out.println();
 
-				System.out.println("     PLACA          PREFERENCIALES        PREMIUM          STANDART       ");
+				System.out.println("     PLACA          PREFERENCIALES        " 
+									+ "PREMIUM          ESTANDAR       ");
 
 				for (int i = 0; i < 75; i++) {
 					System.out.print("-");
@@ -4383,9 +4473,12 @@ public class Interfaz {
 
 				for (Bus busaux : Bus.getBuses()) {
 
-					System.out.println("      " + busaux.getPlaca() + "                 " + busaux.getTiposAsiento()[0]
-							+ "                  " + (busaux.getTiposAsiento()[1] - busaux.getTiposAsiento()[0])
-							+ "                 " + (busaux.getAsiento() - busaux.getTiposAsiento()[1]));
+					System.out.println("      " + busaux.getPlaca() + "                 " 
+										+ busaux.getTiposAsiento()[0] + "                  " 
+										+ (busaux.getTiposAsiento()[1] - busaux.
+												getTiposAsiento()[0])
+										+ "                 " 
+										+ (busaux.getAsiento() - busaux.getTiposAsiento()[1]));
 				}
 
 				System.out.println();
@@ -4408,7 +4501,8 @@ public class Interfaz {
 					System.out.println("No se ha encontrado el bus con placa " + placa2);
 					System.out.println();
 
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
+					System.out.println("Desea realizar alguna acción más " 
+										+ "cómo administrador (si/no)");
 					String accion3 = input();
 					System.out.println();
 
@@ -4447,8 +4541,8 @@ public class Interfaz {
 	}
 
 	public static void main(String[] args) {
-//		Auxiliar.instanciarObjetos();
-		Deserializador.deserializar();
+		Auxiliar.instanciarObjetos();
+//		Deserializador.deserializar();
 		chequearAsientosYHabitaciones();
 
 		String opcion;
