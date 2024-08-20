@@ -15,11 +15,12 @@ public class Pasajero extends Persona implements Serializable {
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 
 	public Pasajero() {
+		this("Sin nombre","0");
 		pasajeros.add(this);
 	}
 
 	public Pasajero(String nombre, String id) {
-		super(nombre, id);
+		this(nombre, id,"0000000000","No tiene");
 		pasajeros.add(this);
 	}
 

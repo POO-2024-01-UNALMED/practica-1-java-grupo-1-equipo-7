@@ -18,6 +18,7 @@ public class Hospedaje implements Serializable {
 	private String ubicacion;
 
 	public Hospedaje() {
+		this("Sin nombre","Sin ubicación");
 		hospedajes.add(this);
 	}
 
@@ -28,8 +29,8 @@ public class Hospedaje implements Serializable {
 	}
 
 	public Hospedaje(String nombre, String ubicacion) {
+		this(nombre,3,5);
 		ubicacion=ubicacion.toUpperCase();
-		this.nombre = nombre;
 		this.ubicacion = ubicacion;
 		hospedajes.add(this);
 	}
