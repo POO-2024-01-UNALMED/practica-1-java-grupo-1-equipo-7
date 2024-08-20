@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import gestorAplicación.gestion.Tiquete;
 
 public class Persona implements Serializable, SuperPersona {
-	private static final long serialVersionUID = 6358131159471883226L;
+	private static final long serialVersionUID = 9L;
 	protected String nombre;
 	protected String id;
 	private String correo;

@@ -14,10 +14,7 @@ import gestorAplicación.transporte.Asiento;
 import gestorAplicación.transporte.Bus;
 
 public class Viaje implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2760602559521284522L;
+	private static final long serialVersionUID = 6L;
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	
 	private Terminal terminalOrigen;
@@ -59,15 +56,20 @@ public class Viaje implements Serializable {
 		id = String.valueOf(ids);
 	}
 
-	
+	// Método que devuelve la lista de asientos de un viaje, usado en varias funcionalidades
 	public ArrayList<Asiento> listaAsientos() {
 		return this.getBus().getAsientos();
 	}
 
+	// Método que devuelve una lista de tipo int, cuyos valores indican hasta que fila 
+	// van cada tipo de asiento (new int[]{5, 10} significa que los asientos preferenciales 
+	// van hasta la fila 5, los asientos premium van hasta la fila 10 y el resto de las 
+	// filas son estandar. Usado en varias funcionalidades
 	public int[] tiposAsiento() {
 		return this.getBus().getTiposAsiento();
 	}
 
+	// Método para verificar si un viaje tiene sillas disponibles, usado en varias funcionalidades
 	public boolean tieneSillas() {
 		for (Asiento asiento : listaAsientos()) {
 			if (!asiento.isReservado()) {
@@ -78,6 +80,8 @@ public class Viaje implements Serializable {
 		return false;
 	}
 
+	// Método para reservar un asiento en un viaje por un cierto período de tiempo o hasta que 
+	// el viaje acabe, usado en varias funcionalidades
 	public void reservarAsiento(String numeroAsiento, LocalDateTime fechaReserva) {
 		for (Asiento asiento : this.listaAsientos()) {
 			if (!asiento.isReservado()) {
@@ -93,6 +97,7 @@ public class Viaje implements Serializable {
 		}
 	}
 
+	// Método para liberar un asiento por el número de asiento, usado en la funcionalidad 1 y 3
 	public void liberarAsiento(String numeroAsiento) {
 		for (Asiento asiento : this.listaAsientos()) {
 			if (asiento.getNumero().equals(numeroAsiento)) {
@@ -100,7 +105,9 @@ public class Viaje implements Serializable {
 			}
 		}
 	}
-
+	
+	// Método para buscar un asiento en un viaje por el número de asiento, 
+	// usado en varias funcionalidades
 	public Asiento buscarAsiento(String numeroAsiento) {
 		for (Asiento asiento : this.listaAsientos()) {
 			if (asiento.getNumero().equals(numeroAsiento)) {
@@ -111,6 +118,8 @@ public class Viaje implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un hospedaje que esté disponible en el destino del viaje, 
+	// usado en la funcionalidad 4
 	public Hospedaje buscarHospedaje(String nombre) {
 		for (Hospedaje hospedaje : this.hospedajesDisponibles()) {
 			if (hospedaje.getNombre().equals(nombre)) {
@@ -121,6 +130,7 @@ public class Viaje implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un viaje por id de una lista de viajes, usado en la funcionalidad 2
 	public static Viaje buscarViaje(ArrayList<Viaje> viajes, String id) {
 		for (Viaje viaje : viajes) {
 			if (viaje.getId().equals(id)) {
@@ -130,7 +140,8 @@ public class Viaje implements Serializable {
 
 		return null;
 	}
-
+	
+	// Método para buscar un viaje, usado en la funcionalidad 5
 	public static Viaje buscarViaje(Terminal terminalOrigen, Terminal terminalDestino, Empresa empresa, 
 			LocalDate fecha, LocalTime hora, Conductor conductor, Bus bus) {
 		for (Viaje viaje : viajes) {
@@ -144,6 +155,7 @@ public class Viaje implements Serializable {
 		return null;
 	}
 	
+	// Método para buscar un viaje, usado en la funcionalidad 5
 	public static Viaje buscarViaje(String id) {
 		for (Viaje viaje : viajes) {
 			if (viaje.getId().equals(id)) {
@@ -154,6 +166,8 @@ public class Viaje implements Serializable {
 		return null;
 	}
 
+	// Método que devuelve los hospedajes disponibles de acuerdo al destino del viaje, 
+	// usado en la funcionalidad 4
 	public ArrayList<Hospedaje> hospedajesDisponibles() {
 		ArrayList<Hospedaje> hospedajesDisponibles = new ArrayList<Hospedaje>();
 
@@ -164,6 +178,8 @@ public class Viaje implements Serializable {
 		return hospedajesDisponibles;
 	}
 
+	// Método toString que hace calcula los espacios en blanco necesarios para que la
+	// impresión en pantalla se vea uniforme
 	@Override
 	public String toString() {
 		int origen = 11 - (getTerminalOrigen().getUbicacion().length());
@@ -215,6 +231,7 @@ public class Viaje implements Serializable {
 		return fecha;
 	}
 
+	// Método que devuelve la fecha formateada
 	public String getStrFecha() {
 		DateTimeFormatter formateoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 

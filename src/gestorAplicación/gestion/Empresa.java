@@ -15,7 +15,7 @@ import gestorAplicación.personas.Conductor;
 import gestorAplicación.transporte.Asiento;
 
 public class Empresa implements Serializable {
-	private static final long serialVersionUID = 7629040699362007263L;
+	private static final long serialVersionUID = 1L;
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
@@ -27,6 +27,7 @@ public class Empresa implements Serializable {
 		empresas.add(this);
 	}
 
+	// Método para buscar viajes por fecha, usado en el filtro de la funcionalidad 1
 	public static ArrayList<Viaje> buscarViajes(LocalDate fecha) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
@@ -40,7 +41,8 @@ public class Empresa implements Serializable {
 
 		return viajes;
 	}
-
+	
+	// Método para buscar viajes por origen y destino, usado en el principio de la funcionalidad 2
 	public static ArrayList<Viaje> buscarViajes(String origen, String destino) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
@@ -77,6 +79,7 @@ public class Empresa implements Serializable {
 		return viajes;
 	}
 
+	// Método para buscar viajes por hora, usado en el filtro de la funcionalidad 1
 	public static ArrayList<Viaje> buscarViajes(LocalTime hora) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
@@ -90,7 +93,8 @@ public class Empresa implements Serializable {
 
 		return viajes;
 	}
-
+	
+	// Método para buscar viajes por id, usado en el filtro de la funcionalidad 1
 	public static ArrayList<Viaje> buscarViajes(String string) {
 		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
@@ -105,6 +109,7 @@ public class Empresa implements Serializable {
 		return viajes;
 	}
 
+	// Método para busca un viaje por id, usado en varias funcionalidades
 	public static Viaje buscarViaje(String id) {
 		for (Empresa empresa : empresas) {
 			for (Viaje viaje : empresa.getViajes()) {
@@ -117,6 +122,7 @@ public class Empresa implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un conductor por id, usado en la funcionalidad 5
 	public static Conductor buscarConductor(String id) {
 		for (Empresa empresa : Empresa.getEmpresas()) {
 			for (Conductor conductor : empresa.getConductores()) {
@@ -144,7 +150,8 @@ public class Empresa implements Serializable {
 	public static void setEmpresas(ArrayList<Empresa> empresas) {
 		Empresa.empresas = empresas;
 	}
-
+	
+	// Método para buscar empresas por nombre, usado en la funcionalidad 5
 	public static Empresa buscarEmpresa(String nombre) {
 		for (Empresa empresa : Empresa.empresas) {
 			if (empresa.nombre.equals(nombre)) {
@@ -170,6 +177,7 @@ public class Empresa implements Serializable {
 		this.conductores = conductores;
 	}
 
+	// Método para añadir un conductor a una empresa, usado en la funcionalidad 5
 	public void añadirConductor(Conductor conductor) {
 		Boolean conductorNuevo = true;
 		for (Conductor c : this.conductores) {
@@ -194,6 +202,7 @@ public class Empresa implements Serializable {
 		this.terminales = terminales;
 	}
 
+	// Método para añadir una terminal a una empresa, usado en la funcionalidad 5
 	public void añadirTerminal(Terminal terminal) {
 		Boolean terminalNueva = true;
 		for (Terminal t : terminales) {
@@ -210,6 +219,7 @@ public class Empresa implements Serializable {
 		}
 	}
 
+	// Método para eliminar un conductor de una empresa, usado en la funcionalidad 5
 	public void eliminarConductor(Conductor conductorbuscado) {
 		for (Conductor conductor : this.conductores) {
 			if (conductor.equals(conductorbuscado)) {
@@ -218,7 +228,8 @@ public class Empresa implements Serializable {
 		}
 
 	}
-
+	
+	// Método para eliminar una empresa por nombre, usado en la funcionalidad 5
 	public static void eliminarEmpresa(String nombre) {
 
 		Empresa empresa = Empresa.buscarEmpresa(nombre);

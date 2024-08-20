@@ -10,7 +10,7 @@ import gestorAplicación.gestion.Tiquete;
 import gestorAplicación.gestion.Viaje;
 
 public class Pasajero extends Persona implements Serializable {
-	private static final long serialVersionUID = -8124260530486820488L;
+	private static final long serialVersionUID = 8L;
 	private static ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 
@@ -29,6 +29,7 @@ public class Pasajero extends Persona implements Serializable {
 		pasajeros.add(this);
 	}
 
+	// Método para buscar un pasajero por id, usado en varias funcionalidades
 	public static Pasajero buscarPasajero(String id) {
 		for (Pasajero pasajero : pasajeros) {
 			if (pasajero.getId().equals(id)) {
@@ -38,6 +39,7 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un pasajero por nombre e id, usado en varias funcionalidades
 	public static Pasajero buscarPasajero(String nombre, String id) {
 		for (Pasajero pasajero : pasajeros) {
 			if (pasajero.nombre.equals(nombre) && pasajero.id != null) {
@@ -49,6 +51,8 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 
+	// Método para buscar los tiquetes válidos y vencidos asociados con un pasajero, 
+	// usado en la funcionalidad 3
 	public ArrayList<Tiquete> buscarTiquetes(String tipoTiquetes) {
 
 		if (tipoTiquetes.equals("validos")) {
@@ -78,6 +82,7 @@ public class Pasajero extends Persona implements Serializable {
 		}
 	}
 
+	// Método para buscar un tiquete de acuerdo al viaje, usado en la funcionalidad 3
 	public Tiquete buscarTiquete(Viaje viaje) {
 		for (Tiquete tiquete : tiquetes) {
 			tiquete.setViaje(Empresa.buscarViaje(viaje.getId()));
@@ -89,6 +94,7 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un tiquete de acuerdo al numero de reserva, usado en la funcionalidad 3
 	public Tiquete buscarTiquete(String numeroReserva) {
 		for (Tiquete tiquete : tiquetes) {
 			if (tiquete.getNumeroReserva().equals(numeroReserva)) {
@@ -99,6 +105,7 @@ public class Pasajero extends Persona implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un tiquete de acuerdo al numero de reserva, usado en la funcionalidad 3
 	public void cancelarTiquete(Tiquete tiquete) {
 		for (Tiquete _tiquete : this.getTiquetes()) {
 			if (_tiquete.equals(tiquete)) {
@@ -109,6 +116,7 @@ public class Pasajero extends Persona implements Serializable {
 		}
 	}
 
+	// Método para agregar un tiquete, usado en la funcionalidad 2
 	public void agregarTiquete(Tiquete tiquete) {
 		tiquetes.add(tiquete);
 	}
@@ -129,13 +137,15 @@ public class Pasajero extends Persona implements Serializable {
 		Pasajero.pasajeros = pasajeros;
 	}
 
+	// Método para eliminar un pasajero por nombre e id, usado en la funcionalidad 5
 	public static void eliminarPasajero(String nombre, String id) {
 
 		Pasajero pasajero = Pasajero.buscarPasajero(nombre, id);
 		pasajeros.remove(pasajero);
 
 	}
-
+	
+	// Método para eliminar un pasajero por id, usado en la funcionalidad 5
 	public static void eliminarPasajero(String id) {
 
 		Pasajero pasajero = Pasajero.buscarPasajero(id);

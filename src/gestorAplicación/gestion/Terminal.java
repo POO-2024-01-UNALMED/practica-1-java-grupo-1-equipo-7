@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Terminal implements Serializable {
-	private static final long serialVersionUID = -1318401077959501569L;
+	private static final long serialVersionUID = 4L;
 	private static ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 	private ArrayList<Hospedaje> hospedajes = new ArrayList<Hospedaje>();
@@ -25,12 +25,7 @@ public class Terminal implements Serializable {
 		terminales.add(this);
 	}
 
-	public void agregarHospedaje(Hospedaje hospedaje) {
-		this.getHospedajes().add(hospedaje);
-		hospedaje.setTerminal(this);
-		hospedaje.setUbicacion(this.getNombre());
-	}
-
+	// Método para buscar una terminal por ubicación, usado en la funcionalidad 5
 	public static Terminal buscarTerminal(String ubicacion) {
 		ubicacion = ubicacion.toUpperCase();
 		for (Terminal terminal : terminales) {
@@ -41,6 +36,7 @@ public class Terminal implements Serializable {
 		return null;
 	}
 
+	// Método para buscar una empresa por nombre, usado en la funcionalidad 5
 	public Empresa buscarEmpresa(String nombre) {
 		for (Empresa empresa : this.empresas) {
 			if (empresa.getNombre().equals(nombre)) {
@@ -50,6 +46,7 @@ public class Terminal implements Serializable {
 		return null;
 	}
 
+	// Método para buscar una terminal por nombre y ubicación, usado en la funcionalidad 5
 	public static Terminal buscarTerminal(String nombre, String ubicacion) {
 		ubicacion = ubicacion.toUpperCase();
 		for (Terminal terminal : terminales) {
@@ -62,6 +59,7 @@ public class Terminal implements Serializable {
 		return null;
 	}
 
+	// Método para buscar un hospedaje por nombre y ubicación, usando en la funcionalidad 5
 	public static Hospedaje buscarHospedaje(String nombre, String ubi) {
 		ubi = ubi.toUpperCase();
 		for (Terminal terminal : Terminal.getTerminales()) {
@@ -116,11 +114,13 @@ public class Terminal implements Serializable {
 		Terminal.terminales = terminales;
 	}
 
+	// Método para agregar una empresa a una terminal, usado en la funcionalidad 5
 	public void agregarEmpresa(Empresa empresa) {
 		this.empresas.add(empresa);
 		empresa.getTerminales().add(this);
 	}
 
+	// Método para eliminar una terminal por nombre y ubicación, usado en la funcionalidad 5
 	public static void eliminarTerminal(String nombre, String ubicacion) {
 		ubicacion = ubicacion.toUpperCase();
 
@@ -129,6 +129,7 @@ public class Terminal implements Serializable {
 
 	}
 
+	// Método para eliminar una empresa de una terminal, usado en la funcionalidad 5
 	public void eliminarEmpresa(String nombreEmp) {
 
 		Empresa empresa = this.buscarEmpresa(nombreEmp);

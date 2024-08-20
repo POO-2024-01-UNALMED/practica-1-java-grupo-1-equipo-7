@@ -9,7 +9,7 @@ import gestorAplicación.personas.Conductor;
 public abstract class Vehiculo implements Serializable {
 
 	private static ArrayList<String> placas = new ArrayList<String>();
-	private static final long serialVersionUID = 1613039627515609694L;
+	private static final long serialVersionUID = 12L;
 	private String placa;
 	private Conductor conductor;
 
@@ -48,6 +48,7 @@ public abstract class Vehiculo implements Serializable {
 		Vehiculo.placas = placas;
 	}
 
+	// Método para generar la placa un vehículo al crear el objeto
 	public static String generarPlaca() {
 		Random aleatorio = new Random();
 		ArrayList<String> letras = new ArrayList<String>();
@@ -72,6 +73,7 @@ public abstract class Vehiculo implements Serializable {
 
 	}
 
+	// Método para verificar que las placas sean únicas
 	public static boolean verificarPlaca(String placa) {
 		boolean ok = true;
 		for (String placa1 : placas) {

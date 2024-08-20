@@ -12,7 +12,7 @@ import gestorAplicación.personas.Persona;
 import gestorAplicación.transporte.Asiento;
 
 public class Habitacion implements Serializable {
-	private static final long serialVersionUID = 6655776532233087484L;
+	private static final long serialVersionUID = 2L;
 	private static ArrayList<Habitacion> habitaciones = new ArrayList<Habitacion>();
 	private Hospedaje hospedaje;
 	private String numeroHabitacion;
@@ -30,16 +30,23 @@ public class Habitacion implements Serializable {
 		this.ubicacion = ubicacion;
 	}
 
+	// Método para reservar una habitación de un hospedaje por un cierto período de tiempo, 
+	// usado en la funcionalidad 4
 	public void reservar(LocalDateTime fechaReserva) {
 		this.setReservada(true);
 		this.setFechaReserva(fechaReserva);
 	}
 
+	// Método para liberar una habitación de un hospedaje, usado en la funcionalidad 4
 	public void liberar() {
 		this.setReservada(false);
 		this.setFechaReserva(null);
 	}
 
+	// Método para indicar en cuánto tiempo la habitación estará disponible para reservar.
+	// Calcula el tiempo que falta entre el momento en el que se llama el método y 
+	// la fecha de reserva de la habitación. La fecha de reserva de la habitación está dada por la 
+	// fecha del viaje más el tiempo que se quiera quedar el pasajero. Usado en la funcionalidad 4
 	public String disponibleEn() {
 		if (fechaReserva != null) {
 			Duration duration = Duration.between(LocalDateTime.now(), fechaReserva);
@@ -61,7 +68,8 @@ public class Habitacion implements Serializable {
 			strBoolean = "No";
 		}
 
-		return "    " + numeroHabitacion + "                      " + strBoolean + "            " + disponibleEn();
+		return "    " + numeroHabitacion + "                      " 
+				+ strBoolean + "            " + disponibleEn();
 	}
 
 	public Hospedaje getHospedaje() {
@@ -113,6 +121,7 @@ public class Habitacion implements Serializable {
 		Habitacion.habitaciones = habitaciones;
 	}
 
+	// Método para asegurarse de que las habitaciones se liberen en el tiempo indicado
 	public static void chequearHabitaciones() {
 		for(Terminal terminal : Terminal.getTerminales()) {
 			for (Hospedaje hospedaje : terminal.getHospedajes()) {

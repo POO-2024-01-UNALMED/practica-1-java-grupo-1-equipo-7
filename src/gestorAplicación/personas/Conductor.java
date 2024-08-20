@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Conductor extends Persona implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7L;
 	private static ArrayList<Conductor> conductores = new ArrayList<Conductor>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
@@ -22,6 +22,7 @@ public class Conductor extends Persona implements Serializable {
 		conductores.add(this);
 	}
 
+	//Método para buscar un conductor por id, usado en la funcionalidad 5
 	public static Conductor buscarConductor(String id) {
 		for (Conductor conductor : Conductor.conductores) {
 			if (conductor.getId().equals(id)) {
@@ -31,6 +32,7 @@ public class Conductor extends Persona implements Serializable {
 		return null;
 	}
 
+	//Método para buscar un conductor por nombre e id, usado en la funcionalidad 5
 	public static Conductor buscarConductor(String nombre, String id) {
 		for (Conductor conductor : conductores) {
 			if (conductor.getNombre() != null && conductor.getId() != null) {
@@ -51,6 +53,7 @@ public class Conductor extends Persona implements Serializable {
 		return conductores;
 	}
 
+	// Método para eliminar un conductor por id, usado en la funcionalidad 5
 	public static void eliminarConductor(String id) {
 
 		Conductor conductor = Conductor.buscarConductor(id);

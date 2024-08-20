@@ -10,7 +10,7 @@ import gestorAplicación.gestion.Viaje;
 
 public class Bus extends Vehiculo implements Serializable {
 
-	private static final long serialVersionUID = 2378919680109241789L;
+	private static final long serialVersionUID = 11L;
 	private static ArrayList<Bus> buses = new ArrayList<Bus>();
 	private ArrayList<Asiento> asientos = new ArrayList<Asiento>();
 	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
@@ -31,6 +31,7 @@ public class Bus extends Vehiculo implements Serializable {
 		buses.add(this);
 	}
 
+	// Método para crear los asientos al llamar al constructor
 	public void crearAsientos(int asientos) {
 		String letras = "ABCD";
 
@@ -76,6 +77,7 @@ public class Bus extends Vehiculo implements Serializable {
 		return tiposAsientoFila;
 	}
 
+	// Método para buscar un bus por placa, usado en la funcionalidad 5
 	public static Bus buscarBus(String placa) {
 		for (Bus bus : buses) {
 			if (bus.getPlaca().equals(placa)) {
@@ -97,6 +99,7 @@ public class Bus extends Vehiculo implements Serializable {
 		this.asiento = asiento;
 	}
 
+	// Método para eliminar un bus por placa, usado en la funcionalidad 5
 	public static void eliminarBus(String placa) {
 
 		Bus bus = Bus.buscarBus(placa);

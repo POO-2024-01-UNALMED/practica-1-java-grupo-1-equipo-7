@@ -11,7 +11,7 @@ import gestorAplicación.personas.Persona;
 import gestorAplicación.transporte.Asiento;
 
 public class Tiquete implements Serializable {
-	private static final long serialVersionUID = 5057370312141507904L;
+	private static final long serialVersionUID = 5L;
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
 	private String numeroReserva;
@@ -45,12 +45,15 @@ public class Tiquete implements Serializable {
 		numerosReserva++;
 	}
 
+	// Método para cambiar el asiento de un pasajero en un viaje por otro asiento, 
+	// usado en la funcionalidad 3
 	public void cambiarAsiento(Asiento nuevoAsiento) {
 		this.liberarAsiento();
 		this.getViaje().reservarAsiento(nuevoAsiento.getNumero(), null);
 		this.setAsiento(nuevoAsiento);
 	}
 
+	// Método para que un pasajero pueda cambiar de viaje, usado en la funcionalidad 3
 	public void cambiarViaje(Viaje viaje, String numeroAsiento) {
 		this.liberarAsiento();
 		this.setViaje(viaje);
@@ -58,12 +61,15 @@ public class Tiquete implements Serializable {
 		viaje.reservarAsiento(numeroAsiento, null);
 	}
 
+	// Método para que un asiento se libere después de un cierto período de tiempol 
+	// usado en la funcionalidad 1
 	public void liberarAsiento() {
 		Viaje viaje = Empresa.buscarViaje(this.getViaje().getId());
 		this.setViaje(viaje); 
 		this.getViaje().liberarAsiento(this.getAsiento().getNumero());
 	}
-
+	
+	// Método para buscar un tiquete, usado en la funcionalidad 5
 	public static Tiquete buscarTiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, 
 			Hospedaje hospedaje) {
 		for (Tiquete tiquete : tiquetes) {
@@ -78,7 +84,9 @@ public class Tiquete implements Serializable {
 		}
 		return null;
 	}
-
+	
+	// Método toString que hace calcula los espacios en blanco necesarios para que la
+	// impresión en pantalla se vea uniforme
 	@Override
 	public String toString() {
 		int nombre = 9 - pasajero.getNombre().length();
