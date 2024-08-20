@@ -17,9 +17,9 @@ import gestorAplicación.transporte.Asiento;
 public class Empresa implements Serializable {
 	private static final long serialVersionUID = 7629040699362007263L;
 	private static ArrayList<Empresa> empresas = new ArrayList<Empresa>();
-	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 	private ArrayList<Conductor> conductores = new ArrayList<Conductor>();
+	private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
+	private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 	private String nombre;
 
 	public Empresa(String nombre) {
@@ -66,8 +66,7 @@ public class Empresa implements Serializable {
 					if (viaje.tieneSillas()) {
 						if (origen.equals(viaje.getTerminalOrigen().getUbicacion())
 								&& destino.equals(viaje.getTerminalDestino().getUbicacion())
-								&& LocalDateTime.now().
-								isBefore(LocalDateTime.of(viaje.getFecha(), viaje.getHora()))) {
+								&& LocalDateTime.now().isBefore(LocalDateTime.of(viaje.getFecha(), viaje.getHora()))) {
 							viajes.add(viaje);
 						}
 					}
@@ -118,6 +117,18 @@ public class Empresa implements Serializable {
 		return null;
 	}
 
+	public static Conductor buscarConductor(String id) {
+		for (Empresa empresa : Empresa.getEmpresas()) {
+			for (Conductor conductor : empresa.getConductores()) {
+				if (conductor.getId().equals(id)) {
+					return conductor;
+				}
+			}
+		}
+
+		return null;
+	}
+
 	public ArrayList<Viaje> getViajes() {
 		return viajes;
 	}
@@ -161,13 +172,13 @@ public class Empresa implements Serializable {
 
 	public void añadirConductor(Conductor conductor) {
 		Boolean conductorNuevo = true;
-		for (Conductor c : conductores) {
+		for (Conductor c : this.conductores) {
 			if (conductor.equals(c)) {
 				conductorNuevo = false;
 			}
 		}
 		if (conductorNuevo) {
-			conductores.add(conductor);
+			this.conductores.add(conductor);
 		}
 
 		else {

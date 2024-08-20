@@ -14,10 +14,11 @@ public class Tiquete implements Serializable {
 	private static final long serialVersionUID = 5057370312141507904L;
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
-	private Pasajero pasajero;
-	private Viaje viaje;
-	private Asiento asiento;
 	private String numeroReserva;
+	private Pasajero pasajero;
+	private Asiento asiento;
+	private Viaje viaje;
+	
 	private Hospedaje hospedaje;
 	
 	public Tiquete () {
