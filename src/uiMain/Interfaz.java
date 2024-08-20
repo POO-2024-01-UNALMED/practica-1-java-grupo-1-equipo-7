@@ -3443,7 +3443,7 @@ public class Interfaz {
 					
 					System.out.println();
 					
-					System.out.println("Ingrese el tipo del Asiento (ESTANDAR,PREFERENCIAL,PREMIUM");
+					System.out.println("Ingrese el tipo del Asiento (ESTANDAR,PREFERENCIAL,PREMIUM)");
 					String tipoAsiento=input();
 					tipoAsiento=tipoAsiento.toUpperCase();
 					
@@ -4292,10 +4292,9 @@ public class Interfaz {
 			System.out.println();
 			
 			System.out.println("1. Agregar");
-			System.out.println("2. Modificar");
-			System.out.println("3. Ver");
-			System.out.println("4. Eliminar");
-			System.out.println("5. Volver");
+			System.out.println("2. Ver");
+			System.out.println("3. Eliminar");
+			System.out.println("4. Volver");
 			
 			System.out.println();
 			
@@ -4338,58 +4337,8 @@ public class Interfaz {
 				}
 				break;
 				
+				
 			case "2":
-				System.out.println("Ingrese la placa del bus");
-				String placa1=input();
-				
-				System.out.println();
-				
-				Bus bus=Bus.buscarBus(placa1);
-				if (bus==null) {
-					System.out.println("No se ha encontrado al bus con placa "+placa1);
-					
-					System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-					String accion1=input();
-					System.out.println();
-					
-					if (accion1.toLowerCase().equals("si")) {
-						administrador();
-					}
-					break;
-				}
-				else {
-				
-				System.out.println("Ingrese la cantidad de asientos preferenciales");
-				String preferencial1=input();
-				int preferencialmod1=Integer.parseInt(preferencial1);
-				
-				System.out.println();
-				
-				System.out.println("Ingrese la cantidad de asientos premium");
-				String premium1=input();
-				int premiummod1=Integer.parseInt(premium1);
-				
-				System.out.println();
-				
-				System.out.println("Ingrese la cantidad de asientos standart");
-				String standart1=input();
-				int standartmod1=Integer.parseInt(standart1);
-				
-				System.out.println();
-				
-				bus.crearAsientos(standartmod1+premiummod1+preferencialmod1);
-				}
-				
-				System.out.println("Desea realizar alguna acción más cómo administrador (si/no)");
-				String accion1=input();
-				System.out.println();
-				
-				if (accion1.toLowerCase().equals("si")) {
-					administrador();
-				}
-				
-				break;
-			case "3":
 				System.out.println("Lista de buses existentes");
 				
 				for (int i = 0; i < 75; i++) {
@@ -4428,7 +4377,7 @@ public class Interfaz {
 					}
 			
 					break;
-			case "4":
+			case "3":
 				System.out.println("Ingrese la placa del bus a eliminar");
 				String placa2=input();
 				System.out.println();
@@ -4459,7 +4408,7 @@ public class Interfaz {
 					administrador();
 				}
 				break;
-			case "5":
+			case "4":
 				administrador();
 			}
 			break;
