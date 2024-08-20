@@ -14,6 +14,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.ToLongBiFunction;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import baseDatos.Deserializador;
 import baseDatos.Serializador;
@@ -1276,27 +1278,62 @@ public class Interfaz {
 				
 				System.out.println();
 		
-				System.out.print("Nombre completo: ");
+				System.out.println("Nombre completo: ");
 				
 				String nombre = input();
 				
-				System.out.print("Número de identificación (6 dígitos): ");
+				System.out.println("Número de identificación (6 dígitos): ");
 				
 				String idPasajero = input();
 				
+				
 				while (idPasajero.length() != 6) {
-					System.out.print("Número de identificación (6 dígitos): ");
+					
+					System.out.println("Número de identificación (6 dígitos): ");
 					idPasajero = input();
 				}
 				
 				if((Pasajero.buscarPasajero(idPasajero)==null)) {
-					System.out.print("Teléfono: ");
+					
+					Pattern regexTel = Pattern.compile("^\\d{10}$");
+					
+					
+					System.out.println("Teléfono: ");
+					
 					
 					String telefono = input();
 					
-					System.out.print("Correo electrónico: ");
+					while (true) {
+						Matcher matcherTel =regexTel.matcher(telefono);
+						if  (matcherTel.find()) {
+							break;
+						}
+						
+						System.out.println("Télefono inválido");
+						System.out.println("El teléfono debe contener 10 dígitos");
+						 telefono = input();
+						 System.out.println();
+					}
+					
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					
+					
+					System.out.println("Correo electrónico: ");
+					
 					
 					String correo = input();
+					
+					while (true) {
+						Matcher matcherCor =regexCor.matcher(correo);
+						if  (matcherCor.find()) {
+							break;
+						}
+						
+						System.out.println("Correo inválido");
+						System.out.println("El correo debe tener la estructura (abcde@xyz.com)");
+						 correo = input();
+						 System.out.println();
+					}
 				
 				Pasajero pasajero = new Pasajero(nombre, idPasajero,telefono,correo);
 				
@@ -1396,6 +1433,12 @@ public class Interfaz {
 		System.out.print("Ingrese el número de identificación del pasajero: ");
 		
 		String idPasajero = input();
+		
+		while (idPasajero.length() != 6) {
+			
+			System.out.println("Número de identificación (6 dígitos): ");
+			idPasajero = input();
+		}
 		
 		System.out.println();
 
@@ -2034,6 +2077,12 @@ public class Interfaz {
 		
 		String idPasajero = input();
 		
+		while (idPasajero.length() != 6) {
+			
+			System.out.println("Número de identificación (6 dígitos): ");
+			idPasajero = input();
+		}
+		
 		System.out.println();
 
 		Pasajero pasajero = Pasajero.buscarPasajero(idPasajero);
@@ -2317,6 +2366,11 @@ public class Interfaz {
 				if(empresasAgregar.equals("2")) {
 					System.out.println("Introduzca el número de identificación del conductor: ");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					System.out.println("Introduzca el nombre de la empresa: ");
 					String nombre=input();
@@ -2465,6 +2519,11 @@ public class Interfaz {
 				if (empresasEliminar.equals("2")) {
 					System.out.println("Introduzca el número de identificación del conductor: ");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					System.out.println("Introduzca el nombre de la empresa: ");
 					String nombre=input();
@@ -3209,6 +3268,11 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del conductor");
 					String idConductor=input();
+					while (idConductor.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						idConductor = input();
+					}
 					
 					
 					System.out.println();
@@ -3297,18 +3361,53 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del pasajero");
 					String idPasajero=input();
+					while (idPasajero.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						idPasajero = input();
+					}
 					
 					System.out.println();
 					
-					System.out.println("Ingrese el teléfono del pasajero");
-					String telefonoPasajero=input();
+					Pattern regexTel = Pattern.compile("^\\d{10}$");
 					
-					System.out.println();
 					
-					System.out.println("Ingrese el correo del pasajero");
-					String correoPasajero=input();
+					System.out.println("Teléfono: ");
 					
-					System.out.println();
+					
+					String telefono = input();
+					
+					while (true) {
+						Matcher matcherTel =regexTel.matcher(telefono);
+						if  (matcherTel.find()) {
+							break;
+						}
+						
+						System.out.println("Télefono inválido");
+						System.out.println("El teléfono debe contener 10 dígitos");
+						 telefono = input();
+						 System.out.println();
+					}
+					
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					
+					
+					System.out.println("Correo electrónico: ");
+					
+					
+					String correo = input();
+					
+					while (true) {
+						Matcher matcherCor =regexCor.matcher(correo);
+						if  (matcherCor.find()) {
+							break;
+						}
+						
+						System.out.println("Correo inválido");
+						System.out.println("El correo debe tener la estructura (abcde@xyz.com)");
+						 correo = input();
+						 System.out.println();
+					}
 					
 					
 					
@@ -3362,7 +3461,11 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del conductor");
 					String idConductor=input();
-					
+					while (idConductor.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						idConductor = input();
+					}
 					
 					System.out.println();
 					
@@ -3415,7 +3518,7 @@ public class Interfaz {
 					
 					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
 					if (pasajero==null) {
-						pasajero=new Pasajero(nombrePasajero,idPasajero,telefonoPasajero,correoPasajero);
+						pasajero=new Pasajero(nombrePasajero,idPasajero,telefono,correo);
 					}
 					
 					DateTimeFormatter formateoFecha = 
@@ -3657,7 +3760,11 @@ public class Interfaz {
 						
 						System.out.println("Ingrese el id del conductor");
 						String idConductor=input();
-						
+						while (idConductor.length() != 6) {
+							
+							System.out.println("Número de identificación (6 dígitos): ");
+							idConductor = input();
+						}
 						
 						System.out.println();
 						
@@ -3840,6 +3947,11 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del pasajero a eliminar");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					
 					Pasajero pasajero=Pasajero.buscarPasajero(nombre, id);
@@ -3918,18 +4030,53 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del pasajero");
 					String idPasajero=input();
+					while (idPasajero.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						idPasajero = input();
+					}
 					
 					System.out.println();
 					
-					System.out.println("Ingrese el teléfono del pasajero");
-					String telefonoPasajero=input();
+					Pattern regexTel = Pattern.compile("^\\d{10}$");
 					
-					System.out.println();
 					
-					System.out.println("Ingrese el correo del pasajero");
-					String correoPasajero=input();
+					System.out.println("Teléfono: ");
 					
-					System.out.println();
+					
+					String telefono = input();
+					
+					while (true) {
+						Matcher matcherTel =regexTel.matcher(telefono);
+						if  (matcherTel.find()) {
+							break;
+						}
+						
+						System.out.println("Télefono inválido");
+						System.out.println("El teléfono debe contener 10 dígitos");
+						 telefono = input();
+						 System.out.println();
+					}
+					
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					
+					
+					System.out.println("Correo electrónico: ");
+					
+					
+					String correo = input();
+					
+					while (true) {
+						Matcher matcherCor =regexCor.matcher(correo);
+						if  (matcherCor.find()) {
+							break;
+						}
+						
+						System.out.println("Correo inválido");
+						System.out.println("El correo debe tener la estructura (abcde@xyz.com)");
+						 correo = input();
+						 System.out.println();
+					}
 					
 					Pasajero pasajero=Pasajero.buscarPasajero(idPasajero);
 					if (pasajero!=null) {
@@ -3945,7 +4092,7 @@ public class Interfaz {
 						
 						break;
 					}else {
-					new Pasajero(nombrePasajero,idPasajero,telefonoPasajero,correoPasajero);
+					new Pasajero(nombrePasajero,idPasajero,telefono,correo);
 					}
 					
 					System.out.println("Pasajero creado correctamente");
@@ -3969,6 +4116,11 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del conductor");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					
 					System.out.println();
 					
@@ -4021,6 +4173,11 @@ public class Interfaz {
 				if (personalmodificar.equals("1")) {
 					System.out.println("Ingrese el id del pasajero");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					
 					Pasajero pasajero=Pasajero.buscarPasajero(id);
@@ -4040,12 +4197,45 @@ public class Interfaz {
 					System.out.println("Ingrese el nombre del pasajero");
 					String nombre=input();
 					System.out.println();
-					System.out.println("Ingrese el telefono del pasajero");
-					String telefono=input();
-					System.out.println();
-					System.out.println("Ingrese el correo del pasajero");
-					String correo=input();
-					System.out.println();
+					Pattern regexTel = Pattern.compile("^\\d{10}$");
+					
+					
+					System.out.println("Teléfono: ");
+					
+					
+					String telefono = input();
+					
+					while (true) {
+						Matcher matcherTel =regexTel.matcher(telefono);
+						if  (matcherTel.find()) {
+							break;
+						}
+						
+						System.out.println("Télefono inválido");
+						System.out.println("El teléfono debe contener 10 dígitos");
+						 telefono = input();
+						 System.out.println();
+					}
+					
+					Pattern regexCor = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+					
+					
+					System.out.println("Correo electrónico: ");
+					
+					
+					String correo = input();
+					
+					while (true) {
+						Matcher matcherCor =regexCor.matcher(correo);
+						if  (matcherCor.find()) {
+							break;
+						}
+						
+						System.out.println("Correo inválido");
+						System.out.println("El correo debe tener la estructura (abcde@xyz.com)");
+						 correo = input();
+						 System.out.println();
+					}
 					
 					pasajero.setNombre(nombre);
 					pasajero.setCorreo(correo);
@@ -4068,6 +4258,11 @@ public class Interfaz {
 				if (personalmodificar.equals("2")) {
 					System.out.println("Ingrese el id del conductor");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					
 					Conductor conductor=Conductor.buscarConductor(id);
@@ -4215,6 +4410,11 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del pasajero a eliminar");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					
 					Pasajero pasajero=Pasajero.buscarPasajero(id);
@@ -4251,6 +4451,11 @@ public class Interfaz {
 					
 					System.out.println("Ingrese el id del conductor a eliminar");
 					String id=input();
+					while (id.length() != 6) {
+						
+						System.out.println("Número de identificación (6 dígitos): ");
+						id = input();
+					}
 					System.out.println();
 					
 					Conductor conductor=Conductor.buscarConductor(id);
