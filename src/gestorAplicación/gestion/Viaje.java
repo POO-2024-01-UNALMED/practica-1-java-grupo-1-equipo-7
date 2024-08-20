@@ -19,7 +19,7 @@ public class Viaje implements Serializable {
 	 */
 	private static final long serialVersionUID = 2760602559521284522L;
 	private static ArrayList<Viaje> viajes = new ArrayList<Viaje>();
-	private ArrayList<Pasajero> pasajeros = new ArrayList<Pasajero>();
+	
 	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private Empresa empresa;
@@ -31,7 +31,6 @@ public class Viaje implements Serializable {
 	private ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 
 	public Viaje() {
-//		Deserializador.deserializar(this);
 		viajes.add(this);
 		ids++;
 		id = String.valueOf(ids);
@@ -58,27 +57,9 @@ public class Viaje implements Serializable {
 		viajes.add(this);
 		ids++;
 		id = String.valueOf(ids);
-		}
-
-	public Viaje(ArrayList<Pasajero> pasajeros, ArrayList<Hospedaje> hospedajes, 
-			ArrayList<Tiquete> tiquetes, Terminal terminalOrigen, Terminal terminalDestino, 
-			Empresa empresa, LocalDate fecha, LocalTime hora, Conductor conductor, Bus bus) {
-		this.pasajeros = pasajeros;
-		this.tiquetes = tiquetes;
-
-		this.terminalOrigen = terminalOrigen;
-		this.terminalDestino = terminalDestino;
-		this.empresa = empresa;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.bus = bus;
-		conductor.getViajes().add(this);
-		bus.añadirViaje(this);
-		viajes.add(this);
-		ids++;
-		id = String.valueOf(ids);
 	}
 
+	
 	public ArrayList<Asiento> listaAsientos() {
 		return this.getBus().getAsientos();
 	}
@@ -276,14 +257,6 @@ public class Viaje implements Serializable {
 		this.empresa = empresa;
 	}
 
-	public ArrayList<Pasajero> getPasajeros() {
-		return pasajeros;
-	}
-
-	public void setPasajeros(ArrayList<Pasajero> pasajeros) {
-		this.pasajeros = pasajeros;
-	}
-
 	public ArrayList<Tiquete> getTiquetes() {
 		return tiquetes;
 	}
@@ -298,53 +271,5 @@ public class Viaje implements Serializable {
 
 	public static void setViajes(ArrayList<Viaje> viajes) {
 		Viaje.viajes = viajes;
-	}
-
-	public void añadirTiquete(Tiquete tiquete) {
-		Boolean tiqueteNuevo = true;
-		for (Tiquete t : tiquetes) {
-			if (tiquete.equals(t)) {
-				tiqueteNuevo = false;
-			}
-		}
-		if (tiqueteNuevo) {
-			tiquetes.add(tiquete);
-		}
-
-		else {
-			System.out.println("El tiquete ya ha sido registrado");
-		}
-	}
-
-	/*
-	 * public void añadirHospedaje(Hospedaje hospedaje) { Boolean
-	 * hospedajeNuevo=true; for (Hospedaje h: this.hospedajesDisponibles()) { if
-	 * (hospedaje.equals(h)) { hospedajeNuevo=false; } } if (hospedajeNuevo) {
-	 * hospedajes.add(hospedaje); }
-	 * 
-	 * else { System.out.println("El hospedaje ya ha sido registrado"); } }
-	 */
-
-	public void añadirPasajero(Pasajero pasajero) {
-		Boolean pasajeroNuevo = true;
-		for (Pasajero p : pasajeros) {
-			if (pasajero.equals(p)) {
-				pasajeroNuevo = false;
-			}
-		}
-		if (pasajeroNuevo) {
-			pasajeros.add(pasajero);
-		}
-
-		else {
-			System.out.println("El pasajero ya ha sido registrado");
-		}
-	}
-
-	public static void eliminarViaje(String id) {
-
-		Viaje viaje = Viaje.buscarViaje(id);
-		viajes.remove(viaje);
-
 	}
 }

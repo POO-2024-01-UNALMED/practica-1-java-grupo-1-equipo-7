@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import gestorAplicación.personas.Persona;
+import gestorAplicación.transporte.Asiento;
 
 public class Habitacion implements Serializable {
 	private static final long serialVersionUID = 6655776532233087484L;
@@ -106,5 +111,35 @@ public class Habitacion implements Serializable {
 
 	public static void setHabitaciones(ArrayList<Habitacion> habitaciones) {
 		Habitacion.habitaciones = habitaciones;
+	}
+
+	public static void chequearHabitaciones() {
+		for(Terminal terminal : Terminal.getTerminales()) {
+			for (Hospedaje hospedaje : terminal.getHospedajes()) {
+				for (Habitacion habitacion : hospedaje.getHabitaciones()) {
+					if(habitacion.getFechaReserva() != null) {
+						if(habitacion.getFechaReserva().isEqual(LocalDateTime.now()) 
+								|| habitacion.getFechaReserva().
+								isBefore(LocalDateTime.now())) {
+							habitacion.liberar();
+						} else {
+							Duration duration = 
+									Duration.between(LocalDateTime.now(), 
+									habitacion.getFechaReserva());
+							
+							ScheduledExecutorService service = 
+									Executors.newScheduledThreadPool(1);
+							
+							Runnable task = () -> {
+								habitacion.liberar();
+							};
+							
+							service.schedule(task, duration.toMinutes(), 
+									TimeUnit.MINUTES);
+						}
+					} 
+				}
+			}
+		}
 	}
 }

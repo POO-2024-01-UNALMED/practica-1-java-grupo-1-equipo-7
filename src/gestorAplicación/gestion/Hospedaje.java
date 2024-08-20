@@ -26,14 +26,6 @@ public class Hospedaje implements Serializable {
 		hospedajes.add(this);
 	}
 
-	public Hospedaje(String nombre, String ubicacion, ArrayList<Habitacion> habitacion) {
-		ubicacion=ubicacion.toUpperCase();
-		this.nombre = nombre;
-		this.setUbicacion(ubicacion);
-		this.habitaciones = habitacion;
-		hospedajes.add(this);
-	}
-
 	public Hospedaje(String nombre, String ubicacion) {
 		ubicacion=ubicacion.toUpperCase();
 		this.nombre = nombre;
@@ -185,5 +177,4 @@ public class Hospedaje implements Serializable {
 	public static ArrayList<Hospedaje> getHospedajes() {
 		return hospedajes;
 	}
-
 }

@@ -42,58 +42,8 @@ public class Interfaz {
 	}
 	
 	public static void chequearAsientosYHabitaciones() {
-		for(Empresa empresa : Empresa.getEmpresas()) {
-			for (Viaje viaje : empresa.getViajes()) {
-				for (Asiento asiento : viaje.listaAsientos()) {
-					if(asiento.getFechaReserva() != null) {
-						System.out.println(asiento.getFechaReserva());
-						if(asiento.getFechaReserva().isEqual(LocalDateTime.now()) 
-								|| asiento.getFechaReserva().
-								isBefore(LocalDateTime.now())) {
-							asiento.liberar();
-						} else {
-							Duration duration = 
-									Duration.between(LocalDateTime.now(), 
-									asiento.getFechaReserva());
-							
-							ScheduledExecutorService service = 
-									Executors.newScheduledThreadPool(1);
-							
-							Runnable task = () -> {
-								asiento.liberar();
-							};
-							
-							service.schedule(task, duration.toMinutes(), 
-									TimeUnit.MINUTES);
-						}
-					} 
-				}
-			}
-		}
-		
-		/*for(Habitacion habitacion : Habitacion.getHabitaciones()) {
-			if(habitacion.getFechaReserva() != null) {
-				if(habitacion.getFechaReserva().isEqual(LocalDateTime.now()) 
-						|| habitacion.getFechaReserva().
-						isBefore(LocalDateTime.now())) {
-					habitacion.liberar();
-				} else {
-					Duration duration = 
-							Duration.between(LocalDateTime.now(), 
-							habitacion.getFechaReserva());
-					
-					ScheduledExecutorService service = 
-							Executors.newScheduledThreadPool(2);
-					
-					Runnable task = () -> {
-						habitacion.liberar();
-					};
-					
-					service.schedule(task, duration.toMinutes(), 
-							TimeUnit.MINUTES);
-				}
-			}
-		}*/
+		Asiento.chequearAsientos();
+		Habitacion.chequearHabitaciones();
 	}
 
 	public static void verViajes() {
@@ -4476,72 +4426,6 @@ public class Interfaz {
 	}
 
 	public static void main(String[] args) {
-Terminal medellin = new Terminal("MEDELLIN");
-	Terminal bogota = new Terminal("BOGOTA");
-
-		Terminal cali = new Terminal("CALI");
-		Terminal bucaramanga = new Terminal("BUCARAMANGA");
-		Terminal pereira = new Terminal("PEREIRA");
-		Terminal santaMarta = new Terminal("SANTA MARTA");
-		
-		Empresa empresa2 = new Empresa("Telm");
-		Bus bus2 = new Bus(13, new int[]{3, 4});
-		
-		Viaje viaje2 = new Viaje(medellin, cali);
-		
-
-		viaje2.setEmpresa(empresa2);
-		viaje2.setBus(bus2);
-		
-		viaje2.setFecha(LocalDate.parse("2024-08-21"));
-		viaje2.setHora(LocalTime.of(15, 37));
-		
-		empresa2.getViajes().add(viaje2);
-		
-		Empresa empresa1 = new Empresa("Coord");
-		
-		Viaje viaje1 = new Viaje(medellin, bogota);
-		
-		Viaje viaje3 = new Viaje(santaMarta, bucaramanga);
-		Viaje viaje4 = new Viaje(pereira, medellin);
-		Hospedaje hospedaje1 = new Hospedaje("Hostal", 2, 5);
-		hospedaje1.setUbicacion("Cali");
-		Hospedaje hospedaje2= new Hospedaje("Cielo","medellin");
-		Bus bus1 = new Bus( 15, new int[]{3, 11});
-		
-		Bus bus3 = new Bus( 12, new int[]{5, 6});
-		Bus bus4 = new Bus( 13, new int[]{5, 11});
-		Pasajero pasajero = new Pasajero("samuel", "123123");
-		Tiquete tiquete= new Tiquete(pasajero,viaje1,new Asiento());
-		pasajero.agregarTiquete(tiquete);
-		
-		cali.getHospedajes().add(hospedaje1);
-		
-		empresa1.getViajes().add(viaje1);
-		empresa1.getViajes().add(viaje3);
-		
-		viaje1.setEmpresa(empresa1);
-		viaje1.setBus(bus1);
-		viaje3.setEmpresa(empresa1);
-		viaje3.setBus(bus3);
-		
-		viaje1.setFecha(LocalDate.parse("2024-08-05"));
-		viaje1.setHora(LocalTime.of(15, 37));
-		viaje3.setFecha(LocalDate.parse("2024-08-25"));
-		viaje3.setHora(LocalTime.of(15, 37));
-		
-		
-		empresa2.getViajes().add(viaje4);
-		
-		viaje4.setEmpresa(empresa2);
-		viaje4.setBus(bus4);
-		
-		
-		viaje4.setFecha(LocalDate.parse("2024-08-26"));
-		viaje4.setHora(LocalTime.of(15, 37));
-		
-		pasajero.agregarTiquete(new Tiquete(pasajero, viaje2, viaje2.buscarAsiento("9A")));
-		
 //		Deserializador.deserializar();
 		chequearAsientosYHabitaciones();
 			

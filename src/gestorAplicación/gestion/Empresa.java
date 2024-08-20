@@ -1,13 +1,18 @@
 package gestorAplicación.gestion;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import baseDatos.Deserializador;
 import gestorAplicación.personas.Conductor;
+import gestorAplicación.transporte.Asiento;
 
 public class Empresa implements Serializable {
 	private static final long serialVersionUID = 7629040699362007263L;

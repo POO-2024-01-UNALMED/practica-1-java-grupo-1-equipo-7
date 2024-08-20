@@ -15,14 +15,11 @@ public class Tiquete implements Serializable {
 	private static ArrayList<Tiquete> tiquetes = new ArrayList<Tiquete>();
 	private static int numerosReserva = 1000000;
 	private Pasajero pasajero;
+	private Terminal terminal;
 	private Viaje viaje;
 	private Asiento asiento;
 	private String numeroReserva;
 	private Hospedaje hospedaje;
-
-	public Tiquete() {
-
-	}
 
 	public Tiquete(Pasajero pasajero, Viaje viaje, Asiento asiento, Hospedaje hospedaje) {
 		this.pasajero = pasajero;
@@ -58,6 +55,8 @@ public class Tiquete implements Serializable {
 	}
 
 	public void liberarAsiento() {
+		Viaje viaje = Empresa.buscarViaje(this.getViaje().getId());
+		this.setViaje(viaje); 
 		this.getViaje().liberarAsiento(this.getAsiento().getNumero());
 	}
 
